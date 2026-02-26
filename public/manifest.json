@@ -1,0 +1,25 @@
+{
+    "name": "Ambajizon Dashboard",
+    "short_name": "Ambajizon",
+    "description": "Manage your ShopVCard",
+    "start_url": "/dashboard",
+    "scope": "/dashboard",
+    "display": "standalone",
+    "orientation": "portrait",
+    "theme_color": "#1A237E",
+    "background_color": "#1A237E",
+    "icons": [
+        {
+            "src": "/icons/ambajizon-192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "/icons/ambajizon-512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any maskable"
+        }
+    ]
+}

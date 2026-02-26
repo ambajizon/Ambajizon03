@@ -1,0 +1,3 @@
+CATS=1
+SUBS=1
+PRODS=3

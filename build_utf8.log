@@ -1,0 +1,20 @@
+
+> ambajizon@0.1.0 build
+> next build
+
+  ▲ Next.js 14.2.35
+  - Environments: .env.local
+
+
+> Build error occurred
+Error: You cannot use different slug names for the same dynamic path ('customerId' !== 'id').
+    at handleSlug (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\node_modules\next\dist\shared\lib\router\utils\sorted-routes.js:94:31)
+    at UrlNode._insert (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\node_modules\next\dist\shared\lib\router\utils\sorted-routes.js:131:17)
+    at UrlNode._insert (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\node_modules\next\dist\shared\lib\router\utils\sorted-routes.js:142:40)
+    at UrlNode._insert (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\node_modules\next\dist\shared\lib\router\utils\sorted-routes.js:142:40)
+    at UrlNode.insert (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\node_modules\next\dist\shared\lib\router\utils\sorted-routes.js:13:14)
+    at C:\Users\pc\.gemini\antigravity\scratch\ambajizon\node_modules\next\dist\shared\lib\router\utils\sorted-routes.js:165:46
+    at Array.forEach (<anonymous>)
+    at getSortedRoutes (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\node_modules\next\dist\shared\lib\router\utils\sorted-routes.js:165:21)
+    at C:\Users\pc\.gemini\antigravity\scratch\ambajizon\node_modules\next\dist\build\index.js:625:65
+    at Span.traceFn (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\node_modules\next\dist\trace\trace.js:147:20)

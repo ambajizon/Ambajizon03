@@ -1,0 +1,39 @@
+
+> ambajizon@0.1.0 build
+> next build
+
+  ▲ Next.js 14.2.35
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully
+   Linting and checking validity of types ...
+   Collecting page data ...
+ ⚠ Using edge runtime on a page currently disables static generation for that page
+   Generating static pages (0/9) ...
+   Generating static pages (2/9) 
+   Generating static pages (4/9) 
+   Generating static pages (6/9) 
+ ✓ Generating static pages (9/9)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                              Size     First Load JS
+┌ ○ /_not-found                          873 B          88.2 kB
+├ ƒ /[store]                             152 B          87.5 kB
+├ ○ /admin                               152 B          87.5 kB
+├ ○ /auth/login                          57.3 kB         145 kB
+├ ○ /dashboard                           152 B          87.5 kB
+├ ƒ /icon                                0 B                0 B
+├ ○ /manifest.webmanifest                0 B                0 B
+└ ○ /offline                             1.19 kB        88.5 kB
++ First Load JS shared by all            87.3 kB
+  ├ chunks/117-8b19f634d2d0c312.js       31.7 kB
+  ├ chunks/fd9d1056-b4129a380d1be68f.js  53.6 kB
+  └ other shared chunks (total)          1.95 kB
+
+
+ƒ Middleware                             74.6 kB
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+

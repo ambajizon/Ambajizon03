@@ -1,0 +1,5 @@
+--- createProduct START ---
+User ID: 8b2541bc-e2e3-40eb-9907-1561221cd9c0
+Store ID: 76faaeda-f8d3-4604-a271-a5fdbd12561f
+Product Data: {"name":"Wooden Elephant 2","price":500,"category_id":"4da83f23-eeec-4b10-bc7a-78ee1cc8a63f","subcategory_id":"a57de554-b66f-46a3-a7b2-3544510596a1","store_id":"76faaeda-f8d3-4604-a271-a5fdbd12561f"}
+Insert Success

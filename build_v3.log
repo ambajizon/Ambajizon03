@@ -1,0 +1,221 @@
+
+> ambajizon@0.1.0 build
+> next build
+
+  ▲ Next.js 14.2.35
+
+   Creating an optimized production build ...
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (133kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+ ⚠ Compiled with warnings
+
+./src/app/admin/login/page.tsx
+Attempted import error: 'useActionState' is not exported from 'react' (imported as 'useActionState').
+
+Import trace for requested module:
+./src/app/admin/login/page.tsx
+
+./src/app/login/page.tsx
+Attempted import error: 'useActionState' is not exported from 'react' (imported as 'useActionState').
+
+Import trace for requested module:
+./src/app/login/page.tsx
+
+./src/app/register/page.tsx
+Attempted import error: 'useActionState' is not exported from 'react' (imported as 'useActionState').
+
+Import trace for requested module:
+./src/app/register/page.tsx
+
+./src/app/seller/add-product/page.tsx
+Attempted import error: 'useActionState' is not exported from 'react' (imported as 'useActionState').
+
+Import trace for requested module:
+./src/app/seller/add-product/page.tsx
+
+./src/app/seller/stories/page.tsx
+Attempted import error: 'useActionState' is not exported from 'react' (imported as 'useActionState').
+
+Import trace for requested module:
+./src/app/seller/stories/page.tsx
+
+./src/components/ReviewSection.tsx
+Attempted import error: 'useActionState' is not exported from 'react' (imported as 'useActionState').
+
+Import trace for requested module:
+./src/components/ReviewSection.tsx
+
+ ✓ Compiled successfully
+   Linting and checking validity of types ...
+
+   We detected TypeScript in your project and reconfigured your tsconfig.json file for you. Strict-mode is set to false by default.
+   The following mandatory changes were made to your tsconfig.json:
+
+   	- jsx was set to preserve (next.js implements its own optimized jsx transform)
+
+   Collecting page data ...
+ ⚠ Using edge runtime on a page currently disables static generation for that page
+Please define the MONGODB_URI environment variable inside .env.local
+Please define the MONGODB_URI environment variable inside .env.local
+   Generating static pages (0/23) ...
+TypeError: (0 , r.useActionState) is not a function or its return value is not iterable
+    at m (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\.next\server\app\admin\login\page.js:1:2981)
+    at nj (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:46252)
+    at nM (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:47572)
+    at nL (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:64547)
+    at nI (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:47011)
+    at nM (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:47718)
+    at nM (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:61547)
+    at nL (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:64547)
+    at nB (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:67539)
+    at nD (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:66681) {
+  digest: '3975176455'
+}
+
+Error occurred prerendering page "/admin/login". Read more: https://nextjs.org/docs/messages/prerender-error
+
+TypeError: (0 , r.useActionState) is not a function or its return value is not iterable
+    at m (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\.next\server\app\admin\login\page.js:1:2981)
+    at nj (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:46252)
+    at nM (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:47572)
+    at nL (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:64547)
+    at nI (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:47011)
+    at nM (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:47718)
+    at nM (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:61547)
+    at nL (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:64547)
+    at nB (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:67539)
+    at nD (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:66681)
+   Generating static pages (5/23) 
+TypeError: (0 , r.useActionState) is not a function or its return value is not iterable
+    at m (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\.next\server\app\login\page.js:1:2585)
+    at nj (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:46252)
+    at nM (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:47572)
+    at nL (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:64547)
+    at nI (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:47011)
+    at nM (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:47718)
+    at nM (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:61547)
+    at nL (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:64547)
+    at nB (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:67539)
+    at nD (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:66681) {
+  digest: '1810916988'
+}
+
+Error occurred prerendering page "/login". Read more: https://nextjs.org/docs/messages/prerender-error
+
+TypeError: (0 , r.useActionState) is not a function or its return value is not iterable
+    at m (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\.next\server\app\login\page.js:1:2585)
+    at nj (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:46252)
+    at nM (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:47572)
+    at nL (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:64547)
+    at nI (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:47011)
+    at nM (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:47718)
+    at nM (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:61547)
+    at nL (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:64547)
+    at nB (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:67539)
+    at nD (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:66681)
+   Generating static pages (11/23) 
+TypeError: (0 , a.useActionState) is not a function or its return value is not iterable
+    at x (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\.next\server\app\register\page.js:1:2722)
+    at nj (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:46252)
+    at nM (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:47572)
+    at nL (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:64547)
+    at nI (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:47011)
+    at nM (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:47718)
+    at nM (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:61547)
+    at nL (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:64547)
+    at nB (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:67539)
+    at nD (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:66681) {
+  digest: '1686601836'
+}
+
+Error occurred prerendering page "/register". Read more: https://nextjs.org/docs/messages/prerender-error
+
+TypeError: (0 , a.useActionState) is not a function or its return value is not iterable
+    at x (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\.next\server\app\register\page.js:1:2722)
+    at nj (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:46252)
+    at nM (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:47572)
+    at nL (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:64547)
+    at nI (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:47011)
+    at nM (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:47718)
+    at nM (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:61547)
+    at nL (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:64547)
+    at nB (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:67539)
+    at nD (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:66681)
+TypeError: (0 , s.useActionState) is not a function or its return value is not iterable
+    at p (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\.next\server\app\seller\add-product\page.js:1:6623)
+    at nj (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:46252)
+    at nM (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:47572)
+    at nL (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:64547)
+    at nI (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:47011)
+    at nM (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:47718)
+    at nM (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:61547)
+    at nL (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:64547)
+    at nB (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:67539)
+    at nD (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:66681) {
+  digest: '4132091699'
+}
+
+Error occurred prerendering page "/seller/add-product". Read more: https://nextjs.org/docs/messages/prerender-error
+
+TypeError: (0 , s.useActionState) is not a function or its return value is not iterable
+    at p (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\.next\server\app\seller\add-product\page.js:1:6623)
+    at nj (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:46252)
+    at nM (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:47572)
+    at nL (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:64547)
+    at nI (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:47011)
+    at nM (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:47718)
+    at nM (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:61547)
+    at nL (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:64547)
+    at nB (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:67539)
+    at nD (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:66681)
+ ⨯ useSearchParams() should be wrapped in a suspense boundary at page "/auth/login". Read more: https://nextjs.org/docs/messages/missing-suspense-with-csr-bailout
+    at o (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\.next\server\chunks\508.js:1:10951)
+    at c (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\.next\server\chunks\508.js:1:21887)
+    at rq (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\.next\server\app\auth\login\page.js:55:238)
+    at nj (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:46252)
+    at nM (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:47572)
+    at nL (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:64547)
+    at nI (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:47011)
+    at nM (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:47718)
+    at nM (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:61547)
+    at nL (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:64547)
+
+Error occurred prerendering page "/auth/login". Read more: https://nextjs.org/docs/messages/prerender-error
+
+TypeError: (0 , o.useActionState) is not a function or its return value is not iterable
+    at p (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\.next\server\app\seller\stories\page.js:1:4437)
+    at nj (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:46252)
+    at nM (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:47572)
+    at nL (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:64547)
+    at nI (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:47011)
+    at nM (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:47718)
+    at nM (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:61547)
+    at nL (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:64547)
+    at nB (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:67539)
+    at nD (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:66681) {
+  digest: '2724749268'
+}
+
+Error occurred prerendering page "/seller/stories". Read more: https://nextjs.org/docs/messages/prerender-error
+
+TypeError: (0 , o.useActionState) is not a function or its return value is not iterable
+    at p (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\.next\server\app\seller\stories\page.js:1:4437)
+    at nj (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:46252)
+    at nM (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:47572)
+    at nL (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:64547)
+    at nI (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:47011)
+    at nM (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:47718)
+    at nM (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:61547)
+    at nL (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:64547)
+    at nB (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:67539)
+    at nD (C:\Users\pc\.gemini\antigravity\scratch\ambajizon\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:66681)
+   Generating static pages (17/23) 
+Please define the MONGODB_URI environment variable inside .env.local
+ ✓ Generating static pages (23/23)
+
+> Export encountered errors on following paths:
+	/admin/login/page: /admin/login
+	/auth/login/page: /auth/login
+	/login/page: /login
+	/register/page: /register
+	/seller/add-product/page: /seller/add-product
+	/seller/stories/page: /seller/stories

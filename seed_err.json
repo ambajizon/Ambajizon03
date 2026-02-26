@@ -1,0 +1,4 @@
+{
+  "message": "Cat block error: {\"code\":\"PGRST204\",\"details\":null,\"hint\":null,\"message\":\"Could not find the 'is_active' column of 'categories' in the schema cache\"}",
+  "stack": "Error: Cat block error: {\"code\":\"PGRST204\",\"details\":null,\"hint\":null,\"message\":\"Could not find the 'is_active' column of 'categories' in the schema cache\"}\n    at seed (C:\\Users\\pc\\.gemini\\antigravity\\scratch\\ambajizon\\seed_qa.js:46:38)\n    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)"
+}

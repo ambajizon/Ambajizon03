@@ -1,0 +1,80 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+  -webkit-tap-highlight-color: transparent;
+}
+
+@layer base {
+
+  /* Prevent iOS Safari zoom on focus by ensuring minimum 16px font size */
+  input[type="text"],
+  input[type="email"],
+  input[type="number"],
+  input[type="password"],
+  input[type="tel"],
+  input[type="url"],
+  input[type="search"],
+  textarea,
+  select {
+    font-size: 16px !important;
+  }
+
+  /* Minimum touch targets for mobile interfaces (Material Design / iOS HIG) */
+  @media (max-width: 768px) {
+
+    button,
+    input[type="submit"],
+    input[type="button"],
+    select {
+      min-height: 44px;
+    }
+  }
+}
+
+@layer components {
+
+  /* Micro Interactions */
+  .btn-press {
+    @apply active:scale-95 transition-transform duration-150 ease-in-out;
+  }
+
+  .card-hover {
+    @apply hover:shadow-md hover:-translate-y-1 transition-all duration-300 ease-in-out;
+  }
+
+  .page-transition-enter {
+    @apply opacity-0 translate-y-2;
+  }
+
+  .page-transition-enter-active {
+    @apply opacity-100 translate-y-0 transition-all duration-300 ease-out;
+  }
+
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+  }
+}

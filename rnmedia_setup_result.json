@@ -1,0 +1,24 @@
+{
+  "storeId": "545ef7d0-e0db-497a-ba85-2945c7ede49f",
+  "userId": "9a7beac2-62c6-4da5-87ce-5d139a9cf03f",
+  "logoUrl": "https://res.cloudinary.com/dtqohicc4/image/upload/v1771664514/ambajizon/rnmedia/logo.jpg",
+  "bannerUrl": "https://res.cloudinary.com/dtqohicc4/image/upload/v1771664515/ambajizon/rnmedia/banner.jpg",
+  "catIds": {
+    "Handicrafts": "f41e21f3-e4f9-4f27-895c-2416f6a4cd7e",
+    "Jewellery": "66e078e1-a6ca-4204-a35d-9b4107a3346a",
+    "Souvenirs": "c6f43bbf-b554-410e-a2be-f19d5bd3452b"
+  },
+  "log": [
+    "✓ Auth user: rnmedia123@gmail.com (9a7beac2-62c6-4da5-87ce-5d139a9cf03f)",
+    "✓ Shopkeeper profile",
+    "✓ Logo: https://res.cloudinary.com/dtqohicc4/image/upload/v1771664514/ambajizon/rnmedia/logo.jpg",
+    "✓ Banner: https://res.cloudinary.com/dtqohicc4/image/upload/v1771664515/ambajizon/rnmedia/banner.jpg",
+    "✓ Store: rnmedia-gifts (545ef7d0-e0db-497a-ba85-2945c7ede49f)",
+    "✓ Category: Handicrafts",
+    "✓ Category: Jewellery",
+    "✓ Category: Souvenirs",
+    "✓ Product: Handcrafted Wooden Elephant ₹349",
+    "✓ Product: Traditional Brass Necklace ₹599",
+    "✓ Product: India Memory Gift Box ₹899"
+  ]
+}

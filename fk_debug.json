@@ -1,0 +1,13 @@
+{
+  "userId": "9a7beac2-62c6-4da5-87ce-5d139a9cf03f",
+  "allStores": [
+    {
+      "id": "76faaeda-f8d3-4604-a271-a5fdbd12561f",
+      "shopkeeper_id": "8b2541bc-e2e3-40eb-9907-1561221cd9c0",
+      "name": "Rajesh Royal Handicrafts Updated",
+      "slug": "rajesh-handicrafts"
+    }
+  ],
+  "insertStatus": 409,
+  "insertResult": "{\"code\":\"23503\",\"details\":\"Key (shopkeeper_id)=(9a7beac2-62c6-4da5-87ce-5d139a9cf03f) is not present in table \\\"shopkeepers\\\".\",\"hint\":null,\"message\":\"insert or update on table \\\"stores\\\" violates foreign key constraint \\\"stores_shopkeeper_id_fkey\\\"\"}"
+}

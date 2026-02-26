@@ -1,0 +1,4 @@
+STORE_NAME=Rajesh Royal Handicrafts
+STORE_SLUG=rajesh-handicraftsrajesh-handicrafts
+PHONE=undefined
+LOGO=https://res.cloudinary.com/dtqohicc4/raw/upload/v1771498455/ambajizon/rajesh-handicraftsrajesh-handicrafts/logo/rmwje1fsxuafl8gzxlcn

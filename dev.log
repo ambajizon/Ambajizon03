@@ -1,0 +1,373 @@
+
+> ambajizon@0.1.0 dev
+> next dev
+
+  ▲ Next.js 14.2.35
+  - Local:        http://localhost:3000
+  - Environments: .env.local
+
+ ✓ Starting...
+ ✓ Ready in 2.6s
+ ✓ Compiled /src/middleware in 504ms (122 modules)
+ ○ Compiling /[store] ...
+ ✓ Compiled /[store] in 12.5s (1657 modules)
+ ✓ Compiled in 516ms (696 modules)
+ GET /rajesh-handicrafts 200 in 14791ms
+ ○ Compiling /manifest.webmanifest ...
+ ✓ Compiled /offline in 6s (923 modules)
+ ✓ Compiled in 3.3s (689 modules)
+ GET /manifest.webmanifest 200 in 10215ms
+ GET /offline 200 in 10552ms
+ GET / 200 in 10636ms
+ POST /rajesh-handicrafts 200 in 10912ms
+ GET /manifest.json 404 in 11489ms
+ GET /icon.png 404 in 1321ms
+ ○ Compiling /[store]/shop ...
+ ✓ Compiled /[store]/shop in 5.9s (1688 modules)
+ GET /manifest.webmanifest 200 in 36ms
+ GET /icon.png 404 in 1056ms
+ ○ Compiling /[store]/shop/category/[id] ...
+ ✓ Compiled /[store]/shop/category/[id] in 25.5s (1643 modules)
+ GET /rajesh-handicrafts/shop/category/4da83f23-eeec-4b10-bc7a-78ee1cc8a63f 200 in 27414ms
+ ✓ Compiled /manifest.webmanifest in 494ms (971 modules)
+ GET /manifest.webmanifest 200 in 1352ms
+ GET /icon.png 404 in 1070ms
+ ○ Compiling /offline ...
+ ✓ Compiled /offline in 1722ms (979 modules)
+ ✓ Compiled (985 modules)
+ GET /offline 200 in 5038ms
+ GET / 200 in 5047ms
+ GET /manifest.json 404 in 5193ms
+ GET /manifest.webmanifest 200 in 140ms
+ GET /icon.png 404 in 706ms
+ ✓ Compiled in 1463ms (1657 modules)
+ ✓ Compiled in 747ms (1657 modules)
+ ✓ Compiled in 412ms (1657 modules)
+ GET /rajesh-handicrafts 200 in 401ms
+ ○ Compiling /manifest.webmanifest ...
+ ✓ Compiled /manifest.webmanifest in 1100ms (971 modules)
+ GET /manifest.webmanifest 200 in 1484ms
+ GET /icon.png 404 in 1127ms
+ ○ Compiling /offline ...
+ POST /rajesh-handicrafts 200 in 916ms
+ ✓ Compiled /offline in 2s (979 modules)
+ ✓ Compiled (985 modules)
+ GET /offline 200 in 4265ms
+ GET / 200 in 4341ms
+ GET /manifest.json 404 in 4397ms
+ GET /manifest.webmanifest 200 in 26ms
+ GET /icon.png 404 in 489ms
+ ○ Compiling /[store]/shop/search ...
+ ✓ Compiled /[store]/shop/search in 2.6s (1718 modules)
+ ✓ Compiled in 931ms (726 modules)
+ GET /manifest.webmanifest 200 in 129ms
+ POST /rajesh-handicrafts/shop/search 200 in 333ms
+ POST /rajesh-handicrafts/shop/search 200 in 273ms
+ GET /icon.png 404 in 558ms
+ GET /rajesh-handicrafts/shop/category/4da83f23-eeec-4b10-bc7a-78ee1cc8a63f 200 in 648ms
+ GET /manifest.webmanifest 200 in 29ms
+ GET /icon.png 404 in 468ms
+ GET / 200 in 323ms
+ GET /offline 200 in 289ms
+ GET /manifest.json 404 in 829ms
+ GET /rajesh-handicrafts/shop/search?q=Ganesha 200 in 485ms
+ GET /manifest.webmanifest 200 in 20ms
+ GET /icon.png 404 in 607ms
+ POST /rajesh-handicrafts/shop/search?q=Ganesha 200 in 557ms
+ GET /offline 200 in 262ms
+ GET / 200 in 269ms
+ GET /manifest.json 404 in 693ms
+ POST /rajesh-handicrafts/shop/search?q=Ganesha 200 in 227ms
+ POST /rajesh-handicrafts/shop/search?q=Ganesha 200 in 282ms
+ GET /rajesh-handicrafts/shop/search?q=Elephant 200 in 433ms
+ GET /manifest.webmanifest 200 in 19ms
+ GET /icon.png 404 in 483ms
+ POST /rajesh-handicrafts/shop/search?q=Elephant 200 in 259ms
+ GET /offline 200 in 234ms
+ GET / 200 in 242ms
+ GET /manifest.json 404 in 682ms
+ POST /rajesh-handicrafts/shop/search?q=Elephant 200 in 318ms
+ POST /rajesh-handicrafts/shop/search?q=Elephant 200 in 231ms
+ ○ Compiling /[store]/shop/product/[id] ...
+ ✓ Compiled /[store]/shop/product/[id] in 2.2s (1714 modules)
+ GET /rajesh-handicrafts/shop/product/1bf3b43e-5133-4318-af25-51616729785f 200 in 4449ms
+ GET /manifest.webmanifest 200 in 28ms
+ GET /icon.png 404 in 477ms
+ GET / 200 in 268ms
+ GET /offline 200 in 251ms
+ GET /manifest.json 404 in 742ms
+ GET /rajesh-handicrafts/shop 200 in 1066ms
+ GET /manifest.webmanifest 200 in 28ms
+ GET /icon.png 404 in 487ms
+ GET /offline 200 in 133ms
+ GET / 200 in 141ms
+ GET /manifest.json 404 in 511ms
+ GET /rajesh-handicrafts 200 in 473ms
+ GET /manifest.webmanifest 200 in 24ms
+ GET /icon.png 404 in 512ms
+ GET /offline 200 in 183ms
+ GET / 200 in 195ms
+ GET /manifest.json 404 in 644ms
+ GET /rajesh-handicrafts 200 in 322ms
+ GET /manifest.webmanifest 200 in 11ms
+ GET /offline 200 in 50ms
+ GET / 200 in 51ms
+ GET /icon.png 404 in 482ms
+ GET /manifest.json 404 in 517ms
+ GET /manifest.webmanifest 200 in 12ms
+ GET /icon.png 404 in 515ms
+ GET /rajesh-handicrafts/shop 200 in 899ms
+ GET /manifest.webmanifest 200 in 13ms
+ GET /icon.png 404 in 556ms
+ GET / 200 in 151ms
+ GET /offline 200 in 146ms
+ GET /manifest.json 404 in 588ms
+ GET /rajesh-handicrafts/shop/search 200 in 536ms
+ GET /manifest.webmanifest 200 in 32ms
+ GET /icon.png 404 in 1078ms
+ POST /rajesh-handicrafts/shop/search 200 in 1424ms
+ GET /offline 200 in 1201ms
+ GET / 200 in 1355ms
+ GET /manifest.json 404 in 1680ms
+ POST /rajesh-handicrafts/shop/search 200 in 528ms
+ POST /rajesh-handicrafts/shop/search 200 in 881ms
+ GET /manifest.webmanifest 200 in 46ms
+ GET /icon.png 404 in 713ms
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 6.9s (1717 modules)
+ GET /rajesh-handicrafts/shop/handicrafts 404 in 8044ms
+ GET /offline 200 in 1065ms
+ GET / 200 in 1251ms
+ GET /manifest.json 404 in 1735ms
+ GET /rajesh-handicrafts/shop 200 in 1446ms
+ GET /manifest.webmanifest 200 in 82ms
+ GET / 200 in 371ms
+ GET /offline 200 in 375ms
+ GET /icon.png 404 in 545ms
+ GET /manifest.json 404 in 904ms
+ GET /manifest.webmanifest 200 in 134ms
+ GET /icon.png 404 in 700ms
+ GET /rajesh-handicrafts/shop/search?q=ganesha 200 in 967ms
+ GET /manifest.webmanifest 200 in 29ms
+ GET /icon.png 404 in 1006ms
+ POST /rajesh-handicrafts/shop/search?q=ganesha 200 in 1251ms
+ GET /offline 200 in 1363ms
+ GET / 200 in 1396ms
+ GET /manifest.json 404 in 1797ms
+ POST /rajesh-handicrafts/shop/search?q=ganesha 200 in 680ms
+ POST /rajesh-handicrafts/shop/search?q=ganesha 200 in 378ms
+ GET /rajesh-handicrafts/shop/search?q=elephant 200 in 521ms
+ GET /manifest.webmanifest 200 in 45ms
+ GET /icon.png 404 in 1217ms
+ POST /rajesh-handicrafts/shop/search?q=elephant 200 in 1354ms
+ GET /offline 200 in 1079ms
+ GET / 200 in 1673ms
+ GET /manifest.json 404 in 1868ms
+ POST /rajesh-handicrafts/shop/search?q=elephant 200 in 661ms
+ POST /rajesh-handicrafts/shop/search?q=elephant 200 in 451ms
+ GET /rajesh-handicrafts/shop/category/4da83f23-eeec-4b10-bc7a-78ee1cc8a63f 200 in 1246ms
+ GET /manifest.webmanifest 200 in 24ms
+ GET /icon.png 404 in 517ms
+ GET / 200 in 786ms
+ GET /offline 200 in 683ms
+ GET /manifest.json 404 in 1249ms
+ GET /rajesh-royal-handicrafts 404 in 885ms
+ GET /manifest.webmanifest 200 in 30ms
+ GET /manifest.webmanifest 200 in 113ms
+ GET /offline 200 in 930ms
+ GET /icon.png 404 in 1093ms
+ GET / 200 in 949ms
+ GET /manifest.json 404 in 1286ms
+ GET /rajesh-handicrafts/shop/product/1bf3b43e-5133-4318-af25-51616729785f 200 in 799ms
+ GET /manifest.webmanifest 200 in 28ms
+ GET /icon.png 404 in 917ms
+ GET /offline 200 in 726ms
+ GET / 200 in 852ms
+ GET /manifest.json 404 in 1190ms
+ GET /rajesh-handicrafts/shop/search?q=Religious 200 in 713ms
+ GET /manifest.webmanifest 200 in 37ms
+ GET /icon.png 404 in 919ms
+ POST /rajesh-handicrafts/shop/search?q=Religious 200 in 1087ms
+ GET / 200 in 1084ms
+ GET /offline 200 in 859ms
+ POST /rajesh-handicrafts/shop/search?q=Religious 200 in 766ms
+ GET /manifest.json 404 in 1385ms
+ POST /rajesh-handicrafts/shop/search?q=Religious 200 in 313ms
+ GET /rajesh-handicrafts/shop/category/4da83f23-eeec-4b10-bc7a-78ee1cc8a63f 200 in 737ms
+ GET /manifest.webmanifest 200 in 32ms
+ GET /offline 200 in 696ms
+ GET /icon.png 404 in 916ms
+ GET / 200 in 725ms
+ GET /manifest.json 404 in 1088ms
+ GET /rajesh-handicrafts/shop 200 in 1236ms
+ GET /manifest.webmanifest 200 in 41ms
+ GET / 200 in 348ms
+ GET /offline 200 in 351ms
+ GET /icon.png 404 in 646ms
+ GET /manifest.json 404 in 926ms
+ GET /rajesh-handicrafts/shop/search?q=Wooden 200 in 564ms
+ GET /manifest.webmanifest 200 in 27ms
+ POST /rajesh-handicrafts/shop/search?q=Wooden 200 in 1255ms
+ GET /icon.png 404 in 1465ms
+ GET /offline 200 in 1634ms
+ GET / 200 in 1667ms
+ GET /manifest.json 404 in 1877ms
+ POST /rajesh-handicrafts/shop/search?q=Wooden 200 in 546ms
+ POST /rajesh-handicrafts/shop/search?q=Wooden 200 in 351ms
+ GET /rajesh-handicrafts/shop 200 in 1729ms
+ GET /manifest.webmanifest 200 in 34ms
+ GET /offline 200 in 410ms
+ GET / 200 in 421ms
+ GET /icon.png 404 in 550ms
+ GET /manifest.json 404 in 936ms
+ ✓ Compiled in 1486ms (1679 modules)
+ ✓ Compiled in 617ms (1679 modules)
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ ⨯ Error: Invalid src prop (https://images.unsplash.com/photo-1513519245088-0e12902e5a38?w=200&h=200&fit=crop) on `next/image`, hostname "images.unsplash.com" is not configured under images in your `next.config.js`
+See more info: https://nextjs.org/docs/messages/next-image-unconfigured-host
+    at Array.map (<anonymous>)
+digest: "3708395622"
+ GET /rajesh-handicrafts/shop 500 in 1586ms
+ ✓ Compiled /manifest.webmanifest in 279ms (987 modules)
+ GET /manifest.webmanifest 200 in 386ms
+ ⨯ Error: Invalid src prop (https://images.unsplash.com/photo-1513519245088-0e12902e5a38?w=200&h=200&fit=crop) on `next/image`, hostname "images.unsplash.com" is not configured under images in your `next.config.js`
+See more info: https://nextjs.org/docs/messages/next-image-unconfigured-host
+    at Array.map (<anonymous>)
+digest: "3708395622"
+ GET /rajesh-handicrafts/shop 500 in 1265ms
+ GET /manifest.webmanifest 200 in 18ms
+ ✓ Compiled /favicon.ico in 376ms (989 modules)
+ GET /favicon.ico 200 in 425ms
+ GET /favicon.ico 200 in 11ms
+ GET /rajesh-handicrafts 200 in 490ms
+ GET /manifest.webmanifest 200 in 19ms
+ ○ Compiling /offline ...
+ POST /rajesh-handicrafts 200 in 1357ms
+ GET /icon.png 404 in 2255ms
+ ✓ Compiled /offline in 1821ms (995 modules)
+ ✓ Compiled (1001 modules)
+ GET /offline 200 in 3266ms
+ GET / 200 in 3289ms
+ GET /manifest.json 404 in 3612ms
+ GET /rajesh-handicrafts 200 in 724ms
+ GET /manifest.webmanifest 200 in 20ms
+ GET / 200 in 267ms
+ GET /offline 200 in 267ms
+ GET /icon.png 404 in 544ms
+ GET /manifest.json 404 in 866ms
+ GET /rajesh-handicrafts/shop/search?q=Ganesha 200 in 518ms
+ GET /manifest.webmanifest 200 in 18ms
+ POST /rajesh-handicrafts/shop/search?q=Ganesha 200 in 702ms
+ GET /icon.png 404 in 823ms
+ GET /offline 200 in 584ms
+ GET / 200 in 653ms
+ POST /rajesh-handicrafts/shop/search?q=Ganesha 200 in 1851ms
+ GET /manifest.json 404 in 2448ms
+ POST /rajesh-handicrafts/shop/search?q=Ganesha 200 in 276ms
+ GET /rajesh-handicrafts 200 in 309ms
+ GET /manifest.webmanifest 200 in 22ms
+ GET /icon.png 404 in 480ms
+ GET /offline 200 in 372ms
+ GET / 200 in 379ms
+ GET /manifest.json 404 in 774ms
+ ⚠ Found a change in next.config.mjs. Restarting the server to apply the changes...
+  ▲ Next.js 14.2.35
+  - Local:        http://localhost:3000
+  - Environments: .env.local
+
+ ✓ Starting...
+ ✓ Ready in 2.2s
+ ✓ Compiled /src/middleware in 326ms (122 modules)
+ ○ Compiling /[store] ...
+ ✓ Compiled /[store] in 8.8s (1656 modules)
+ ✓ Compiled in 421ms (696 modules)
+ GET /rajesh-handicrafts 200 in 10328ms
+ ✓ Compiled /manifest.webmanifest in 500ms (923 modules)
+ GET /manifest.webmanifest 200 in 632ms
+ ✓ Compiled /offline in 471ms (925 modules)
+ ○ Compiling /[store]/shop ...
+ ✓ Compiled /[store]/shop in 4.2s (1690 modules)
+ GET /favicon.ico 200 in 5256ms
+ GET /offline 200 in 5011ms
+ GET / 200 in 5018ms
+ GET /icon.png 404 in 5734ms
+ GET /manifest.json 404 in 5497ms
+ ✓ Compiled in 1156ms (1704 modules)
+ ⨯ upstream image response failed for https://images.unsplash.com/photo-1601758174114-e711c0cbaae2?w=800&fit=crop 404
+ GET /manifest.webmanifest 200 in 804ms
+ ⨯ upstream image response failed for https://images.unsplash.com/photo-1605367302456-11f84d6235b2?w=800&fit=crop 404
+ GET /icon.png 404 in 501ms
+ ○ Compiling /[store]/shop/cart ...
+ ✓ Compiled /[store]/shop/cart in 1564ms (1708 modules)
+ GET /manifest.webmanifest 200 in 80ms
+ POST /rajesh-handicrafts/shop/cart 200 in 406ms
+ POST /rajesh-handicrafts/shop/cart 200 in 262ms
+ GET /icon.png 404 in 736ms
+ POST /rajesh-handicrafts/shop/cart 200 in 247ms
+ ○ Compiling /[store]/auth ...
+ ✓ Compiled /[store]/auth in 3.7s (1822 modules)
+ GET /manifest.webmanifest 200 in 122ms
+ GET /icon.png 404 in 620ms
+ GET /manifest.webmanifest 200 in 41ms
+ GET /icon.png 404 in 996ms
+ GET /rajesh-handicrafts/shop 200 in 908ms
+ GET /manifest.webmanifest 200 in 10ms
+ ⨯ upstream image response failed for https://images.unsplash.com/photo-1601758174114-e711c0cbaae2?w=800&fit=crop 404
+ ⨯ upstream image response failed for https://images.unsplash.com/photo-1605367302456-11f84d6235b2?w=800&fit=crop 404
+ GET /favicon.ico 200 in 66ms
+ GET /icon.png 404 in 459ms
+ GET /offline 200 in 261ms
+ GET / 200 in 259ms
+ GET /manifest.json 404 in 669ms
+ GET /rajesh-handicrafts 200 in 393ms
+ GET /manifest.webmanifest 200 in 12ms
+ GET /icon.png 404 in 493ms
+ GET / 200 in 223ms
+ GET /offline 200 in 164ms
+ GET /manifest.json 404 in 661ms
+ GET /manifest.webmanifest 200 in 39ms
+ ⨯ upstream image response failed for https://images.unsplash.com/photo-1605367302456-11f84d6235b2?w=800&fit=crop 404
+ ⨯ upstream image response failed for https://images.unsplash.com/photo-1601758174114-e711c0cbaae2?w=800&fit=crop 404
+ GET /icon.png 404 in 500ms
+ ○ Compiling /[store]/shop/category/[id] ...
+ ✓ Compiled /[store]/shop/category/[id] in 2.1s (1824 modules)
+ GET /manifest.webmanifest 200 in 59ms
+ ⨯ upstream image response failed for https://images.unsplash.com/photo-1601758174114-e711c0cbaae2?w=800&fit=crop 404
+ GET /icon.png 404 in 616ms
+ ⨯ upstream image response failed for https://images.unsplash.com/photo-1601758174114-e711c0cbaae2?w=800&fit=crop 404
+ ⨯ upstream image response failed for https://images.unsplash.com/photo-1605367302456-11f84d6235b2?w=800&fit=crop 404
+ GET /manifest.webmanifest 200 in 48ms
+ GET /icon.png 404 in 572ms
+ ⨯ upstream image response failed for https://images.unsplash.com/photo-1605367302456-11f84d6235b2?w=800&fit=crop 404
+ GET /manifest.webmanifest 200 in 33ms
+ GET /icon.png 404 in 518ms
+ ⨯ upstream image response failed for https://images.unsplash.com/photo-1601758174114-e711c0cbaae2?w=800&fit=crop 404
+ ⨯ upstream image response failed for https://images.unsplash.com/photo-1605367302456-11f84d6235b2?w=800&fit=crop 404
+ GET /manifest.webmanifest 200 in 99ms
+ GET /icon.png 404 in 567ms
+ ○ Compiling /[store]/shop/product/[id] ...
+ ✓ Compiled /[store]/shop/product/[id] in 1618ms (1820 modules)
+ GET /manifest.webmanifest 200 in 44ms
+ ⨯ upstream image response failed for https://images.unsplash.com/photo-1601758174114-e711c0cbaae2?w=800&fit=crop 404
+ GET /icon.png 404 in 542ms
+ ○ Compiling /[store]/shop/search ...
+ ✓ Compiled /[store]/shop/search in 1381ms (1830 modules)
+ GET /manifest.webmanifest 200 in 62ms
+ POST /rajesh-handicrafts/shop/search 200 in 271ms
+ POST /rajesh-handicrafts/shop/search 200 in 223ms
+ GET /icon.png 404 in 608ms
+ POST /rajesh-handicrafts/shop/search 200 in 311ms
+ ⨯ upstream image response failed for https://images.unsplash.com/photo-1601758174114-e711c0cbaae2?w=800&fit=crop 404
+ GET /manifest.webmanifest 200 in 33ms
+ GET /icon.png 404 in 517ms
+ GET /rajesh-handicrafts/shop/category/c313bc92-fd51-4e0d-adb7-391ed835a414 200 in 650ms
+ GET /manifest.webmanifest 200 in 20ms
+ ⨯ upstream image response failed for https://images.unsplash.com/photo-1605367302456-11f84d6235b2?w=800&fit=crop 404
+ GET /icon.png 404 in 462ms
+ ○ Compiling /offline ...
+ ✓ Compiled /offline in 875ms (1053 modules)
+ ✓ Compiled (1059 modules)
+ GET /offline 200 in 2259ms
+ GET / 200 in 2266ms
+ GET /manifest.json 404 in 2693ms

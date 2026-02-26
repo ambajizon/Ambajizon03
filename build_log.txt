@@ -1,0 +1,67 @@
+﻿
+> ambajizon@0.1.0 build
+> next build
+
+  Γû▓ Next.js 14.2.35
+  - Environments: .env.local
+
+   Creating an optimized production build ...
+node.exe : Failed to 
+compile.
+At line:1 char:1
++ & "C:\Program Files
+\nodejs/node.exe" 
+"C:\Program 
+Files\nodejs/node_mo 
+...
++ ~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~
+    + CategoryInfo   
+           : NotSpe  
+  cified: (Failed    
+ to compile.:Stri    
+ng) [], RemoteEx    
+ception
+    + FullyQualified 
+   ErrorId : Native  
+  CommandError
+ 
+
+src\app\(admin)\admin
+\page.tsx
+You cannot have two 
+parallel pages that 
+resolve to the same 
+path. Please check 
+/(admin)/admin/page 
+and /admin/page. 
+Refer to the route 
+group docs for more 
+information: https://
+nextjs.org/docs/app/b
+uilding-your-applicat
+ion/routing/route-gro
+ups
+
+src\app\admin\page.ts
+x
+You cannot have two 
+parallel pages that 
+resolve to the same 
+path. Please check 
+/(admin)/admin/page 
+and /admin/page. 
+Refer to the route 
+group docs for more 
+information: https://
+nextjs.org/docs/app/b
+uilding-your-applicat
+ion/routing/route-gro
+ups
+
+
+> Build failed 
+because of webpack 
+errors

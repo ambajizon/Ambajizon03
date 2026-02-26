@@ -1,0 +1,6 @@
+{
+  "code": "PGRST205",
+  "details": null,
+  "hint": "Perhaps you meant the table 'public.shopkeepers'",
+  "message": "Could not find the table 'public.orders' in the schema cache"
+}

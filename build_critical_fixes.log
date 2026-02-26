@@ -1,0 +1,24 @@
+
+> ambajizon@0.1.0 build
+> next build
+
+  ▲ Next.js 14.2.35
+  - Environments: .env.local
+
+   Creating an optimized production build ...
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (133kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+ ✓ Compiled successfully
+   Linting and checking validity of types ...
+Failed to compile.
+
+./src/app/actions/admin.ts:62:45
+Type error: Parameter 'sum' implicitly has an 'any' type.
+
+[0m [90m 60 |[39m         [36mconst[39m totalSellers [33m=[39m [36mawait[39m [33mSeller[39m[33m.[39mcountDocuments({ isApproved[33m:[39m [36mtrue[39m })[33m;[39m[0m
+[0m [90m 61 |[39m         [36mconst[39m orders [33m=[39m [36mawait[39m [33mOrder[39m[33m.[39mfind({ status[33m:[39m { $ne[33m:[39m [32m'Cancelled'[39m } })[33m.[39mlean()[33m;[39m[0m
+[0m[31m[1m>[22m[39m[90m 62 |[39m         [36mconst[39m totalRevenue [33m=[39m orders[33m.[39mreduce((sum[33m,[39m order) [33m=>[39m sum [33m+[39m order[33m.[39mtotalAmount[33m,[39m [35m0[39m)[33m;[39m[0m
+[0m [90m    |[39m                                             [31m[1m^[22m[39m[0m
+[0m [90m 63 |[39m[0m
+[0m [90m 64 |[39m         [36mreturn[39m {[0m
+[0m [90m 65 |[39m             totalSellers[33m,[39m[0m
+Next.js build worker exited with code: 1 and signal: null

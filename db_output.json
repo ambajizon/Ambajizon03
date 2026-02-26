@@ -1,0 +1,118 @@
+{
+  "store": {
+    "id": "76faaeda-f8d3-4604-a271-a5fdbd12561f",
+    "shopkeeper_id": "8b2541bc-e2e3-40eb-9907-1561221cd9c0",
+    "slug": "rajesh-handicrafts",
+    "name": "Rajesh Royal Handicrafts Updated",
+    "logo_url": "https://res.cloudinary.com/dtqohicc4/image/upload/v1771516826/ambajizon/rajesh-handicrafts/logo/vcwixaccbgdo8pcyekta.png",
+    "theme_config": {
+      "tagline": "Best Handicrafts",
+      "font_style": "sans",
+      "hero_title": "",
+      "description": "",
+      "footer_text": "",
+      "shop_timing": "",
+      "location_url": "",
+      "phone_number": "9876543210",
+      "social_links": {
+        "x": "",
+        "youtube": "",
+        "facebook": "",
+        "instagram": ""
+      },
+      "hero_cta_text": "Shop Now",
+      "hero_subtitle": "",
+      "primary_color": "#ef4444",
+      "hero_image_url": "",
+      "show_exclusive": false,
+      "hero_banner_url": "",
+      "show_flash_sale": true,
+      "show_sales_zone": false,
+      "whatsapp_number": "",
+      "payment_settings": {
+        "cod_enabled": true,
+        "razorpay_key_id": "rzp_test_123",
+        "razorpay_key_secret": "U2FsdGVkX18OlEFiSV5cHRzYQPQqmAck30qWKd6gasg="
+      }
+    },
+    "created_at": "2026-02-19T03:28:11.893025+00:00",
+    "primary_color": "#3b82f6",
+    "font_family": "inter"
+  },
+  "cats": [
+    {
+      "id": "4da83f23-eeec-4b10-bc7a-78ee1cc8a63f",
+      "store_id": "76faaeda-f8d3-4604-a271-a5fdbd12561f",
+      "name": "Handicrafts",
+      "image_url": "",
+      "is_enabled": true,
+      "sort_order": 0,
+      "created_at": "2026-02-19T10:57:51.456897+00:00"
+    }
+  ],
+  "subcats": [
+    {
+      "id": "a57de554-b66f-46a3-a7b2-3544510596a1",
+      "store_id": "76faaeda-f8d3-4604-a271-a5fdbd12561f",
+      "category_id": "4da83f23-eeec-4b10-bc7a-78ee1cc8a63f",
+      "name": "Wooden",
+      "image_url": "",
+      "is_enabled": true,
+      "sort_order": 0,
+      "created_at": "2026-02-19T10:58:33.2158+00:00"
+    }
+  ],
+  "prods": [
+    {
+      "id": "d59e7b6d-131c-4d67-b2ae-ba8b2e68b31c",
+      "store_id": "76faaeda-f8d3-4604-a271-a5fdbd12561f",
+      "category_id": "4da83f23-eeec-4b10-bc7a-78ee1cc8a63f",
+      "subcategory_id": null,
+      "name": "Script Product",
+      "description": null,
+      "images": [],
+      "price": 100,
+      "mrp": null,
+      "stock": 5,
+      "tags": null,
+      "badge": "none",
+      "display_section": "none",
+      "is_enabled": true,
+      "created_at": "2026-02-19T11:08:41.279509+00:00"
+    },
+    {
+      "id": "dc366371-9497-4645-ac2d-c1c7d9d259b8",
+      "store_id": "76faaeda-f8d3-4604-a271-a5fdbd12561f",
+      "category_id": "4da83f23-eeec-4b10-bc7a-78ee1cc8a63f",
+      "subcategory_id": null,
+      "name": "Script Product",
+      "description": null,
+      "images": [],
+      "price": 100,
+      "mrp": null,
+      "stock": 5,
+      "tags": null,
+      "badge": "none",
+      "display_section": "none",
+      "is_enabled": true,
+      "created_at": "2026-02-19T11:12:38.375442+00:00"
+    },
+    {
+      "id": "1bf3b43e-5133-4318-af25-51616729785f",
+      "store_id": "76faaeda-f8d3-4604-a271-a5fdbd12561f",
+      "category_id": "4da83f23-eeec-4b10-bc7a-78ee1cc8a63f",
+      "subcategory_id": "a57de554-b66f-46a3-a7b2-3544510596a1",
+      "name": "Wooden Elephant 2",
+      "description": "",
+      "images": [],
+      "price": 500,
+      "mrp": null,
+      "stock": 50,
+      "tags": [],
+      "badge": "none",
+      "display_section": "none",
+      "is_enabled": true,
+      "created_at": "2026-02-19T11:11:43.252998+00:00"
+    }
+  ]
+}
