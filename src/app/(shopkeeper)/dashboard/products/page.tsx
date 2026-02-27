@@ -94,31 +94,16 @@ export default function ProductsPage() {
                 Hidden on desktop (lg:hidden) because desktop uses the
                 native Tailwind header above
             ════════════════════════════════════════════════════════ */}
+            {/* Mobile header extension — only search, no title row */}
             <div className="lg:hidden -mx-3 -mt-3 bg-indigo-900 px-4 pt-3 pb-4 mb-0">
-                <div className="flex items-center justify-between mb-3">
-                    <div>
-                        <h1 className="text-[16px] font-black text-white tracking-tight">
-                            Products
-                            <span className="ml-2 text-[11px] text-indigo-300 font-bold bg-indigo-800/60 px-1.5 py-0.5 rounded-full">{products.length}</span>
-                        </h1>
-                    </div>
-                    <Link href="/dashboard/products/create">
-                        <button className="flex items-center gap-1.5 bg-white text-indigo-900 px-3 py-1.5 rounded-lg text-xs font-black shadow-sm active:scale-95 transition-transform">
-                            <Plus size={14} strokeWidth={3} />
-                            Add
-                        </button>
-                    </Link>
-                </div>
-
-                {/* Embedded white search pill inside dark header */}
                 <div className="relative">
                     <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" size={15} />
                     <input
                         type="search"
-                        placeholder="Search products..."
+                        placeholder="Search products, SKU or category..."
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
-                        className="w-full bg-white rounded-lg pl-9 pr-4 py-2.5 text-sm font-medium text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-white/50 border-none"
+                        className="w-full bg-white rounded-lg pl-9 pr-9 py-2.5 text-sm font-medium text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-white/50 border-none"
                     />
                     {searchQuery && (
                         <button onClick={() => setSearchQuery('')} className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400">
@@ -237,72 +222,73 @@ export default function ProductsPage() {
                             return (
                                 <div
                                     key={product.id}
-                                    className="bg-white rounded-xl border border-slate-100 shadow-sm flex items-center gap-3 p-3 transition-all hover:shadow-md hover:border-slate-200"
+                                    className="bg-white rounded-xl border border-slate-100 shadow-sm overflow-hidden transition-all hover:shadow-md hover:border-slate-200"
                                 >
-                                    {/* Image in uniform bounding box */}
-                                    <Link href={`/dashboard/products/${product.id}`} className={`w-20 h-20 shrink-0 rounded-xl ${imgBg} overflow-hidden flex items-center justify-center`}>
-                                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                                        {product.images && product.images[0] ? (
-                                            <img src={product.images[0]} alt={product.name} className="w-full h-full object-contain p-1" />
-                                        ) : (
-                                            <ImageIcon size={22} strokeWidth={1.5} className="text-slate-300" />
-                                        )}
-                                    </Link>
+                                    {/* ── Top: image + info side by side ── */}
+                                    <div className="flex gap-3 p-3">
+                                        {/* Image bounding box */}
+                                        <Link href={`/dashboard/products/${product.id}`} className={`w-20 h-20 shrink-0 rounded-xl ${imgBg} overflow-hidden flex items-center justify-center`}>
+                                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                                            {product.images && product.images[0] ? (
+                                                <img src={product.images[0]} alt={product.name} className="w-full h-full object-contain p-1" />
+                                            ) : (
+                                                <ImageIcon size={22} strokeWidth={1.5} className="text-slate-300" />
+                                            )}
+                                        </Link>
 
-                                    {/* Product info */}
-                                    <div className="flex-1 min-w-0">
-                                        <Link href={`/dashboard/products/${product.id}`} className="block">
-                                            <h3 className="text-[13px] font-bold text-slate-900 truncate leading-tight">{product.name}</h3>
+                                        {/* Product info */}
+                                        <Link href={`/dashboard/products/${product.id}`} className="flex-1 min-w-0 block">
+                                            <h3 className="text-[13.5px] font-bold text-slate-900 leading-tight">{product.name}</h3>
                                             <div className="flex items-baseline gap-1.5 mt-0.5">
-                                                <span className="font-black text-slate-900 text-[14px]">₹{product.price.toLocaleString()}</span>
+                                                <span className="font-black text-slate-900 text-[15px]">₹{product.price.toLocaleString()}</span>
                                                 {product.mrp && <span className="text-[11px] text-slate-400 line-through">₹{product.mrp.toLocaleString()}</span>}
                                                 {product.mrp && product.price < product.mrp && (
-                                                    <span className="text-[9px] font-black text-green-700 bg-green-50 px-1 py-0.5 rounded uppercase tracking-wider">
-                                                        {Math.round(((product.mrp - product.price) / product.mrp) * 100)}% off
+                                                    <span className="text-[9px] font-black text-green-700 bg-green-50 px-1 py-0.5 rounded-sm uppercase tracking-wider">
+                                                        {Math.round(((product.mrp - product.price) / product.mrp) * 100)}% OFF
                                                     </span>
                                                 )}
                                             </div>
                                             {/* Category + Badge pills */}
                                             <div className="flex flex-wrap gap-1 mt-1.5">
                                                 {product.categories?.name && (
-                                                    <span className="text-[9px] font-bold text-slate-500 bg-slate-100 px-1.5 py-0.5 rounded uppercase tracking-wider">
+                                                    <span className="text-[9px] font-bold text-slate-500 bg-slate-100 border border-slate-200 px-1.5 py-0.5 rounded uppercase tracking-wider">
                                                         {product.categories.name}
                                                     </span>
                                                 )}
                                                 {product.badge && product.badge !== 'none' && (
-                                                    <span className="text-[9px] font-bold text-blue-600 bg-blue-50 px-1.5 py-0.5 rounded uppercase tracking-wider">
+                                                    <span className="text-[9px] font-bold text-blue-600 bg-blue-50 border border-blue-200 px-1.5 py-0.5 rounded uppercase tracking-wider">
                                                         {product.badge}
                                                     </span>
                                                 )}
                                             </div>
                                         </Link>
+                                    </div>
 
-                                        {/* Single inline bottom row: stock · toggle · actions */}
-                                        <div className="flex items-center justify-between mt-2 pt-2 border-t border-slate-50">
-                                            {/* Stock dot + label */}
-                                            <div className="flex items-center gap-1.5">
-                                                <div className={`w-1.5 h-1.5 rounded-full ${product.stock > 10 ? 'bg-green-500' : product.stock > 0 ? 'bg-orange-400' : 'bg-red-500'}`} />
-                                                <span className={`text-[10px] font-bold uppercase tracking-wide ${product.stock > 10 ? 'text-green-600' : product.stock > 0 ? 'text-orange-500' : 'text-red-500'}`}>
-                                                    {product.stock > 10 ? `In Stock (${product.stock})` : product.stock > 0 ? `Low Stock (${product.stock})` : 'Out of stock'}
-                                                </span>
-                                            </div>
+                                    {/* ── Full-width bottom strip ── */}
+                                    <div className="flex items-center justify-between px-3 py-2 border-t border-slate-100">
+                                        {/* Stock status */}
+                                        <div className="flex items-center gap-1.5">
+                                            <div className={`w-2 h-2 rounded-full ${product.stock > 10 ? 'bg-green-500' : product.stock > 0 ? 'bg-orange-400' : 'bg-red-500'}`} />
+                                            <span className={`text-[10px] font-bold uppercase tracking-wide ${product.stock > 10 ? 'text-green-600' : product.stock > 0 ? 'text-orange-500' : 'text-red-500'}`}>
+                                                {product.stock > 10 ? `IN STOCK (${product.stock})` : product.stock > 0 ? `LOW STOCK (${product.stock})` : 'OUT OF STOCK'}
+                                            </span>
+                                        </div>
 
-                                            {/* Toggle + edit/delete inline */}
-                                            <div className="flex items-center gap-1.5">
-                                                <button
-                                                    onClick={(e) => toggleStatus(product, e)}
-                                                    disabled={toggling === product.id}
-                                                    className={`relative inline-flex h-6 w-11 shrink-0 cursor-pointer items-center rounded-full transition-colors duration-200 focus:outline-none disabled:opacity-60 ${product.is_enabled ? 'bg-green-500' : 'bg-slate-200'}`}
-                                                >
-                                                    <span className={`inline-block h-4 w-4 transform rounded-full bg-white shadow-sm ring-0 transition duration-200 ease-in-out ${product.is_enabled ? 'translate-x-6' : 'translate-x-1'}`} />
-                                                </button>
-                                                <Link href={`/dashboard/products/${product.id}`} className="text-slate-400 hover:text-blue-600 active:scale-95 transition-all p-1 rounded-lg hover:bg-blue-50">
-                                                    <Edit size={13} strokeWidth={2} />
-                                                </Link>
-                                                <button onClick={(e) => handleDelete(product.id, e)} className="text-slate-400 hover:text-red-500 active:scale-95 transition-all p-1 rounded-lg hover:bg-red-50">
-                                                    <Trash2 size={13} strokeWidth={2} />
-                                                </button>
-                                            </div>
+                                        {/* Toggle + actions */}
+                                        <div className="flex items-center gap-1.5">
+                                            <button
+                                                onClick={(e) => toggleStatus(product, e)}
+                                                disabled={toggling === product.id}
+                                                className={`relative inline-flex h-6 w-11 shrink-0 cursor-pointer items-center rounded-full transition-colors duration-200 focus:outline-none disabled:opacity-60 ${product.is_enabled ? 'bg-green-500' : 'bg-slate-200'}`}
+                                            >
+                                                <span className={`inline-block h-4 w-4 transform rounded-full bg-white shadow-sm transition duration-200 ${product.is_enabled ? 'translate-x-6' : 'translate-x-1'}`} />
+                                            </button>
+                                            <Link href={`/dashboard/products/${product.id}`} className="text-slate-400 hover:text-blue-600 transition-all p-1 rounded hover:bg-blue-50">
+                                                <Edit size={14} strokeWidth={1.75} />
+                                            </Link>
+                                            <button onClick={(e) => handleDelete(product.id, e)} className="text-slate-400 hover:text-red-500 transition-all p-1 rounded hover:bg-red-50">
+                                                <Trash2 size={14} strokeWidth={1.75} />
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
