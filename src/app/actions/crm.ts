@@ -93,6 +93,7 @@ export async function getCustomerAnalytics(customerId: string) {
         .from('orders')
         .select('id, total_amount, created_at, order_items(product_name, product_id, quantity, price)')
         .eq('customer_id', customerId)
+        .eq('store_id', storeId)
         .order('created_at', { ascending: false })
 
     if (!orders || orders.length === 0) {
@@ -367,10 +368,14 @@ export async function getCustomerOrders(customerId: string) {
             order_items ( id, product_id, product_name, quantity, price, products (images) )
         `)
         .eq('customer_id', customerId)
+        .eq('store_id', storeId)
         .order('created_at', { ascending: false })
 
-    if (error) return { error: error.message }
-    return { data }
+    if (error) {
+        console.error('[getCustomerOrders] error:', error.message)
+        return { error: error.message }
+    }
+    return { data: data || [] }
 }
 
 // --- STEP 3F & 3G: Communications and Notes ---
