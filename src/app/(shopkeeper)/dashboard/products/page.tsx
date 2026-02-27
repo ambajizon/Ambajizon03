@@ -262,32 +262,45 @@ export default function ProductsPage() {
                                                     </span>
                                                 )}
                                             </div>
-                                            <div className="flex items-center gap-1.5 mt-1.5">
-                                                <div className={`w-1.5 h-1.5 rounded-full ${product.stock > 10 ? 'bg-green-500' : product.stock > 0 ? 'bg-orange-400' : 'bg-red-500'}`} />
-                                                <span className={`text-[10px] font-bold uppercase tracking-wide ${product.stock > 10 ? 'text-green-600' : product.stock > 0 ? 'text-orange-500' : 'text-red-500'}`}>
-                                                    {product.stock > 10 ? `${product.stock} in stock` : product.stock > 0 ? `Low (${product.stock})` : 'Out of stock'}
-                                                </span>
+                                            {/* Category + Badge pills */}
+                                            <div className="flex flex-wrap gap-1 mt-1.5">
+                                                {product.categories?.name && (
+                                                    <span className="text-[9px] font-bold text-slate-500 bg-slate-100 px-1.5 py-0.5 rounded uppercase tracking-wider">
+                                                        {product.categories.name}
+                                                    </span>
+                                                )}
+                                                {product.badge && product.badge !== 'none' && (
+                                                    <span className="text-[9px] font-bold text-blue-600 bg-blue-50 px-1.5 py-0.5 rounded uppercase tracking-wider">
+                                                        {product.badge}
+                                                    </span>
+                                                )}
                                             </div>
                                         </Link>
 
-                                        {/* Action row */}
+                                        {/* Single inline bottom row: stock · toggle · actions */}
                                         <div className="flex items-center justify-between mt-2 pt-2 border-t border-slate-50">
-                                            {/* Sleek toggle — w-11 h-6 */}
-                                            <button
-                                                onClick={(e) => toggleStatus(product, e)}
-                                                disabled={toggling === product.id}
-                                                className={`relative inline-flex h-6 w-11 shrink-0 cursor-pointer items-center rounded-full transition-colors duration-200 focus:outline-none disabled:opacity-60 ${product.is_enabled ? 'bg-green-500' : 'bg-slate-200'}`}
-                                            >
-                                                <span className={`inline-block h-4 w-4 transform rounded-full bg-white shadow-sm ring-0 transition duration-200 ease-in-out ${product.is_enabled ? 'translate-x-6' : 'translate-x-1'}`} />
-                                            </button>
+                                            {/* Stock dot + label */}
+                                            <div className="flex items-center gap-1.5">
+                                                <div className={`w-1.5 h-1.5 rounded-full ${product.stock > 10 ? 'bg-green-500' : product.stock > 0 ? 'bg-orange-400' : 'bg-red-500'}`} />
+                                                <span className={`text-[10px] font-bold uppercase tracking-wide ${product.stock > 10 ? 'text-green-600' : product.stock > 0 ? 'text-orange-500' : 'text-red-500'}`}>
+                                                    {product.stock > 10 ? `In Stock (${product.stock})` : product.stock > 0 ? `Low Stock (${product.stock})` : 'Out of stock'}
+                                                </span>
+                                            </div>
 
-                                            {/* Edit/Delete — muted grey */}
-                                            <div className="flex items-center gap-0.5">
-                                                <Link href={`/dashboard/products/${product.id}`} className="text-slate-400 hover:text-blue-600 active:scale-95 transition-all p-1.5 rounded-lg hover:bg-blue-50">
-                                                    <Edit size={14} strokeWidth={2} />
+                                            {/* Toggle + edit/delete inline */}
+                                            <div className="flex items-center gap-1.5">
+                                                <button
+                                                    onClick={(e) => toggleStatus(product, e)}
+                                                    disabled={toggling === product.id}
+                                                    className={`relative inline-flex h-6 w-11 shrink-0 cursor-pointer items-center rounded-full transition-colors duration-200 focus:outline-none disabled:opacity-60 ${product.is_enabled ? 'bg-green-500' : 'bg-slate-200'}`}
+                                                >
+                                                    <span className={`inline-block h-4 w-4 transform rounded-full bg-white shadow-sm ring-0 transition duration-200 ease-in-out ${product.is_enabled ? 'translate-x-6' : 'translate-x-1'}`} />
+                                                </button>
+                                                <Link href={`/dashboard/products/${product.id}`} className="text-slate-400 hover:text-blue-600 active:scale-95 transition-all p-1 rounded-lg hover:bg-blue-50">
+                                                    <Edit size={13} strokeWidth={2} />
                                                 </Link>
-                                                <button onClick={(e) => handleDelete(product.id, e)} className="text-slate-400 hover:text-red-500 active:scale-95 transition-all p-1.5 rounded-lg hover:bg-red-50">
-                                                    <Trash2 size={14} strokeWidth={2} />
+                                                <button onClick={(e) => handleDelete(product.id, e)} className="text-slate-400 hover:text-red-500 active:scale-95 transition-all p-1 rounded-lg hover:bg-red-50">
+                                                    <Trash2 size={13} strokeWidth={2} />
                                                 </button>
                                             </div>
                                         </div>
