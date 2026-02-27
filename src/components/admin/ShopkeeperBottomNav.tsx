@@ -8,7 +8,7 @@ const navItems = [
     { href: '/dashboard', label: 'Home', icon: LayoutDashboard, exact: true },
     { href: '/dashboard/orders', label: 'Orders', icon: ShoppingBag },
     { href: '/dashboard/products', label: 'Items', icon: Package },
-    { href: '/dashboard/payments', label: 'Payments', icon: IndianRupee },
+    { href: '/dashboard/payments', label: 'Pay', icon: IndianRupee },
     { href: '/dashboard/crm', label: 'CRM', icon: Users },
     { href: '/dashboard/marketing', label: 'Market', icon: Megaphone },
     { href: '/dashboard/reports', label: 'Reports', icon: BarChart2 },
@@ -24,35 +24,43 @@ export default function ShopkeeperBottomNav() {
     }
 
     return (
-        <div className="fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-gray-100 pb-safe md:hidden shadow-[0_-8px_24px_-8px_rgba(0,0,0,0.08)]">
-            {/* Scrollable row — hide scrollbar, snap-x for native feel */}
+        <div className="fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-slate-200 pb-safe md:hidden shadow-[0_-4px_20px_-4px_rgba(0,0,0,0.1)]">
+            {/* Scrollable row */}
             <div className="relative">
-                <div className="flex overflow-x-auto overflow-y-hidden snap-x scroll-smooth h-[60px] px-1 hide-scrollbar">
+                <div className="flex overflow-x-auto overflow-y-hidden snap-x scroll-smooth h-[56px] hide-scrollbar">
                     {navItems.map(({ href, label, icon: Icon, exact }) => {
                         const active = isActive(href, exact)
                         return (
                             <Link
                                 key={href}
                                 href={href}
-                                className={`relative flex flex-col items-center justify-center flex-shrink-0 min-w-[68px] h-full gap-0.5 snap-center active:scale-95 transition-transform px-1 ${active ? 'text-primary' : 'text-gray-400 hover:text-gray-700'}`}
+                                className={`relative flex flex-col items-center justify-center flex-shrink-0 min-w-[62px] h-full gap-0.5 snap-center active:scale-95 transition-all px-1 ${active
+                                    ? 'text-indigo-600'
+                                    : 'text-slate-400 hover:text-slate-600'
+                                    }`}
                             >
+                                {/* Active background pill */}
+                                {active && (
+                                    <span className="absolute top-1.5 inset-x-2 h-6 rounded-lg bg-indigo-50" />
+                                )}
                                 <Icon
-                                    size={20}
-                                    className={active ? 'stroke-[2.5px]' : 'stroke-[1.75px]'}
+                                    size={18}
+                                    className={`relative z-10 transition-all ${active ? 'stroke-[2.5px]' : 'stroke-[1.75px]'}`}
                                 />
-                                <span className={`text-[9.5px] uppercase tracking-wider leading-none ${active ? 'font-black' : 'font-semibold'}`}>
+                                <span className={`relative z-10 text-[9px] leading-none ${active ? 'font-black' : 'font-semibold'}`}>
                                     {label}
                                 </span>
+                                {/* Active underline */}
                                 {active && (
-                                    <div className="absolute -bottom-px w-4 h-[2.5px] bg-primary rounded-full shadow-sm" />
+                                    <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-5 h-[2.5px] bg-indigo-600 rounded-full" />
                                 )}
                             </Link>
                         )
                     })}
                 </div>
 
-                {/* Right-edge fade gradient — signals more items exist */}
-                <div className="absolute right-0 top-0 h-full w-10 bg-gradient-to-l from-white via-white/60 to-transparent pointer-events-none" />
+                {/* Right-edge fade */}
+                <div className="absolute right-0 top-0 h-full w-8 bg-gradient-to-l from-white via-white/70 to-transparent pointer-events-none" />
             </div>
         </div>
     )

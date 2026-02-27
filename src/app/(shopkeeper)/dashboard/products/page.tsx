@@ -83,8 +83,15 @@ export default function ProductsPage() {
         ? 'All Categories'
         : categories.find(c => c.id === categoryFilter)?.name || 'All Categories'
 
-    // Pastel bg for image containers — cycles through colours
-    const imageBgs = ['bg-orange-50', 'bg-blue-50', 'bg-green-50', 'bg-purple-50', 'bg-pink-50', 'bg-yellow-50']
+    // Richer pastel palettes for image containers
+    const imgPalette = [
+        { bg: 'bg-orange-100', ring: 'ring-orange-200' },
+        { bg: 'bg-sky-100', ring: 'ring-sky-200' },
+        { bg: 'bg-emerald-100', ring: 'ring-emerald-200' },
+        { bg: 'bg-violet-100', ring: 'ring-violet-200' },
+        { bg: 'bg-rose-100', ring: 'ring-rose-200' },
+        { bg: 'bg-amber-100', ring: 'ring-amber-200' },
+    ]
 
     return (
         <div className="max-w-4xl mx-auto pb-28">
@@ -218,32 +225,32 @@ export default function ProductsPage() {
                     {/* ──── MOBILE CARD LIST ──── */}
                     <div className="space-y-2.5 lg:hidden px-1 pt-1">
                         {filteredProducts.map((product, idx) => {
-                            const imgBg = imageBgs[idx % imageBgs.length]
+                            const { bg: imgBg, ring: imgRing } = imgPalette[idx % imgPalette.length]
                             return (
                                 <div
                                     key={product.id}
-                                    className="bg-white rounded-xl border border-slate-100 shadow-sm overflow-hidden transition-all hover:shadow-md hover:border-slate-200"
+                                    className="bg-white rounded-2xl border border-slate-100 shadow-md shadow-slate-200/60 overflow-hidden transition-all active:scale-[0.99]"
                                 >
                                     {/* ── Top: image + info side by side ── */}
-                                    <div className="flex gap-3 p-3">
+                                    <div className="flex gap-3.5 p-3.5">
                                         {/* Image bounding box */}
-                                        <Link href={`/dashboard/products/${product.id}`} className={`w-20 h-20 shrink-0 rounded-xl ${imgBg} overflow-hidden flex items-center justify-center`}>
+                                        <Link href={`/dashboard/products/${product.id}`} className={`w-[82px] h-[82px] shrink-0 rounded-xl ${imgBg} ring-1 ${imgRing} overflow-hidden flex items-center justify-center`}>
                                             {/* eslint-disable-next-line @next/next/no-img-element */}
                                             {product.images && product.images[0] ? (
-                                                <img src={product.images[0]} alt={product.name} className="w-full h-full object-contain p-1" />
+                                                <img src={product.images[0]} alt={product.name} className="w-full h-full object-contain p-2" />
                                             ) : (
-                                                <ImageIcon size={22} strokeWidth={1.5} className="text-slate-300" />
+                                                <ImageIcon size={24} strokeWidth={1.5} className="text-slate-300" />
                                             )}
                                         </Link>
 
                                         {/* Product info */}
-                                        <Link href={`/dashboard/products/${product.id}`} className="flex-1 min-w-0 block">
-                                            <h3 className="text-[13.5px] font-bold text-slate-900 leading-tight">{product.name}</h3>
-                                            <div className="flex items-baseline gap-1.5 mt-0.5">
-                                                <span className="font-black text-slate-900 text-[15px]">₹{product.price.toLocaleString()}</span>
-                                                {product.mrp && <span className="text-[11px] text-slate-400 line-through">₹{product.mrp.toLocaleString()}</span>}
+                                        <Link href={`/dashboard/products/${product.id}`} className="flex-1 min-w-0 block pt-0.5">
+                                            <h3 className="text-[14.5px] font-extrabold text-slate-900 leading-snug">{product.name}</h3>
+                                            <div className="flex items-center gap-2 mt-1 flex-wrap">
+                                                <span className="font-black text-slate-900 text-[16px] tracking-tight">₹{product.price.toLocaleString()}</span>
+                                                {product.mrp && <span className="text-[11px] text-slate-400 line-through font-medium">₹{product.mrp.toLocaleString()}</span>}
                                                 {product.mrp && product.price < product.mrp && (
-                                                    <span className="text-[9px] font-black text-green-700 bg-green-50 px-1 py-0.5 rounded-sm uppercase tracking-wider">
+                                                    <span className="text-[10px] font-black text-green-600 bg-green-100 px-1.5 py-0.5 rounded-md uppercase tracking-wider">
                                                         {Math.round(((product.mrp - product.price) / product.mrp) * 100)}% OFF
                                                     </span>
                                                 )}
@@ -251,12 +258,12 @@ export default function ProductsPage() {
                                             {/* Category + Badge pills */}
                                             <div className="flex flex-wrap gap-1 mt-1.5">
                                                 {product.categories?.name && (
-                                                    <span className="text-[9px] font-bold text-slate-500 bg-slate-100 border border-slate-200 px-1.5 py-0.5 rounded uppercase tracking-wider">
+                                                    <span className="text-[9.5px] font-bold text-slate-600 bg-slate-100 px-2 py-0.5 rounded-full border border-slate-200 uppercase tracking-wide">
                                                         {product.categories.name}
                                                     </span>
                                                 )}
                                                 {product.badge && product.badge !== 'none' && (
-                                                    <span className="text-[9px] font-bold text-blue-600 bg-blue-50 border border-blue-200 px-1.5 py-0.5 rounded uppercase tracking-wider">
+                                                    <span className="text-[9.5px] font-bold text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-full border border-indigo-200 uppercase tracking-wide">
                                                         {product.badge}
                                                     </span>
                                                 )}
@@ -264,29 +271,30 @@ export default function ProductsPage() {
                                         </Link>
                                     </div>
 
-                                    {/* ── Full-width bottom strip ── */}
-                                    <div className="flex items-center justify-between px-3 py-2 border-t border-slate-100">
+                                    {/* ── Full-width footer strip ── */}
+                                    <div className={`flex items-center justify-between px-3.5 py-2.5 border-t ${product.stock === 0 ? 'border-red-100 bg-red-50/40' : product.stock > 0 && product.stock <= 10 ? 'border-orange-100 bg-orange-50/40' : 'border-slate-100 bg-slate-50/60'}`}>
                                         {/* Stock status */}
                                         <div className="flex items-center gap-1.5">
-                                            <div className={`w-2 h-2 rounded-full ${product.stock > 10 ? 'bg-green-500' : product.stock > 0 ? 'bg-orange-400' : 'bg-red-500'}`} />
-                                            <span className={`text-[10px] font-bold uppercase tracking-wide ${product.stock > 10 ? 'text-green-600' : product.stock > 0 ? 'text-orange-500' : 'text-red-500'}`}>
+                                            <div className={`w-2 h-2 rounded-full flex-shrink-0 ${product.stock > 10 ? 'bg-green-500' : product.stock > 0 ? 'bg-orange-400' : 'bg-red-500'}`} />
+                                            <span className={`text-[10.5px] font-extrabold uppercase tracking-wide ${product.stock > 10 ? 'text-green-700' : product.stock > 0 ? 'text-orange-600' : 'text-red-600'}`}>
                                                 {product.stock > 10 ? `IN STOCK (${product.stock})` : product.stock > 0 ? `LOW STOCK (${product.stock})` : 'OUT OF STOCK'}
                                             </span>
                                         </div>
 
                                         {/* Toggle + actions */}
-                                        <div className="flex items-center gap-1.5">
+                                        <div className="flex items-center gap-2">
                                             <button
                                                 onClick={(e) => toggleStatus(product, e)}
                                                 disabled={toggling === product.id}
-                                                className={`relative inline-flex h-6 w-11 shrink-0 cursor-pointer items-center rounded-full transition-colors duration-200 focus:outline-none disabled:opacity-60 ${product.is_enabled ? 'bg-green-500' : 'bg-slate-200'}`}
+                                                title={product.is_enabled ? 'Disable product' : 'Enable product'}
+                                                className={`relative inline-flex h-6 w-11 shrink-0 cursor-pointer items-center rounded-full shadow-inner transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-green-400 disabled:opacity-60 ${product.is_enabled ? 'bg-green-500' : 'bg-slate-300'}`}
                                             >
-                                                <span className={`inline-block h-4 w-4 transform rounded-full bg-white shadow-sm transition duration-200 ${product.is_enabled ? 'translate-x-6' : 'translate-x-1'}`} />
+                                                <span className={`inline-block h-4.5 w-[18px] h-[18px] transform rounded-full bg-white shadow-md ring-0 transition duration-200 ${product.is_enabled ? 'translate-x-[22px]' : 'translate-x-0.5'}`} />
                                             </button>
-                                            <Link href={`/dashboard/products/${product.id}`} className="text-slate-400 hover:text-blue-600 transition-all p-1 rounded hover:bg-blue-50">
+                                            <Link href={`/dashboard/products/${product.id}`} className="text-slate-400 hover:text-indigo-600 transition-all p-1.5 rounded-lg hover:bg-indigo-50">
                                                 <Edit size={14} strokeWidth={1.75} />
                                             </Link>
-                                            <button onClick={(e) => handleDelete(product.id, e)} className="text-slate-400 hover:text-red-500 transition-all p-1 rounded hover:bg-red-50">
+                                            <button onClick={(e) => handleDelete(product.id, e)} className="text-slate-400 hover:text-red-500 transition-all p-1.5 rounded-lg hover:bg-red-50">
                                                 <Trash2 size={14} strokeWidth={1.75} />
                                             </button>
                                         </div>
