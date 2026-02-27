@@ -83,16 +83,16 @@ export default function DashboardHeader() {
     const initials = userName ? userName.charAt(0).toUpperCase() : 'A'
 
     return (
-        <header className="bg-indigo-900 px-4 lg:px-6 py-3 sticky top-0 z-30 flex items-center justify-between shadow-lg shadow-indigo-900/30">
+        <header className="bg-indigo-900 px-4 lg:px-5 py-2.5 sticky top-0 z-30 flex items-center justify-between shadow-lg shadow-indigo-900/30">
             {/* Left: Store Name + Live Badge */}
             <div className="flex items-center gap-3">
                 <div className="w-10 lg:hidden" /> {/* Hamburger spacer */}
-                <h2 className="text-[17px] font-black text-white tracking-tight hidden sm:block">
+                <h2 className="text-[13px] font-black text-white tracking-tight hidden sm:block">
                     {storeInfo.name || storeName || 'Ambajizon'}
                 </h2>
                 <button
                     onClick={handleToggleLive}
-                    className={`flex items-center gap-1.5 ml-1 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider transition-colors ${isLive
+                    className={`flex items-center gap-1 ml-1 px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider transition-colors ${isLive
                         ? 'bg-green-500/20 text-green-300 border border-green-500/30 hover:bg-green-500/30'
                         : 'bg-red-500/20 text-red-300 border border-red-500/30 hover:bg-red-500/30'
                         }`}
@@ -110,7 +110,7 @@ export default function DashboardHeader() {
                     <input
                         type="text"
                         placeholder="Search orders, products..."
-                        className="w-full bg-white/10 border border-white/10 rounded-lg pl-10 pr-4 py-2.5 text-sm font-medium text-white placeholder:text-indigo-300 focus:outline-none focus:ring-2 focus:ring-white/30 transition"
+                        className="w-full bg-white/10 border border-white/10 rounded-lg pl-9 pr-3 py-2 text-xs font-medium text-white placeholder:text-indigo-300 focus:outline-none focus:ring-2 focus:ring-white/30 transition"
                     />
                 </div>
             </div>
@@ -121,7 +121,7 @@ export default function DashboardHeader() {
                 <Link
                     href={`/${storeInfo.slug || 'setup'}`}
                     target="_blank"
-                    className="bg-white/10 border border-white/15 text-white px-3 py-2 rounded-lg font-bold text-[12px] flex items-center gap-1.5 hover:bg-white/20 transition shrink-0 hidden sm:flex"
+                    className="bg-white/10 border border-white/15 text-white px-2.5 py-1.5 rounded-lg font-bold text-[11px] flex items-center gap-1 hover:bg-white/20 transition shrink-0 hidden sm:flex"
                 >
                     <span className="material-symbols-outlined text-[16px]">visibility</span>
                     View Store
@@ -139,11 +139,11 @@ export default function DashboardHeader() {
                         onClick={() => setIsDropdownOpen(!isDropdownOpen)}
                         className="flex items-center gap-2 hover:bg-white/10 p-1.5 rounded-xl transition-colors"
                     >
-                        <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-gradient-to-br from-orange-400 to-pink-500 flex items-center justify-center text-white font-black text-sm shrink-0 ring-2 ring-white/20">
+                        <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-gradient-to-br from-orange-400 to-pink-500 flex items-center justify-center text-white font-black text-xs shrink-0 ring-2 ring-white/20">
                             {initials}
                         </div>
                         <div className="hidden sm:block text-left">
-                            <p className="text-[13px] font-bold text-white leading-tight">{userName}</p>
+                            <p className="text-[12px] font-bold text-white leading-tight">{userName}</p>
                         </div>
                         <span className="material-symbols-outlined text-indigo-300 text-[18px] hidden sm:block">expand_more</span>
                     </button>

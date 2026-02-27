@@ -112,53 +112,53 @@ export default function ShopkeeperDashboard() {
                 )}
 
                 {/* Quick Stats Grid */}
-                <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
                     {/* Total Orders - Blue */}
-                    <div className="bg-white p-5 rounded-2xl border border-slate-100 shadow-md shadow-slate-200/50 hover:shadow-lg transition-shadow">
-                        <div className="flex items-center justify-between mb-4">
-                            <div className="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center">
-                                <span className="material-symbols-outlined text-blue-600 text-[22px]">local_mall</span>
+                    <div className="bg-white p-4 rounded-2xl border border-slate-100 shadow-md shadow-slate-200/50 hover:shadow-lg transition-shadow">
+                        <div className="flex items-center justify-between mb-3">
+                            <div className="w-9 h-9 rounded-xl bg-blue-50 flex items-center justify-center">
+                                <span className="material-symbols-outlined text-blue-600 text-[20px]">local_mall</span>
                             </div>
-                            <span className="bg-green-100 text-green-700 px-2 py-0.5 rounded-full text-[10px] font-black">+12%</span>
+                            <span className="bg-green-100 text-green-700 px-1.5 py-0.5 rounded-full text-[10px] font-black">+12%</span>
                         </div>
-                        <p className="text-xs text-slate-500 font-bold uppercase tracking-wider mb-1">Total Orders</p>
-                        <p className="text-2xl font-black text-slate-800">{store?.stats?.totalOrders || 0}</p>
+                        <p className="text-[10px] text-slate-500 font-bold uppercase tracking-wider mb-0.5">Total Orders</p>
+                        <p className="text-xl font-black text-slate-800">{store?.stats?.totalOrders || 0}</p>
                     </div>
 
                     {/* Revenue - Green */}
-                    <div className="bg-white p-5 rounded-2xl border border-slate-100 shadow-md shadow-slate-200/50 hover:shadow-lg transition-shadow">
-                        <div className="flex items-center justify-between mb-4">
-                            <div className="w-10 h-10 rounded-xl bg-green-50 flex items-center justify-center">
-                                <span className="material-symbols-outlined text-green-600 text-[22px]">payments</span>
+                    <div className="bg-white p-4 rounded-2xl border border-slate-100 shadow-md shadow-slate-200/50 hover:shadow-lg transition-shadow">
+                        <div className="flex items-center justify-between mb-3">
+                            <div className="w-9 h-9 rounded-xl bg-green-50 flex items-center justify-center">
+                                <span className="material-symbols-outlined text-green-600 text-[20px]">payments</span>
                             </div>
-                            <span className="bg-green-100 text-green-700 px-2 py-0.5 rounded-full text-[10px] font-black">+8%</span>
+                            <span className="bg-green-100 text-green-700 px-1.5 py-0.5 rounded-full text-[10px] font-black">+8%</span>
                         </div>
-                        <p className="text-xs text-slate-500 font-bold uppercase tracking-wider mb-1">Revenue</p>
-                        <p className="text-2xl font-black text-slate-800">₹{(store?.stats?.totalRev || 0).toLocaleString()}</p>
+                        <p className="text-[10px] text-slate-500 font-bold uppercase tracking-wider mb-0.5">Revenue</p>
+                        <p className="text-xl font-black text-slate-800">₹{(store?.stats?.totalRev || 0).toLocaleString()}</p>
                     </div>
 
                     {/* Store Views - Purple */}
-                    <div className="bg-white p-5 rounded-2xl border border-slate-100 shadow-md shadow-slate-200/50 hover:shadow-lg transition-shadow">
-                        <div className="flex items-center justify-between mb-4">
-                            <div className="w-10 h-10 rounded-xl bg-purple-50 flex items-center justify-center">
-                                <span className="material-symbols-outlined text-purple-600 text-[22px]">visibility</span>
+                    <div className="bg-white p-4 rounded-2xl border border-slate-100 shadow-md shadow-slate-200/50 hover:shadow-lg transition-shadow">
+                        <div className="flex items-center justify-between mb-3">
+                            <div className="w-9 h-9 rounded-xl bg-purple-50 flex items-center justify-center">
+                                <span className="material-symbols-outlined text-purple-600 text-[20px]">visibility</span>
                             </div>
-                            <span className="bg-green-100 text-green-700 px-2 py-0.5 rounded-full text-[10px] font-black">+24%</span>
+                            <span className="bg-green-100 text-green-700 px-1.5 py-0.5 rounded-full text-[10px] font-black">+24%</span>
                         </div>
-                        <p className="text-xs text-slate-500 font-bold uppercase tracking-wider mb-1">Store Views</p>
-                        <p className="text-2xl font-black text-slate-800">{(store?.stats?.totalOrders || 0) * 14 + 120}</p>
+                        <p className="text-[10px] text-slate-500 font-bold uppercase tracking-wider mb-0.5">Store Views</p>
+                        <p className="text-xl font-black text-slate-800">{(store?.stats?.totalOrders || 0) * 14 + 120}</p>
                     </div>
 
                     {/* QR Scans - Orange */}
-                    <div className="bg-white p-5 rounded-2xl border border-slate-100 shadow-md shadow-slate-200/50 hover:shadow-lg transition-shadow">
-                        <div className="flex items-center justify-between mb-4">
-                            <div className="w-10 h-10 rounded-xl bg-orange-50 flex items-center justify-center">
-                                <span className="material-symbols-outlined text-orange-600 text-[22px]">qr_code_2</span>
+                    <div className="bg-white p-4 rounded-2xl border border-slate-100 shadow-md shadow-slate-200/50 hover:shadow-lg transition-shadow">
+                        <div className="flex items-center justify-between mb-3">
+                            <div className="w-9 h-9 rounded-xl bg-orange-50 flex items-center justify-center">
+                                <span className="material-symbols-outlined text-orange-600 text-[20px]">qr_code_2</span>
                             </div>
-                            <span className="bg-green-100 text-green-700 px-2 py-0.5 rounded-full text-[10px] font-black">+5%</span>
+                            <span className="bg-green-100 text-green-700 px-1.5 py-0.5 rounded-full text-[10px] font-black">+5%</span>
                         </div>
-                        <p className="text-xs text-slate-500 font-bold uppercase tracking-wider mb-1">QR Scans</p>
-                        <p className="text-2xl font-black text-slate-800">{(store?.stats?.totalOrders || 0) * 8 + 45}</p>
+                        <p className="text-[10px] text-slate-500 font-bold uppercase tracking-wider mb-0.5">QR Scans</p>
+                        <p className="text-xl font-black text-slate-800">{(store?.stats?.totalOrders || 0) * 8 + 45}</p>
                     </div>
                 </div>
 
@@ -167,10 +167,10 @@ export default function ShopkeeperDashboard() {
 
                     {/* Recent Orders List */}
                     <div className="lg:col-span-2">
-                        <div className="flex justify-between items-center mb-4">
-                            <h2 className="text-[18px] font-black text-slate-800 tracking-tight">Recent Orders</h2>
-                            <Link href="/dashboard/orders" className="text-[13px] font-bold text-primary hover:text-blue-700 flex items-center gap-1 group">
-                                View All <span className="material-symbols-outlined text-[16px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                        <div className="flex justify-between items-center mb-3">
+                            <h2 className="text-[15px] font-black text-slate-800 tracking-tight">Recent Orders</h2>
+                            <Link href="/dashboard/orders" className="text-[12px] font-bold text-primary hover:text-blue-700 flex items-center gap-1 group">
+                                View All <span className="material-symbols-outlined text-[14px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
                             </Link>
                         </div>
 
@@ -178,10 +178,10 @@ export default function ShopkeeperDashboard() {
                             <table className="w-full text-left border-collapse min-w-[500px]">
                                 <thead className="bg-slate-50 border-b border-slate-200 text-slate-500">
                                     <tr>
-                                        <th className="px-5 py-4 font-medium uppercase tracking-widest text-[11px]">Order ID</th>
-                                        <th className="px-5 py-4 font-medium uppercase tracking-widest text-[11px]">Customer</th>
-                                        <th className="px-5 py-4 font-medium uppercase tracking-widest text-[11px]">Status</th>
-                                        <th className="px-5 py-4 font-medium uppercase tracking-widest text-[11px] text-right">Amount</th>
+                                        <th className="px-4 py-2.5 font-medium uppercase tracking-widest text-[10px]">Order ID</th>
+                                        <th className="px-4 py-2.5 font-medium uppercase tracking-widest text-[10px]">Customer</th>
+                                        <th className="px-4 py-2.5 font-medium uppercase tracking-widest text-[10px]">Status</th>
+                                        <th className="px-4 py-2.5 font-medium uppercase tracking-widest text-[10px] text-right">Amount</th>
                                     </tr>
                                 </thead>
                                 <tbody className="divide-y divide-slate-100">
@@ -201,20 +201,20 @@ export default function ShopkeeperDashboard() {
 
                                             return (
                                                 <tr key={order.id} onClick={() => router.push(`/dashboard/orders/${order.id}`)} className="hover:bg-slate-50 transition-colors cursor-pointer group">
-                                                    <td className="px-5 py-4 whitespace-nowrap">
-                                                        <span className="text-[13px] font-bold text-slate-700 block mb-0.5">#{order.id.slice(0, 6)}</span>
-                                                        <span className="text-[11px] font-medium text-slate-400">Just now</span>
+                                                    <td className="px-4 py-2.5 whitespace-nowrap">
+                                                        <span className="text-[12px] font-bold text-slate-700 block mb-0.5">#{order.id.slice(0, 6)}</span>
+                                                        <span className="text-[10px] font-medium text-slate-400">{new Date(order.created_at).toLocaleDateString()}</span>
                                                     </td>
-                                                    <td className="px-5 py-4">
-                                                        <p className="font-bold text-slate-900 text-[14px]">{address?.full_name || 'Guest User'}</p>
+                                                    <td className="px-4 py-2.5">
+                                                        <p className="font-bold text-slate-900 text-xs">{address?.full_name || 'Guest User'}</p>
                                                     </td>
-                                                    <td className="px-5 py-4 whitespace-nowrap">
-                                                        <span className={`px-2.5 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider inline-block ${badgeClass}`}>
+                                                    <td className="px-4 py-2.5 whitespace-nowrap">
+                                                        <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider inline-block ${badgeClass}`}>
                                                             {statusText}
                                                         </span>
                                                     </td>
-                                                    <td className="px-5 py-4 whitespace-nowrap text-right">
-                                                        <p className="font-bold text-[15px] text-slate-900">₹{order.total_amount.toLocaleString()}</p>
+                                                    <td className="px-4 py-2.5 whitespace-nowrap text-right">
+                                                        <p className="font-bold text-sm text-slate-900">₹{order.total_amount.toLocaleString()}</p>
                                                     </td>
                                                 </tr>
                                             )
@@ -239,8 +239,8 @@ export default function ShopkeeperDashboard() {
                     <div className="space-y-6">
                         {/* Quick Action Grid */}
                         <div>
-                            <h2 className="text-[18px] font-bold text-slate-900 tracking-tight mb-4">Quick Tools</h2>
-                            <div className="grid grid-cols-2 gap-3">
+                            <h2 className="text-[15px] font-black text-slate-800 tracking-tight mb-3">Quick Tools</h2>
+                            <div className="grid grid-cols-2 gap-2">
                                 <Link href="/dashboard/products/create" className="flex items-center gap-3 bg-white p-4 rounded-xl border border-slate-200 hover:border-primary transition-all group shadow-sm">
                                     <div className="w-10 h-10 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
                                         <span className="material-symbols-outlined text-[20px] group-hover:scale-110 transition-transform">add_box</span>

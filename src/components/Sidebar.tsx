@@ -58,35 +58,35 @@ export default function Sidebar() {
 
     return (
         <>
-            {/* Mobile hamburger — now white on dark */}
+            {/* Mobile hamburger */}
             <button
                 type="button"
-                className="fixed left-4 top-4 z-50 p-2 text-white bg-indigo-900/80 rounded-lg lg:hidden flex items-center justify-center shadow"
+                className="fixed left-3 top-3 z-50 p-1.5 text-white bg-indigo-900/80 rounded-lg lg:hidden flex items-center justify-center shadow"
                 onClick={() => setIsOpen(!isOpen)}
             >
-                <span className="material-symbols-outlined text-[24px]">
+                <span className="material-symbols-outlined text-[20px]">
                     {isOpen ? 'close' : 'menu'}
                 </span>
             </button>
 
-            {/* Dark Indigo Sidebar */}
-            <div className={`fixed inset-y-0 left-0 z-40 w-64 transform bg-indigo-900 shadow-2xl transition-transform duration-300 ease-in-out lg:static lg:translate-x-0 flex flex-col ${isOpen ? 'translate-x-0' : '-translate-x-full'}`}>
+            {/* Dark Indigo Sidebar — compact w-56 */}
+            <div className={`fixed inset-y-0 left-0 z-40 w-56 transform bg-indigo-900 shadow-2xl transition-transform duration-300 ease-in-out lg:static lg:translate-x-0 flex flex-col ${isOpen ? 'translate-x-0' : '-translate-x-full'}`}>
 
-                {/* Brand / Logo area */}
-                <div className="px-6 py-6 border-b border-indigo-800/60 shrink-0">
-                    <div className="flex items-center gap-3">
-                        <div className="w-9 h-9 rounded-xl bg-white/10 flex items-center justify-center">
-                            <span className="material-symbols-outlined text-white text-[20px]">storefront</span>
+                {/* Brand area */}
+                <div className="px-3.5 py-3.5 border-b border-indigo-800/60 shrink-0">
+                    <div className="flex items-center gap-2">
+                        <div className="w-7 h-7 rounded-lg bg-white/10 flex items-center justify-center shrink-0">
+                            <span className="material-symbols-outlined text-white text-[15px]">storefront</span>
                         </div>
-                        <div>
-                            <p className="text-white font-black text-[15px] leading-tight">{storeInfo.name || 'Ambajizon'}</p>
-                            <p className="text-indigo-300 text-[11px] font-medium">Seller Dashboard</p>
+                        <div className="min-w-0">
+                            <p className="text-white font-black text-[12.5px] leading-tight truncate">{storeInfo.name || 'Ambajizon'}</p>
+                            <p className="text-indigo-300 text-[10px] font-medium">Seller Dashboard</p>
                         </div>
                     </div>
                 </div>
 
                 {/* Nav Links */}
-                <nav className="flex-1 space-y-0.5 overflow-y-auto px-3 py-4">
+                <nav className="flex-1 overflow-y-auto px-2 py-2 hide-scrollbar space-y-px">
                     {navigation.map((item) => {
                         const isActive = pathname === item.href
                         return (
@@ -94,19 +94,19 @@ export default function Sidebar() {
                                 key={item.name}
                                 href={item.href}
                                 onClick={() => setIsOpen(false)}
-                                className={`group flex items-center justify-between rounded-lg px-3 py-2.5 text-[13.5px] font-bold transition-all ${item.indent ? 'ml-5' : ''} ${isActive
+                                className={`group flex items-center justify-between rounded-md px-2.5 py-1.5 text-xs font-semibold transition-all ${item.indent ? 'ml-4' : ''} ${isActive
                                     ? 'bg-white text-indigo-900 shadow-sm'
                                     : 'text-indigo-200 hover:bg-white/10 hover:text-white'
                                     }`}
                             >
-                                <div className="flex items-center gap-3">
-                                    <span className={`material-symbols-outlined text-[20px] transition-colors ${isActive ? 'text-indigo-700' : 'text-indigo-300 group-hover:text-white'}`}>
+                                <div className="flex items-center gap-2">
+                                    <span className={`material-symbols-outlined text-[17px] transition-colors ${isActive ? 'text-indigo-700' : 'text-indigo-400 group-hover:text-white'}`}>
                                         {item.icon}
                                     </span>
                                     {item.name}
                                 </div>
                                 {item.name === 'Orders' && pendingOrders > 0 && (
-                                    <span className="bg-red-500 text-white text-[10px] min-w-[20px] h-[20px] flex items-center justify-center rounded-full font-bold px-1.5 shadow-sm">
+                                    <span className="bg-red-500 text-white text-[9px] min-w-[17px] h-[17px] flex items-center justify-center rounded-full font-bold px-1 shadow-sm">
                                         {pendingOrders > 99 ? '99+' : pendingOrders}
                                     </span>
                                 )}
@@ -115,9 +115,9 @@ export default function Sidebar() {
                     })}
                 </nav>
 
-                {/* Bottom version stamp */}
-                <div className="px-5 py-4 border-t border-indigo-800/60 shrink-0">
-                    <p className="text-indigo-400 text-[11px] font-medium">Ambajizon v1.0 • Seller Panel</p>
+                {/* Bottom stamp */}
+                <div className="px-3.5 py-3 border-t border-indigo-800/60 shrink-0">
+                    <p className="text-indigo-500 text-[10px] font-medium">Ambajizon v1.0</p>
                 </div>
             </div>
 
