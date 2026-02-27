@@ -88,64 +88,53 @@ export async function createRazorpayOrder(orderId: string) {
 
     if (!order) return { error: 'Order not found' }
 
-    // 2. Fetch Shopkeeper Keys (MOCKED FOR QA)
-    let settings: any = { razorpay_key_id: '', razorpay_key_secret: '' };
-    if (order.store_id) {
-        settings = {
-            razorpay_key_id: 'rzp_test_1MBZ2z9F9w123p',
-            razorpay_key_secret: encrypt('dummy')
-        }
+    // 2. Fetch real per-store Razorpay credentials from payment_settings
+    const { data: settings, error: settingsError } = await (await supabase)
+        .from('payment_settings')
+        .select('razorpay_key_id, razorpay_key_secret')
+        .eq('store_id', order.store_id)
+        .single()
+
+    if (settingsError || !settings?.razorpay_key_id || !settings?.razorpay_key_secret) {
+        return { error: 'Online payment is not configured for this store. Please contact the store owner.' }
     }
 
-    if (!settings || !settings.razorpay_key_id || !settings.razorpay_key_secret) {
-        return { error: 'Online payment not configured for this store' }
-    }
-
+    // 3. Decrypt the stored secret
     const key_secret = decrypt(settings.razorpay_key_secret)
-    if (!key_secret) return { error: 'Payment configuration error (Decryption failed)' }
+    if (!key_secret) return { error: 'Payment configuration error: decryption failed. Store must re-save their keys.' }
 
-    // 3. Initialize Razorpay
+    // 4. Initialize Razorpay with tenant credentials
     const instance = new Razorpay({
         key_id: settings.razorpay_key_id,
         key_secret: key_secret,
     })
 
-    // 4. Create Order on Razorpay
+    // 5. Create Order on Razorpay
     const options = {
-        amount: Math.round(order.total_amount * 100), // Amount in paise
-        currency: "INR",
+        amount: Math.round(order.total_amount * 100), // paise
+        currency: 'INR',
         receipt: orderId.slice(0, 10),
-    };
+    }
 
     try {
-        let rzOrderId = `order_mock_${Date.now()}`
-        let amount = Math.round(order.total_amount * 100)
+        const rzOrder = await instance.orders.create(options)
 
-        if (settings.razorpay_key_id === 'rzp_test_1MBZ2z9F9w123p') {
-            // Bypass for local testing with dummy keys
-            console.log('Using mock razorpay order generation')
-        } else {
-            const rzOrder = await instance.orders.create(options);
-            rzOrderId = rzOrder.id
-            amount = rzOrder.amount as number
-        }
-
-        // 5. Update Order with RZ ID
+        // 6. Persist RZ Order ID
         await (await supabase)
             .from('orders')
-            .update({ razorpay_order_id: rzOrderId })
+            .update({ razorpay_order_id: rzOrder.id })
             .eq('id', orderId)
 
         return {
             success: true,
-            razorpayOrderId: rzOrderId,
+            razorpayOrderId: rzOrder.id,
             keyId: settings.razorpay_key_id,
-            amount: amount,
-            currency: "INR"
+            amount: rzOrder.amount as number,
+            currency: 'INR',
         }
     } catch (error: any) {
-        console.error('Razorpay Error:', error)
-        return { error: 'Failed to create payment order' }
+        console.error('[payment] Razorpay order creation error:', error?.error || error)
+        return { error: 'Failed to create payment order. Please try again.' }
     }
 }
 
@@ -161,41 +150,37 @@ export async function verifyPayment(orderId: string, razorpayPaymentId: string, 
 
     if (!order || !order.razorpay_order_id) return { error: 'Invalid order for verification' }
 
-    // 2. Fetch Secret (MOCKED FOR QA)
-    let settings: any = { razorpay_key_id: '', razorpay_key_secret: '' };
-    if (order.store_id) {
-        settings = {
-            razorpay_key_id: 'rzp_test_1MBZ2z9F9w123p',
-            razorpay_key_secret: encrypt('dummy')
-        }
-    }
+    // 2. Fetch real per-store credentials from payment_settings
+    const { data: settings } = await (await supabase)
+        .from('payment_settings')
+        .select('razorpay_key_secret')
+        .eq('store_id', order.store_id)
+        .single()
 
-    if (!settings) return { error: 'Payment settings not found' }
+    if (!settings?.razorpay_key_secret) return { error: 'Payment settings not found for this store' }
+
     const key_secret = decrypt(settings.razorpay_key_secret)
+    if (!key_secret) return { error: 'Payment configuration error: decryption failed' }
 
-    // 3. Verify Signature
-    if (settings.razorpay_key_id === 'rzp_test_1MBZ2z9F9w123p' && razorpayPaymentId === 'pay_mock_123') {
-        // Bypass signature verification for local test mock
-        console.log('Bypassing signature for mock payment')
-    } else {
-        const body = order.razorpay_order_id + "|" + razorpayPaymentId;
-        const expectedSignature = crypto
-            .createHmac('sha256', key_secret)
-            .update(body.toString())
-            .digest('hex');
+    // 3. Strict HMAC SHA256 — no bypasses
+    const body = order.razorpay_order_id + '|' + razorpayPaymentId
+    const expectedSignature = crypto
+        .createHmac('sha256', key_secret)
+        .update(body)
+        .digest('hex')
 
-        if (expectedSignature !== razorpaySignature) {
-            return { error: 'Invalid payment signature' }
-        }
+    if (expectedSignature !== razorpaySignature) {
+        console.error('[payment] Signature mismatch for order', orderId)
+        return { error: 'Payment verification failed: invalid signature' }
     }
 
-    // Success!
+    // 4. Mark order as paid
     await (await supabase)
         .from('orders')
         .update({
             payment_status: 'paid',
             razorpay_payment_id: razorpayPaymentId,
-            status: 'confirmed' // Auto-confirm on payment?
+            status: 'confirmed',
         })
         .eq('id', orderId)
 
@@ -204,10 +189,10 @@ export async function verifyPayment(orderId: string, razorpayPaymentId: string, 
         .insert({
             order_id: orderId,
             status: 'paid',
-            note: `Payment successful. ID: ${razorpayPaymentId}`
+            note: `Payment verified. Razorpay ID: ${razorpayPaymentId}`,
         })
 
-    revalidatePath(`/${orderId}`) // Just in case
+    revalidatePath(`/${orderId}`)
     return { success: true }
 }
 
@@ -226,8 +211,8 @@ export async function createAdminSubscriptionOrder(planType: 'setup' | 'yearly')
         return { error: 'Platform payments are currently offline' }
     }
 
-    const key_secret = adminSettings.razorpay_key_secret
-    if (!key_secret) return { error: 'Platform Configuration Error' }
+    const key_secret = decrypt(adminSettings.razorpay_key_secret)
+    if (!key_secret) return { error: 'Platform Configuration Error: decryption failed' }
 
     const amount = planType === 'setup'
         ? (adminSettings.onboarding_price || 9999)
@@ -280,16 +265,21 @@ export async function verifyAdminSubscriptionPayment(subId: string, razorpayPaym
 
     if (!adminSettings?.razorpay_key_secret) return { error: 'Config missing' }
 
+    const admin_key_secret = decrypt(adminSettings.razorpay_key_secret)
+    if (!admin_key_secret) return { error: 'Admin payment configuration error: decryption failed' }
+
     const { data: sub } = await (await supabase).from('subscriptions').select('transaction_id').eq('id', subId).single()
     if (!sub) return { error: 'Subscription link broken' }
 
-    const body = sub.transaction_id + "|" + razorpayPaymentId;
+    // Strict HMAC verification using decrypted real key
+    const body = sub.transaction_id + '|' + razorpayPaymentId
     const expectedSignature = crypto
-        .createHmac('sha256', adminSettings.razorpay_key_secret)
-        .update(body.toString())
-        .digest('hex');
+        .createHmac('sha256', admin_key_secret)
+        .update(body)
+        .digest('hex')
 
     if (expectedSignature !== razorpaySignature) {
+        console.error('[payment] Admin subscription signature mismatch for sub', subId)
         return { error: 'Invalid payment signature' }
     }
 
