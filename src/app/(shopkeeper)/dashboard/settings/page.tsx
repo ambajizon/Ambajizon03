@@ -9,7 +9,7 @@ import PaymentSettings from '@/components/dashboard/PaymentSettings'
 import { Loader2, Save, Store, Image as ImageIcon, MapPin, Share2, Type, CreditCard, QrCode, ExternalLink, Globe } from 'lucide-react'
 import ImageCropUpload from '@/components/ImageCropUpload'
 import { useRouter } from 'next/navigation'
-import CryptoJS from 'crypto-js'
+
 import { QRCodeSVG } from 'qrcode.react'
 import { revalidateStore } from '@/app/actions/storefront'
 
@@ -100,14 +100,8 @@ export default function SettingsPage() {
                     setStoreUrl(`${window.location.origin}/${store.slug}/shop`)
                     const themeConfig = store.theme_config || {}
                     const paymentSettings = themeConfig.payment_settings || {}
-
-                    let secret = paymentSettings.razorpay_key_secret || ''
-                    if (secret) {
-                        try {
-                            const bytes = CryptoJS.AES.decrypt(secret, 'ambajizon-secret-key-123')
-                            secret = bytes.toString(CryptoJS.enc.Utf8)
-                        } catch (e) { }
-                    }
+                    // Payment keys are managed separately via the PaymentSettings component
+                    // and stored in the payment_settings table — not in theme_config.
 
                     let parsedTiming: any = { open: '09:00', close: '21:00', closed_days: [], is_24hours: false }
                     try {
@@ -155,19 +149,13 @@ export default function SettingsPage() {
             // For now, I'll assume the secret is handled outside of the schema validation for submission.
             // If the user enters a new secret, it will be in the form's internal state, not `data`.
             // Let's get it directly from the form state.
-            let encryptedSecret = form.getValues('razorpay_key_secret') || '' // Get from form state directly
-            if (encryptedSecret) {
-                encryptedSecret = CryptoJS.AES.encrypt(encryptedSecret, 'ambajizon-secret-key-123').toString()
-            }
+            // Payment keys (razorpay) are managed separately via the payment_settings table.
+            // Do not re-save them through theme_config.
 
             const { data: existingStore } = await supabase.from('stores').select('theme_config').eq('shopkeeper_id', user.id).single()
+            // Spread existing config — payment keys are NOT stored here anymore (they live in payment_settings table)
             const theme_config = {
                 ...(existingStore?.theme_config || {}),
-                payment_settings: {
-                    razorpay_key_id: data.razorpay_key_id,
-                    razorpay_key_secret: encryptedSecret,
-                    cod_enabled: data.cod_enabled
-                }
             }
 
             let updatePayload: any = {
