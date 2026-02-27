@@ -113,41 +113,52 @@ export default function ShopkeeperDashboard() {
 
                 {/* Quick Stats Grid */}
                 <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-                    <div className="bg-white p-6 rounded-xl border border-slate-200">
-                        <div className="flex flex-col gap-2">
-                            <p className="text-sm text-slate-500 font-medium tracking-wide">Total Orders</p>
-                            <div className="flex items-center gap-3">
-                                <span className="text-2xl font-bold text-slate-900">{store?.stats?.totalOrders || 0}</span>
-                                <span className="bg-green-100 text-green-700 px-1.5 py-0.5 rounded text-xs font-bold">+12%</span>
+                    {/* Total Orders - Blue */}
+                    <div className="bg-white p-5 rounded-2xl border border-slate-100 shadow-md shadow-slate-200/50 hover:shadow-lg transition-shadow">
+                        <div className="flex items-center justify-between mb-4">
+                            <div className="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center">
+                                <span className="material-symbols-outlined text-blue-600 text-[22px]">local_mall</span>
                             </div>
+                            <span className="bg-green-100 text-green-700 px-2 py-0.5 rounded-full text-[10px] font-black">+12%</span>
                         </div>
+                        <p className="text-xs text-slate-500 font-bold uppercase tracking-wider mb-1">Total Orders</p>
+                        <p className="text-2xl font-black text-slate-800">{store?.stats?.totalOrders || 0}</p>
                     </div>
-                    <div className="bg-white p-6 rounded-xl border border-slate-200">
-                        <div className="flex flex-col gap-2">
-                            <p className="text-sm text-slate-500 font-medium tracking-wide">Revenue</p>
-                            <div className="flex items-center gap-3">
-                                <span className="text-2xl font-bold text-slate-900">₹{(store?.stats?.totalRev || 0).toLocaleString()}</span>
-                                <span className="bg-green-100 text-green-700 px-1.5 py-0.5 rounded text-xs font-bold">+8%</span>
+
+                    {/* Revenue - Green */}
+                    <div className="bg-white p-5 rounded-2xl border border-slate-100 shadow-md shadow-slate-200/50 hover:shadow-lg transition-shadow">
+                        <div className="flex items-center justify-between mb-4">
+                            <div className="w-10 h-10 rounded-xl bg-green-50 flex items-center justify-center">
+                                <span className="material-symbols-outlined text-green-600 text-[22px]">payments</span>
                             </div>
+                            <span className="bg-green-100 text-green-700 px-2 py-0.5 rounded-full text-[10px] font-black">+8%</span>
                         </div>
+                        <p className="text-xs text-slate-500 font-bold uppercase tracking-wider mb-1">Revenue</p>
+                        <p className="text-2xl font-black text-slate-800">₹{(store?.stats?.totalRev || 0).toLocaleString()}</p>
                     </div>
-                    <div className="bg-white p-6 rounded-xl border border-slate-200">
-                        <div className="flex flex-col gap-2">
-                            <p className="text-sm text-slate-500 font-medium tracking-wide">Store Views</p>
-                            <div className="flex items-center gap-3">
-                                <span className="text-2xl font-bold text-slate-900">{(store?.stats?.totalOrders || 0) * 14 + 120}</span>
-                                <span className="bg-green-100 text-green-700 px-1.5 py-0.5 rounded text-xs font-bold">+24%</span>
+
+                    {/* Store Views - Purple */}
+                    <div className="bg-white p-5 rounded-2xl border border-slate-100 shadow-md shadow-slate-200/50 hover:shadow-lg transition-shadow">
+                        <div className="flex items-center justify-between mb-4">
+                            <div className="w-10 h-10 rounded-xl bg-purple-50 flex items-center justify-center">
+                                <span className="material-symbols-outlined text-purple-600 text-[22px]">visibility</span>
                             </div>
+                            <span className="bg-green-100 text-green-700 px-2 py-0.5 rounded-full text-[10px] font-black">+24%</span>
                         </div>
+                        <p className="text-xs text-slate-500 font-bold uppercase tracking-wider mb-1">Store Views</p>
+                        <p className="text-2xl font-black text-slate-800">{(store?.stats?.totalOrders || 0) * 14 + 120}</p>
                     </div>
-                    <div className="bg-white p-6 rounded-xl border border-slate-200">
-                        <div className="flex flex-col gap-2">
-                            <p className="text-sm text-slate-500 font-medium tracking-wide">QR Scans</p>
-                            <div className="flex items-center gap-3">
-                                <span className="text-2xl font-bold text-slate-900">{(store?.stats?.totalOrders || 0) * 8 + 45}</span>
-                                <span className="bg-green-100 text-green-700 px-1.5 py-0.5 rounded text-xs font-bold">+5%</span>
+
+                    {/* QR Scans - Orange */}
+                    <div className="bg-white p-5 rounded-2xl border border-slate-100 shadow-md shadow-slate-200/50 hover:shadow-lg transition-shadow">
+                        <div className="flex items-center justify-between mb-4">
+                            <div className="w-10 h-10 rounded-xl bg-orange-50 flex items-center justify-center">
+                                <span className="material-symbols-outlined text-orange-600 text-[22px]">qr_code_2</span>
                             </div>
+                            <span className="bg-green-100 text-green-700 px-2 py-0.5 rounded-full text-[10px] font-black">+5%</span>
                         </div>
+                        <p className="text-xs text-slate-500 font-bold uppercase tracking-wider mb-1">QR Scans</p>
+                        <p className="text-2xl font-black text-slate-800">{(store?.stats?.totalOrders || 0) * 8 + 45}</p>
                     </div>
                 </div>
 
@@ -157,13 +168,13 @@ export default function ShopkeeperDashboard() {
                     {/* Recent Orders List */}
                     <div className="lg:col-span-2">
                         <div className="flex justify-between items-center mb-4">
-                            <h2 className="text-[18px] font-bold text-slate-900 tracking-tight">Recent Orders</h2>
+                            <h2 className="text-[18px] font-black text-slate-800 tracking-tight">Recent Orders</h2>
                             <Link href="/dashboard/orders" className="text-[13px] font-bold text-primary hover:text-blue-700 flex items-center gap-1 group">
                                 View All <span className="material-symbols-outlined text-[16px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
                             </Link>
                         </div>
 
-                        <div className="bg-white border border-slate-200 rounded-xl overflow-x-auto shadow-sm">
+                        <div className="bg-white border border-slate-100 rounded-2xl overflow-x-auto shadow-md shadow-slate-200/50">
                             <table className="w-full text-left border-collapse min-w-[500px]">
                                 <thead className="bg-slate-50 border-b border-slate-200 text-slate-500">
                                     <tr>

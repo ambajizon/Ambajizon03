@@ -12,7 +12,7 @@ export default function ShopkeeperLayout({ children }: { children: ReactNode }) 
                 <Sidebar />
                 <div className="flex-1 flex flex-col w-full overflow-hidden">
                     <DashboardHeader />
-                    <main className="flex-1 p-4 lg:p-8 overflow-y-auto w-full pb-24 lg:pb-8">
+                    <main className="flex-1 p-4 lg:p-8 overflow-y-auto w-full pb-24 lg:pb-8 bg-slate-100">
                         <div className="container mx-auto max-w-7xl">
                             {children}
                         </div>
