@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import { getCustomerProfile, updateCustomerProfile, getCustomerAnalytics, updateCustomerControls, getLoyaltyTransactions, addLoyaltyTransaction, getCustomerOrders, getCustomerCommunications, addCustomerCommunication, deleteCustomerCommunication, updateCustomerCommunication } from '@/app/actions/crm'
+import { createClient } from '@/lib/supabase/client'
+import { getCustomerProfile, updateCustomerProfile, getCustomerAnalytics, updateCustomerControls, getLoyaltyTransactions, addLoyaltyTransaction, getCustomerCommunications, addCustomerCommunication, deleteCustomerCommunication, updateCustomerCommunication } from '@/app/actions/crm'
 import { ArrowLeft, User, Edit2, Save, X, Star, MapPin, Calendar, Smartphone, Mail, Globe, TrendingUp, ShoppingBag, CreditCard, Tag, Package, CalendarDays, Award, ShieldAlert, Clock, Phone, MessageSquare, StickyNote, Trash2, PlusCircle, CheckCircle, ExternalLink, MessageCircle, MoreVertical, Ban, FileText, Settings, Activity, History } from 'lucide-react'
 import toast from 'react-hot-toast'
 
@@ -46,30 +47,63 @@ export default function CustomerDetailClient({ customerId, onClose }: { customer
 
     async function loadCustomer() {
         setLoading(true)
-        const res = await getCustomerProfile(customerId)
-        const ana = await getCustomerAnalytics(customerId)
-        const lRes = await getLoyaltyTransactions(customerId)
-        const oRes = await getCustomerOrders(customerId)
-        const cRes = await getCustomerCommunications(customerId)
+        try {
+            // Use browser-session Supabase client for orders (same as left panel)
+            // This avoids server action auth context issues
+            const supabase = createClient()
+            const { data: { user } } = await supabase.auth.getUser()
+            const { data: storeData } = user
+                ? await supabase.from('stores').select('id').eq('shopkeeper_id', user.id).single()
+                : { data: null }
 
-        if (res.error) {
-            toast.error(res.error)
-            if (onClose) onClose()
-            else router.push('/dashboard/crm')
-        } else {
-            setCustomer(res.data)
-            setEditData(res.data)
-            setAnalytics(ana.data)
-            setIsBanned(res.data.is_banned || false)
-            setBanReason(res.data.ban_reason || '')
-            setCodBlocked(res.data.cod_blocked || false)
-            setCodBlockReason(res.data.cod_block_reason || '')
+            // Run all fetches in parallel
+            const [res, ana, lRes, cRes] = await Promise.all([
+                getCustomerProfile(customerId),
+                getCustomerAnalytics(customerId),
+                getLoyaltyTransactions(customerId),
+                getCustomerCommunications(customerId),
+            ])
 
-            if (lRes.data) setLoyaltyTx(lRes.data)
-            if (oRes.data) setOrders(oRes.data)
-            if (cRes.data) setComms(cRes.data)
+            // Fetch orders client-side to ensure browser session is used
+            if (storeData?.id) {
+                const { data: ordersData, error: ordersError } = await supabase
+                    .from('orders')
+                    .select(`
+                        id, total_amount, status, payment_status, payment_method, created_at,
+                        order_items ( id, product_id, product_name, quantity, price )
+                    `)
+                    .eq('customer_id', customerId)
+                    .eq('store_id', storeData.id)
+                    .order('created_at', { ascending: false })
+
+                if (ordersError) {
+                    console.error('[CRM orders fetch]', ordersError.message)
+                } else {
+                    setOrders(ordersData || [])
+                }
+            }
+
+            if (res.error) {
+                toast.error(res.error)
+                if (onClose) onClose()
+                else router.push('/dashboard/crm')
+            } else {
+                setCustomer(res.data)
+                setEditData(res.data)
+                setAnalytics(ana.data)
+                setIsBanned(res.data.is_banned || false)
+                setBanReason(res.data.ban_reason || '')
+                setCodBlocked(res.data.cod_blocked || false)
+                setCodBlockReason(res.data.cod_block_reason || '')
+
+                if (lRes.data) setLoyaltyTx(lRes.data)
+                if (cRes.data) setComms(cRes.data)
+            }
+        } catch (err: any) {
+            console.error('[CustomerDetailClient loadCustomer]', err)
+        } finally {
+            setLoading(false)
         }
-        setLoading(false)
     }
 
     async function handleSaveProfile() {
