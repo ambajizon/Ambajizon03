@@ -129,7 +129,7 @@ export default function StoreSetupWizard() {
                                 {...form.register('name', {
                                     onChange: (e) => updateSlug(e.target.value)
                                 })}
-                                className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                                className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 text-base text-slate-900 dark:text-slate-100 placeholder:text-slate-400 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                                 placeholder="e.g. Gujarat Heritage"
                             />
                             {form.formState.errors.name && (
@@ -144,7 +144,7 @@ export default function StoreSetupWizard() {
                                 </span>
                                 <input
                                     {...form.register('slug')}
-                                    className="block w-full min-w-0 flex-1 rounded-none rounded-r-md border border-gray-300 px-3 py-2 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                                    className="block w-full min-w-0 flex-1 rounded-none rounded-r-md border border-gray-300 px-3 py-2 text-base text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                                 />
                             </div>
                             {form.formState.errors.slug && (
@@ -175,7 +175,7 @@ export default function StoreSetupWizard() {
                             <label className="block text-sm font-medium text-gray-700">WhatsApp Number</label>
                             <input
                                 {...form.register('whatsapp_number')}
-                                className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                                className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 text-base text-slate-900 dark:text-slate-100 placeholder:text-slate-400 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                                 placeholder="+91 9876543210"
                             />
                         </div>
@@ -183,7 +183,7 @@ export default function StoreSetupWizard() {
                             <label className="block text-sm font-medium text-gray-700">Phone Number</label>
                             <input
                                 {...form.register('phone_number')}
-                                className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                                className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 text-base text-slate-900 dark:text-slate-100 placeholder:text-slate-400 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                                 placeholder="+91 9876543210"
                             />
                         </div>
@@ -191,7 +191,7 @@ export default function StoreSetupWizard() {
                             <label className="block text-sm font-medium text-gray-700">Shop Timing</label>
                             <input
                                 {...form.register('shop_timing')}
-                                className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                                className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 text-base text-slate-900 dark:text-slate-100 placeholder:text-slate-400 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                                 placeholder="Mon-Sat: 10AM - 9PM"
                             />
                         </div>
@@ -205,7 +205,7 @@ export default function StoreSetupWizard() {
                             <label className="block text-sm font-medium text-gray-700">Google Maps Location URL</label>
                             <input
                                 {...form.register('location_url')}
-                                className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                                className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 text-base text-slate-900 dark:text-slate-100 placeholder:text-slate-400 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                                 placeholder="https://maps.google.com/..."
                             />
                         </div>

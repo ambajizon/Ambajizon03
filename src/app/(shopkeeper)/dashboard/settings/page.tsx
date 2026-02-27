@@ -42,6 +42,7 @@ export default function SettingsPage() {
     const [saving, setSaving] = useState(false)
     const [activeTab, setActiveTab] = useState('General')
     const [storeUrl, setStoreUrl] = useState('')
+    const [billingInfo, setBillingInfo] = useState<{ status: string, trialEnd: string | null } | null>(null)
     const router = useRouter()
     const supabase = createClient()
 
@@ -80,6 +81,20 @@ export default function SettingsPage() {
                     .single()
 
                 if (error) throw error
+
+                // Fetch Billing Info
+                const { data: shopkeeper } = await supabase
+                    .from('shopkeepers')
+                    .select('subscription_status, trial_end_date')
+                    .eq('id', user.id)
+                    .single()
+
+                if (shopkeeper) {
+                    setBillingInfo({
+                        status: shopkeeper.subscription_status || 'trial',
+                        trialEnd: shopkeeper.trial_end_date
+                    })
+                }
 
                 if (store) {
                     setStoreUrl(`${window.location.origin}/${store.slug}/shop`)
@@ -260,7 +275,7 @@ export default function SettingsPage() {
             </div>
 
             <div className="flex space-x-1 overflow-x-auto hide-scrollbar bg-gray-100 p-1 rounded-xl mb-6">
-                {['General', 'Pages', 'Payment', 'QR Code'].map(tab => (
+                {['General', 'Pages', 'Payment', 'QR Code', 'Billing'].map(tab => (
                     <button
                         key={tab}
                         type="button"
@@ -493,6 +508,43 @@ export default function SettingsPage() {
                                 includeMargin={true}
                             />
                             <span className="font-bold mt-4 text-gray-800 text-lg">Scan to Shop</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div className={`space-y-8 animate-in fade-in slide-in-from-bottom-2 ${activeTab === 'Billing' ? 'block' : 'hidden'}`}>
+                    <div className="rounded-lg border bg-white p-6 shadow-sm">
+                        <div className="mb-4 flex items-center gap-2 border-b pb-2">
+                            <CreditCard className="h-5 w-5 text-emerald-600" />
+                            <h2 className="text-lg font-semibold text-gray-800">Billing & Subscription</h2>
+                        </div>
+                        <div className="bg-gradient-to-br from-emerald-50 to-teal-50 border border-emerald-100 rounded-xl p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-6 shadow-sm">
+                            <div className="space-y-2 text-center md:text-left">
+                                <p className="text-sm font-bold tracking-widest text-emerald-700 uppercase">Current Plan</p>
+                                <h3 className="text-3xl font-black text-gray-900 capitalize">
+                                    {billingInfo?.status === 'trial' ? '15-Day Free Trial' : billingInfo?.status === 'active' ? 'Pro Plan' : 'Expired'}
+                                </h3>
+                                {billingInfo?.status === 'trial' && billingInfo?.trialEnd && (
+                                    <p className="text-sm font-bold text-orange-700 bg-orange-100 border border-orange-200 px-3 py-1 rounded-full inline-block mt-2">
+                                        {Math.max(0, Math.ceil((new Date(billingInfo.trialEnd).getTime() - new Date().getTime()) / (1000 * 3600 * 24)))} Days Left in Trial
+                                    </p>
+                                )}
+                            </div>
+                            <div className="flex-shrink-0">
+                                <button
+                                    type="button"
+                                    onClick={() => alert('Routing to secure payment gateway checkout (Stripe/Razorpay subscription init)...')}
+                                    className="px-8 py-3 bg-gray-900 text-white font-bold rounded-lg shadow-xl shadow-gray-900/20 hover:bg-gray-800 hover:scale-105 transition-all text-sm uppercase tracking-wide"
+                                >
+                                    Upgrade Plan
+                                </button>
+                            </div>
+                        </div>
+                        <div className="mt-8">
+                            <h4 className="text-sm font-bold text-gray-900 mb-4 border-b pb-2">Billing History</h4>
+                            <div className="text-center py-10 bg-gray-50 rounded-lg border border-dashed border-gray-200 text-gray-400 text-sm font-medium">
+                                No past invoices found.
+                            </div>
                         </div>
                     </div>
                 </div>

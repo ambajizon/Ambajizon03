@@ -10,7 +10,7 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
     ({ className = '', label, error, success, iconLeft, iconRight, ...props }, ref) => {
-        const baseStyles = 'flex h-12 w-full rounded-lg border bg-white px-4 py-2 text-[15px] transition-all duration-200 outline-none placeholder:text-gray-400 disabled:cursor-not-allowed disabled:bg-gray-50 disabled:opacity-50';
+        const baseStyles = 'flex h-12 w-full rounded-lg border bg-white px-4 py-2 text-base text-slate-900 dark:text-slate-100 transition-all duration-200 outline-none placeholder:text-slate-400 disabled:cursor-not-allowed disabled:bg-gray-50 disabled:opacity-50';
 
         let borderStyles = 'border-gray-200 focus:border-primary focus:ring-4 focus:ring-primary/10';
 
