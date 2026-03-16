@@ -52,3 +52,5 @@ export async function extractProductDetailsWithAI(dataUri: string) {
         return { success: false, error: err.message || 'Failed to process AI extraction' }
     }
 }
+
+// deployment-sync: 2026-03-16 12:55
