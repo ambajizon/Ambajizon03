@@ -13,6 +13,7 @@ export type StoreData = {
     name: string
     slug: string
     logo_url: string | null
+    hero_image_url: string | null
     hero_banner_url: string | null
     primary_color: string
     font_family: string
@@ -60,6 +61,7 @@ export const getStoreBySlug = cache(async (slug: string) => {
         location_url: data.location_url || theme.location_url || null,
         footer_text: data.footer_text || theme.footer_text || null,
         social_links: data.social_links || theme.social_links || null,
+        hero_image_url: data.hero_image_url || theme.hero_image_url || null,
         about_page_text: data.about_page_text || theme.about_page_text || null,
         contact_page_text: data.contact_page_text || theme.contact_page_text || null,
     } as StoreData

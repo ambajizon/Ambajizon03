@@ -34,7 +34,10 @@ export async function extractProductDetailsWithAI(dataUri: string) {
             ]
         })
 
-        const responseText = response.text
+        const responseText = response.text;
+        if (!responseText) {
+            return { success: false, error: 'AI returned an empty response' }
+        }
 
         // Clean up markdown in case the model ignored raw JSON instructions
         let cleanJsonStr = responseText.trim()
