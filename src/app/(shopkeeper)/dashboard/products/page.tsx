@@ -1,10 +1,12 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react'
-import { Plus, Edit, Trash2, Image as ImageIcon, Search, Filter, Package, ChevronDown, ChevronRight, X } from 'lucide-react'
+import { Plus, Edit, Trash2, Image as ImageIcon, Search, Filter, Package, ChevronDown, ChevronRight, X, Sparkles, FileSpreadsheet } from 'lucide-react'
 import { getProducts, updateProduct, deleteProduct, getCategories, type Product, type Category } from '@/app/actions/products'
 import Link from 'next/link'
 import { Button } from '@/components/ui/Button'
+import AIScannerModal from '@/components/dashboard/products/AIScannerModal'
+import BulkUploadModal from '@/components/dashboard/products/BulkUploadModal'
 
 export default function ProductsPage() {
     const [products, setProducts] = useState<Product[]>([])
@@ -14,6 +16,8 @@ export default function ProductsPage() {
     const [categoryFilter, setCategoryFilter] = useState('all')
     const [toggling, setToggling] = useState<string | null>(null)
     const [showCategorySheet, setShowCategorySheet] = useState(false)
+    const [isAIOpen, setIsAIOpen] = useState(false)
+    const [isBulkOpen, setIsBulkOpen] = useState(false)
 
     useEffect(() => {
         loadData()
@@ -118,6 +122,24 @@ export default function ProductsPage() {
                         </button>
                     )}
                 </div>
+                
+                {/* Mobile Quick Action Buttons */}
+                <div className="flex items-center gap-2 mt-3">
+                    <button 
+                        onClick={() => setIsAIOpen(true)}
+                        className="flex-1 bg-white/10 hover:bg-white/20 border border-white/10 text-white rounded-xl py-2 px-3 text-xs font-bold flex items-center justify-center gap-1.5 transition-colors"
+                    >
+                        <Sparkles size={14} className="text-indigo-300" />
+                        AI Scan
+                    </button>
+                    <button 
+                        onClick={() => setIsBulkOpen(true)}
+                        className="flex-1 bg-white/10 hover:bg-white/20 border border-white/10 text-white rounded-xl py-2 px-3 text-xs font-bold flex items-center justify-center gap-1.5 transition-colors"
+                    >
+                        <FileSpreadsheet size={14} className="text-green-300" />
+                        Bulk CSV
+                    </button>
+                </div>
             </div>
 
             {/* ═══════════════════════════════════════════
@@ -172,12 +194,23 @@ export default function ProductsPage() {
                     Products
                     <span className="text-[13px] text-gray-400 font-bold bg-gray-100 px-2 py-0.5 rounded-full ml-2">{products.length}</span>
                 </h1>
-                <Link href="/dashboard/products/create">
-                    <Button variant="primary" className="h-9 px-4 rounded-xl gap-1.5 shadow-sm text-[13px] active:scale-95 transition-transform">
-                        <Plus size={15} strokeWidth={3} />
-                        Add Product
-                    </Button>
-                </Link>
+                
+                <div className="flex items-center gap-2">
+                    <button onClick={() => setIsBulkOpen(true)} className="flex items-center gap-1.5 text-[13px] font-bold text-slate-600 bg-white border border-slate-200 hover:bg-slate-50 hover:border-slate-300 px-3 py-2 h-9 rounded-xl shadow-sm transition-all active:scale-95">
+                        <FileSpreadsheet size={15} className="text-green-500" />
+                        Bulk Upload
+                    </button>
+                    <button onClick={() => setIsAIOpen(true)} className="flex items-center gap-1.5 text-[13px] font-bold text-slate-600 bg-white border border-slate-200 hover:bg-slate-50 hover:border-slate-300 px-3 py-2 h-9 rounded-xl shadow-sm transition-all active:scale-95">
+                        <Sparkles size={15} className="text-indigo-500" />
+                        Add by AI
+                    </button>
+                    <Link href="/dashboard/products/create">
+                        <Button variant="primary" className="h-9 px-4 rounded-xl gap-1.5 shadow-sm text-[13px] active:scale-95 transition-transform ml-1">
+                            <Plus size={15} strokeWidth={3} />
+                            Add Product
+                        </Button>
+                    </Link>
+                </div>
             </div>
 
             {/* Desktop search + filter row */}
@@ -380,6 +413,18 @@ export default function ProductsPage() {
                     </div>
                 </>
             )}
+
+            <AIScannerModal 
+                isOpen={isAIOpen} 
+                onClose={() => setIsAIOpen(false)} 
+                onSuccess={() => { loadData(); setIsAIOpen(false) }} 
+            />
+            
+            <BulkUploadModal 
+                isOpen={isBulkOpen} 
+                onClose={() => setIsBulkOpen(false)} 
+                onSuccess={() => { loadData(); setIsBulkOpen(false) }} 
+            />
         </div>
     )
 }

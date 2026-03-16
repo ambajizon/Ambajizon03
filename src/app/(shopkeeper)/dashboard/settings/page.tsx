@@ -33,6 +33,12 @@ const settingsSchema = z.object({
     }, 'Enter a valid domain without http:// or www. (e.g. yourstore.com)'),
     about_page_text: z.string().optional(),
     contact_page_text: z.string().optional(),
+    terms_conditions: z.string().optional(),
+    privacy_policy: z.string().optional(),
+    returns_policy: z.string().optional(),
+    refunds_policy: z.string().optional(),
+    shipping_policy: z.string().optional(),
+    disclaimer: z.string().optional(),
 })
 
 type SettingsFormValues = z.infer<typeof settingsSchema>
@@ -64,6 +70,12 @@ export default function SettingsPage() {
             custom_domain: '',
             about_page_text: '',
             contact_page_text: '',
+            terms_conditions: '',
+            privacy_policy: '',
+            returns_policy: '',
+            refunds_policy: '',
+            shipping_policy: '',
+            disclaimer: '',
         },
     })
 
@@ -125,6 +137,14 @@ export default function SettingsPage() {
                         // razorpay_key_secret: secret, // Removed as per instruction
                         cod_enabled: paymentSettings.cod_enabled || false,
                         custom_domain: store.custom_domain || '',
+                        about_page_text: store.about_page_text || themeConfig.about_page_text || '',
+                        contact_page_text: store.contact_page_text || themeConfig.contact_page_text || '',
+                        terms_conditions: store.terms_conditions || '',
+                        privacy_policy: store.privacy_policy || '',
+                        returns_policy: store.returns_policy || '',
+                        refunds_policy: store.refunds_policy || '',
+                        shipping_policy: store.shipping_policy || '',
+                        disclaimer: store.disclaimer || '',
                     })
                 }
             } catch (error) {
@@ -173,7 +193,13 @@ export default function SettingsPage() {
                 theme_config: theme_config,
                 custom_domain: data.custom_domain,
                 about_page_text: data.about_page_text,
-                contact_page_text: data.contact_page_text
+                contact_page_text: data.contact_page_text,
+                terms_conditions: data.terms_conditions,
+                privacy_policy: data.privacy_policy,
+                returns_policy: data.returns_policy,
+                refunds_policy: data.refunds_policy,
+                shipping_policy: data.shipping_policy,
+                disclaimer: data.disclaimer,
             }
             let { error } = await supabase.from('stores').update(updatePayload).eq('shopkeeper_id', user.id)
 
@@ -263,7 +289,7 @@ export default function SettingsPage() {
             </div>
 
             <div className="flex space-x-1 overflow-x-auto hide-scrollbar bg-gray-100 p-1 rounded-xl mb-6">
-                {['General', 'Pages', 'Payment', 'QR Code', 'Billing'].map(tab => (
+                {['General', 'Pages', 'Policies', 'Payment', 'QR Code', 'Billing'].map(tab => (
                     <button
                         key={tab}
                         type="button"
@@ -408,6 +434,66 @@ export default function SettingsPage() {
                             className="w-full rounded-md border p-4 text-sm font-medium leading-relaxed bg-gray-50 outline-none focus:bg-white focus:ring-2 focus:ring-blue-500 min-h-[200px]"
                             placeholder="We love hearing from our customers. The best way to reach us is via WhatsApp between 10 AM and 6 PM..."
                         />
+                    </div>
+                </div>
+
+                {/* Policies Tab */}
+                <div className={`space-y-8 animate-in fade-in slide-in-from-bottom-2 ${activeTab === 'Policies' ? 'block' : 'hidden'}`}>
+                    <div className="rounded-lg border bg-white p-6 shadow-sm">
+                        <div className="mb-6 flex flex-col border-b pb-4">
+                            <h2 className="text-lg font-semibold text-gray-800 flex items-center gap-2"><Globe className="h-5 w-5 text-gray-500" /> Legal & Policies</h2>
+                            <p className="text-sm text-gray-500 mt-1">Configure your storefront's legal compliance pages. These are required for payment gateway approval.</p>
+                        </div>
+                        <div className="space-y-6">
+                            <div className="space-y-2">
+                                <label className="text-sm font-bold text-gray-700">Terms & Conditions</label>
+                                <textarea
+                                    {...form.register('terms_conditions')}
+                                    placeholder="Enter your terms of service..."
+                                    className="w-full rounded-md border p-3 text-sm min-h-[120px] outline-none focus:ring-2 focus:ring-indigo-500"
+                                />
+                            </div>
+                            <div className="space-y-2">
+                                <label className="text-sm font-bold text-gray-700">Privacy Policy</label>
+                                <textarea
+                                    {...form.register('privacy_policy')}
+                                    placeholder="Explain how you handle customer data..."
+                                    className="w-full rounded-md border p-3 text-sm min-h-[120px] outline-none focus:ring-2 focus:ring-indigo-500"
+                                />
+                            </div>
+                            <div className="space-y-2">
+                                <label className="text-sm font-bold text-gray-700">Returns & Cancellations</label>
+                                <textarea
+                                    {...form.register('returns_policy')}
+                                    placeholder="Outline your return window and cancellation terms..."
+                                    className="w-full rounded-md border p-3 text-sm min-h-[120px] outline-none focus:ring-2 focus:ring-indigo-500"
+                                />
+                            </div>
+                            <div className="space-y-2">
+                                <label className="text-sm font-bold text-gray-700">Refunds Policy</label>
+                                <textarea
+                                    {...form.register('refunds_policy')}
+                                    placeholder="Detail when and how refunds are issued..."
+                                    className="w-full rounded-md border p-3 text-sm min-h-[120px] outline-none focus:ring-2 focus:ring-indigo-500"
+                                />
+                            </div>
+                            <div className="space-y-2">
+                                <label className="text-sm font-bold text-gray-700">Shipping Policy</label>
+                                <textarea
+                                    {...form.register('shipping_policy')}
+                                    placeholder="List shipping timelines, delivery partners, and costs..."
+                                    className="w-full rounded-md border p-3 text-sm min-h-[120px] outline-none focus:ring-2 focus:ring-indigo-500"
+                                />
+                            </div>
+                            <div className="space-y-2">
+                                <label className="text-sm font-bold text-gray-700">Disclaimer</label>
+                                <textarea
+                                    {...form.register('disclaimer')}
+                                    placeholder="Add any legal disclaimers..."
+                                    className="w-full rounded-md border p-3 text-sm min-h-[120px] outline-none focus:ring-2 focus:ring-indigo-500"
+                                />
+                            </div>
+                        </div>
                     </div>
                 </div>
 

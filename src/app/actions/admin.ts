@@ -379,7 +379,13 @@ export async function getAdminSettings() {
     const { data: { user } } = await (await supabaseClient).auth.getUser()
 
     if (!user || user.user_metadata?.role !== 'admin') return null
-    return user.user_metadata || {}
+
+    // Attempt to read from admin_settings table first
+    const adminDb = createAdminClient()
+    const { data: tableSettings } = await adminDb.from('admin_settings').select('*').single()
+
+    // Return merged settings, preferring DB table over user_metadata
+    return { ...user.user_metadata, ...(tableSettings || {}) }
 }
 
 export async function saveAdminSettings(settings: any) {
@@ -388,22 +394,32 @@ export async function saveAdminSettings(settings: any) {
 
     if (!user || user.user_metadata?.role !== 'admin') return { error: 'Unauthorized' }
 
-    // Use admin client to safely update user metadata
     const { createClient: createSupabaseClient } = await import('@supabase/supabase-js')
     const adminSupabase = createSupabaseClient(
         process.env.NEXT_PUBLIC_SUPABASE_URL!,
         process.env.SUPABASE_SERVICE_ROLE_KEY!
     )
 
-    const updatedMetadata = { ...user.user_metadata, ...settings }
+    // Save strictly to DB table first
+    const { data: existing } = await adminSupabase.from('admin_settings').select('id').single()
+    let dbError = null
+    if (existing) {
+        const { error } = await adminSupabase.from('admin_settings').update(settings).eq('id', existing.id)
+        dbError = error
+    } else {
+        const { error } = await adminSupabase.from('admin_settings').insert(settings)
+        dbError = error
+    }
+    if (dbError) return { error: dbError.message }
 
-    const { error } = await adminSupabase.auth.admin.updateUserById(user.id, {
+    // Save fallback to user metadata
+    const updatedMetadata = { ...user.user_metadata, ...settings }
+    const { error: metaError } = await adminSupabase.auth.admin.updateUserById(user.id, {
         user_metadata: updatedMetadata
     })
 
-    if (error) return { error: error.message }
+    if (metaError) return { error: metaError.message }
 
-    // Refresh session or let client revalidate
     revalidatePath('/admin/settings')
     return { success: true }
 }

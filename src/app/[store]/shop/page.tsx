@@ -22,7 +22,7 @@ export default async function ShopPage({ params }: { params: { store: string } }
     const activeOffer = offers.length > 0 ? offers[0] : null
 
     const themeConfig = (store as any).theme_config || {}
-    const heroBannerUrl = store.hero_banner_url || themeConfig.hero_banner_url || null
+    const heroBannerUrl = store.hero_image_url || themeConfig.hero_image_url || null
     const showExclusive = themeConfig.show_exclusive !== false
     const showFlashSale = themeConfig.show_flash_sale !== false
 
@@ -364,13 +364,15 @@ export default async function ShopPage({ params }: { params: { store: string } }
                                     <li><Link href={`/${store.slug}/shop/dynamic/affiliates`} className="text-[13px] text-slate-400 hover:text-white transition-colors">Affiliates</Link></li>
                                 </ul>
                             </div>
-                            <div>
-                                <h5 className="font-bold text-white mb-6 text-[16px] tracking-wide text-sm lg:text-base">Support</h5>
-                                <ul className="space-y-4">
-                                    <li><Link href={`/${store.slug}/shop/orders`} className="text-[13px] text-slate-400 hover:text-white transition-colors">Order Status</Link></li>
-                                    <li><Link href={`/${store.slug}/shop/dynamic/shipping-and-returns`} className="text-[13px] text-slate-400 hover:text-white transition-colors">Shipping & Returns</Link></li>
-                                    <li><Link href={`/${store.slug}/shop/dynamic/privacy-policy`} className="text-[13px] text-slate-400 hover:text-white transition-colors">Privacy Policy</Link></li>
-                                    <li><Link href={`/${store.slug}/shop/dynamic/terms-of-service`} className="text-[13px] text-slate-400 hover:text-white transition-colors">Terms of Service</Link></li>
+                            <div className="col-span-2 lg:col-span-1">
+                                <h5 className="font-bold text-white mb-6 text-[16px] tracking-wide text-sm lg:text-base">Legal & Policies</h5>
+                                <ul className="space-y-4 grid grid-cols-2 gap-x-4 gap-y-0 lg:block lg:space-y-4">
+                                    <li><Link href={`/${store.slug}/policies/terms-conditions`} className="text-[13px] text-slate-400 hover:text-white transition-colors">Terms & Conditions</Link></li>
+                                    <li><Link href={`/${store.slug}/policies/privacy-policy`} className="text-[13px] text-slate-400 hover:text-white transition-colors">Privacy Policy</Link></li>
+                                    <li><Link href={`/${store.slug}/policies/returns-policy`} className="text-[13px] text-slate-400 hover:text-white transition-colors">Returns & Cancellations</Link></li>
+                                    <li><Link href={`/${store.slug}/policies/refunds-policy`} className="text-[13px] text-slate-400 hover:text-white transition-colors">Refunds Policy</Link></li>
+                                    <li><Link href={`/${store.slug}/policies/shipping-policy`} className="text-[13px] text-slate-400 hover:text-white transition-colors">Shipping Policy</Link></li>
+                                    <li><Link href={`/${store.slug}/policies/disclaimer`} className="text-[13px] text-slate-400 hover:text-white transition-colors">Disclaimer</Link></li>
                                 </ul>
                             </div>
                             <div className="col-span-2 lg:col-span-1">

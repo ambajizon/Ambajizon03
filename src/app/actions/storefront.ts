@@ -26,6 +26,12 @@ export type StoreData = {
     is_live: boolean
     about_page_text: string | null
     contact_page_text: string | null
+    terms_conditions: string | null
+    privacy_policy: string | null
+    returns_policy: string | null
+    refunds_policy: string | null
+    shipping_policy: string | null
+    disclaimer: string | null
 }
 
 export const getStoreBySlug = cache(async (slug: string) => {

@@ -8,6 +8,8 @@ import ImageCropUpload from '@/components/ImageCropUpload'
 import { Loader2, ArrowLeft, Check, Package, DollarSign, ListTree, Eye, Plus, X, ChevronRight } from 'lucide-react'
 import Link from 'next/link'
 import { Button } from '@/components/ui/Button'
+import AIFillButton from '@/components/dashboard/products/AIFillButton'
+import toast from 'react-hot-toast'
 
 interface ProductFormProps {
     initialData?: Product
@@ -49,6 +51,25 @@ export default function ProductForm({ initialData }: ProductFormProps) {
         setCategories(cats)
         setSubcategories(subs)
         setLoading(false)
+    }
+
+    const handleAIFill = (data: any) => {
+        setFormData(prev => ({
+            ...prev,
+            name: data.productName || prev.name,
+            description: [
+                data.description || '', 
+                "\n\n---\n**Compliance & Standards:**",
+                data.manufacturerDetails ? `- **Manufacturer:** ${data.manufacturerDetails}` : '',
+                data.countryOfOrigin ? `- **Country of Origin:** ${data.countryOfOrigin}` : '',
+                data.ageGroup ? `- **Age Group:** ${data.ageGroup}` : '',
+                data.material ? `- **Material:** ${data.material}` : '',
+                data.expiryDate ? `- **Expiry Date:** ${data.expiryDate}` : ''
+            ].filter(Boolean).join('\n').trim(),
+            mrp: data.mrp?.toString() || prev.mrp,
+            price: data.mrp?.toString() || prev.price,
+            tags: data.netQuantityOrWeight ? `Weight/Vol: ${data.netQuantityOrWeight}` : prev.tags
+        }))
     }
 
     useEffect(() => {
@@ -242,7 +263,10 @@ export default function ProductForm({ initialData }: ProductFormProps) {
                     {/* Step 1: Info */}
                     {step === 1 && (
                         <div className="space-y-6">
-                            <h2 className="text-[18px] font-black text-gray-900 border-b border-gray-100 pb-3">Basic Information</h2>
+                            <div className="flex items-center justify-between border-b border-gray-100 pb-3">
+                                <h2 className="text-[18px] font-black text-gray-900">Basic Information</h2>
+                                <AIFillButton onDataReceived={handleAIFill} />
+                            </div>
                             <div>
                                 <label className="block text-[13px] font-bold text-gray-700 mb-2 uppercase tracking-wide">Product Name <span className="text-red-500">*</span></label>
                                 <input

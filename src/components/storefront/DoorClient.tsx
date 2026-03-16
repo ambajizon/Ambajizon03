@@ -55,8 +55,8 @@ export default function DoorClient({ store, storeSlug, isLoggedIn }: { store: an
         >
             {/* Background Image / Gradient */}
             <div className="absolute inset-0 w-full h-full -z-10">
-                {store.hero_banner_url ? (
-                    <Image src={store.hero_banner_url} alt="Cover" fill className="object-cover opacity-60" priority />
+                {store.hero_image_url ? (
+                    <Image src={store.hero_image_url} alt="Cover" fill className="object-cover opacity-60" priority />
                 ) : (
                     <div className="absolute inset-0 bg-gradient-to-b from-primary/20 to-gray-50" />
                 )}

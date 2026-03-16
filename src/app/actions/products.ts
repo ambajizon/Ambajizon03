@@ -408,3 +408,34 @@ export async function deleteProduct(id: string) {
     revalidatePath('/dashboard/products')
     return { success: true, message: 'Product deleted' }
 }
+
+export async function bulkInsertProducts(productsList: any[]) {
+    const supabase = createClient()
+    const { data: { user } } = await (await supabase).auth.getUser()
+    if (!user) return { success: false, message: 'Unauthorized' }
+
+    const { data: store } = await (await supabase)
+        .from('stores')
+        .select('id')
+        .eq('shopkeeper_id', user.id)
+        .single()
+
+    if (!store) return { success: false, message: 'Store not found' }
+
+    // Map store_id into all rows
+    const enrichedProducts = productsList.map(p => ({
+        ...p,
+        store_id: store.id
+    }))
+
+    const { error } = await (await supabase)
+        .from('products')
+        .insert(enrichedProducts)
+
+    if (error) {
+        return { success: false, message: 'Bulk insert failed: ' + error.message }
+    }
+
+    revalidatePath('/dashboard/products')
+    return { success: true, message: `Successfully inserted ${enrichedProducts.length} products` }
+}

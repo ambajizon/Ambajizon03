@@ -69,8 +69,7 @@ export default function CustomerDetailClient({ customerId, onClose }: { customer
                 const { data: ordersData, error: ordersError } = await supabase
                     .from('orders')
                     .select(`
-                        id, total_amount, status, payment_status, payment_method, created_at,
-                        order_items ( id, product_id, product_name, quantity, price )
+                        id, total_amount, status, payment_status, payment_method, created_at
                     `)
                     .eq('customer_id', customerId)
                     .eq('store_id', storeData.id)
