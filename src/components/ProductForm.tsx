@@ -5,10 +5,11 @@ import { useRouter } from 'next/navigation'
 import { getCategories, getSubcategories, createProduct, updateProduct, createCategory, type Category, type Subcategory, type Product } from '@/app/actions/products'
 import MultiImageUpload from '@/components/MultiImageUpload'
 import ImageCropUpload from '@/components/ImageCropUpload'
-import { Loader2, ArrowLeft, Check, Package, DollarSign, ListTree, Eye, Plus, X, ChevronRight } from 'lucide-react'
+import { Loader2, ArrowLeft, Check, Package, DollarSign, ListTree, Eye, Plus, X, ChevronRight, Sparkles, RefreshCw } from 'lucide-react'
 import Link from 'next/link'
 import { Button } from '@/components/ui/Button'
 import AIFillButton from '@/components/dashboard/products/AIFillButton'
+import { generateDescriptionByName } from '@/app/actions/ai-product'
 import toast from 'react-hot-toast'
 
 interface ProductFormProps {
@@ -24,6 +25,7 @@ export default function ProductForm({ initialData }: ProductFormProps) {
     const [saving, setSaving] = useState(false)
     const [loading, setLoading] = useState(!initialData)
     const [step, setStep] = useState(1)
+    const [isGenerating, setIsGenerating] = useState(false)
 
     // New Category Modal State
     const [isCategoryModalOpen, setIsCategoryModalOpen] = useState(false)
@@ -56,20 +58,33 @@ export default function ProductForm({ initialData }: ProductFormProps) {
     const handleAIFill = (data: any) => {
         setFormData(prev => ({
             ...prev,
-            name: data.productName || prev.name,
-            description: [
-                data.description || '', 
-                "\n\n---\n**Compliance & Standards:**",
-                data.manufacturerDetails ? `- **Manufacturer:** ${data.manufacturerDetails}` : '',
-                data.countryOfOrigin ? `- **Country of Origin:** ${data.countryOfOrigin}` : '',
-                data.ageGroup ? `- **Age Group:** ${data.ageGroup}` : '',
-                data.material ? `- **Material:** ${data.material}` : '',
-                data.expiryDate ? `- **Expiry Date:** ${data.expiryDate}` : ''
-            ].filter(Boolean).join('\n').trim(),
+            name: data.product_name || data.productName || prev.name,
+            description: data.description || prev.description,
             mrp: data.mrp?.toString() || prev.mrp,
             price: data.mrp?.toString() || prev.price,
-            tags: data.netQuantityOrWeight ? `Weight/Vol: ${data.netQuantityOrWeight}` : prev.tags
+            tags: Array.isArray(data.seo_keywords)
+                ? data.seo_keywords.slice(0, 5).join(', ')
+                : prev.tags
         }))
+        toast.success('✅ AI scan complete — review and edit before saving')
+    }
+
+    const handleGenerateDescription = async () => {
+        const name = formData.name.trim()
+        if (!name) {
+            toast.error('Please enter a product name first')
+            return
+        }
+        try {
+            setIsGenerating(true)
+            const description = await generateDescriptionByName(name)
+            setFormData(prev => ({ ...prev, description }))
+            toast.success('✨ Description generated!')
+        } catch (err: any) {
+            toast.error(err.message || 'Failed to generate description')
+        } finally {
+            setIsGenerating(false)
+        }
     }
 
     useEffect(() => {
@@ -281,12 +296,37 @@ export default function ProductForm({ initialData }: ProductFormProps) {
                             <div>
                                 <label className="block text-[13px] font-bold text-gray-700 mb-2 uppercase tracking-wide">Description</label>
                                 <textarea
-                                    rows={4}
+                                    rows={6}
                                     value={formData.description}
                                     onChange={e => setFormData({ ...formData, description: e.target.value })}
                                     className="w-full bg-gray-50 border border-gray-200 rounded-[16px] p-4 text-[15px] font-medium focus:ring-4 focus:ring-primary/10 focus:border-primary outline-none transition-all shadow-sm resize-none"
                                     placeholder="Product details, material, care instructions..."
+                                    style={{ color: '#111827', WebkitTextFillColor: '#111827' }}
                                 />
+                                {/* Generate Description buttons */}
+                                <div className="flex items-center gap-2 mt-2 flex-wrap">
+                                    {isGenerating ? (
+                                        <button type="button" disabled
+                                            className="inline-flex items-center gap-2 bg-gray-100 text-gray-400 border border-gray-200 rounded-xl px-4 py-2 text-[13px] font-semibold cursor-not-allowed">
+                                            <Loader2 size={13} className="animate-spin" /> Generating...
+                                        </button>
+                                    ) : formData.description ? (
+                                        <button type="button" onClick={handleGenerateDescription}
+                                            className="inline-flex items-center gap-1.5 bg-gray-100 hover:bg-gray-200 text-gray-600 border border-gray-200 rounded-xl px-4 py-2 text-[13px] font-semibold transition-colors">
+                                            <RefreshCw size={13} /> Regenerate
+                                        </button>
+                                    ) : (
+                                        <button type="button" onClick={handleGenerateDescription}
+                                            disabled={!formData.name.trim()}
+                                            title={!formData.name.trim() ? 'Enter a product name first' : ''}
+                                            className="inline-flex items-center gap-1.5 bg-gradient-to-r from-indigo-500 to-purple-500 hover:opacity-90 disabled:from-gray-200 disabled:to-gray-200 disabled:text-gray-400 text-white rounded-xl px-4 py-2 text-[13px] font-semibold transition-all shadow-sm disabled:shadow-none">
+                                            <Sparkles size={13} /> Generate Description
+                                        </button>
+                                    )}
+                                    {!formData.name.trim() && !isGenerating && (
+                                        <p className="text-[12px] text-gray-400">Enter a product name above to generate</p>
+                                    )}
+                                </div>
                             </div>
                             <div className="pt-2 border-t border-gray-100">
                                 <label className="block text-[13px] font-bold text-gray-700 mb-2 uppercase tracking-wide">Product Images</label>

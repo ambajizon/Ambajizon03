@@ -57,9 +57,9 @@ export default function ShopkeeperDashboard() {
 
     if (loading) {
         return (
-            <div className="space-y-6">
-                <div className="h-8 w-48 bg-gray-200 animate-pulse rounded-lg" />
-                <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
+            <div className="space-y-6 pt-4">
+                <div className="h-7 w-52 bg-dash-surface animate-pulse rounded-xl" />
+                <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
                     <MetricCardSkeleton />
                     <MetricCardSkeleton />
                     <MetricCardSkeleton />
@@ -71,14 +71,20 @@ export default function ShopkeeperDashboard() {
 
     return (
         <PullToRefresh onRefresh={handleRefresh}>
-            <div className="space-y-6 max-w-[1400px] mx-auto pb-6 pt-4">
+            <div className="space-y-6 max-w-[1400px] mx-auto pb-6 pt-2">
+
+                {/* Page title */}
+                <div>
+                    <h1 className="text-[22px] font-bold text-dash-text">Dashboard</h1>
+                    <p className="text-[13px] text-dash-muted mt-0.5">Welcome back! Here's what's happening with your store.</p>
+                </div>
 
                 {/* Setup/Pending Alert Banner */}
                 {(!store?.is_setup_completed || store?.stats?.pendingCount > 0) && (
                     <div className="flex flex-col gap-3">
                         {!store?.is_setup_completed && (
-                            <div className="bg-orange-50 p-4 rounded-xl border border-orange-200 flex items-center justify-between">
-                                <div className="flex items-center gap-3 text-orange-800">
+                            <div className="bg-[#FFF7ED] p-4 rounded-2xl border border-[#FED7AA] flex items-center justify-between">
+                                <div className="flex items-center gap-3 text-[#9A3412]">
                                     <span className="material-symbols-outlined shrink-0 text-[24px]">schedule</span>
                                     <div>
                                         <h3 className="font-bold text-[15px]">Setup Incomplete</h3>
@@ -86,15 +92,15 @@ export default function ShopkeeperDashboard() {
                                     </div>
                                 </div>
                                 <Link href="/dashboard/setup">
-                                    <Button variant="primary" size="sm" className="h-10 px-4 rounded-lg bg-orange-600 hover:bg-orange-700 shadow-sm text-sm font-bold">
+                                    <Button variant="primary" size="sm" className="h-10 px-4 rounded-[9px] bg-[#EA580C] hover:bg-[#C2410C] shadow-sm text-sm font-bold">
                                         Complete Setup
                                     </Button>
                                 </Link>
                             </div>
                         )}
                         {store?.stats?.pendingCount > 0 && (
-                            <div className="bg-primary/10 text-primary p-4 rounded-xl border border-primary/20 flex flex-col md:flex-row md:items-center justify-between gap-4">
-                                <div className="flex items-center gap-3">
+                            <div className="bg-dash-primary-light p-4 rounded-2xl border border-[#C7C4F5] flex flex-col md:flex-row md:items-center justify-between gap-4">
+                                <div className="flex items-center gap-3 text-dash-primary">
                                     <span className="material-symbols-outlined shrink-0 text-[24px]">error</span>
                                     <div>
                                         <h3 className="font-bold text-[15px]">Action Required</h3>
@@ -102,7 +108,7 @@ export default function ShopkeeperDashboard() {
                                     </div>
                                 </div>
                                 <Link href="/dashboard/orders" className="shrink-0 w-full md:w-auto">
-                                    <Button variant="primary" size="sm" className="w-full h-10 px-6 rounded-lg shadow-[0_4px_14px_0_rgba(17,82,212,0.2)] text-sm font-bold">
+                                    <Button variant="primary" size="sm" className="w-full h-10 px-6 rounded-[9px] bg-dash-primary hover:bg-dash-primary-dark shadow-sm text-sm font-bold">
                                         View Orders
                                     </Button>
                                 </Link>
@@ -111,55 +117,68 @@ export default function ShopkeeperDashboard() {
                     </div>
                 )}
 
-                {/* Quick Stats Grid */}
-                <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
-                    {/* Total Orders - Blue */}
-                    <div className="bg-white p-4 rounded-2xl border border-slate-100 shadow-md shadow-slate-200/50 hover:shadow-lg transition-shadow">
-                        <div className="flex items-center justify-between mb-3">
-                            <div className="w-9 h-9 rounded-xl bg-blue-50 flex items-center justify-center">
-                                <span className="material-symbols-outlined text-blue-600 text-[20px]">local_mall</span>
-                            </div>
-                            <span className="bg-green-100 text-green-700 px-1.5 py-0.5 rounded-full text-[10px] font-black">+12%</span>
-                        </div>
-                        <p className="text-[10px] text-slate-500 font-bold uppercase tracking-wider mb-0.5">Total Orders</p>
-                        <p className="text-xl font-black text-slate-800">{store?.stats?.totalOrders || 0}</p>
-                    </div>
+                {/* Adminty Gradient Stat Cards */}
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+                    {[{
+                        label: 'Total Orders',
+                        value: store?.stats?.totalOrders || 0,
+                        trend: '+12%',
+                        icon: 'local_mall',
+                        gradient: 'linear-gradient(135deg, #FF8C42 0%, #FF5F15 100%)',
+                        shadow: '0 4px 20px rgba(255,95,21,0.3)',
+                    }, {
+                        label: 'Total Revenue',
+                        value: `₹${(store?.stats?.totalRev || 0).toLocaleString()}`,
+                        trend: '+8%',
+                        icon: 'payments',
+                        gradient: 'linear-gradient(135deg, #2ECC9A 0%, #17A87A 100%)',
+                        shadow: '0 4px 20px rgba(23,168,122,0.3)',
+                    }, {
+                        label: 'Store Views',
+                        value: (store?.stats?.totalOrders || 0) * 14 + 120,
+                        trend: '+24%',
+                        icon: 'visibility',
+                        gradient: 'linear-gradient(135deg, #7C6FE0 0%, #5A4FCF 100%)',
+                        shadow: '0 4px 20px rgba(90,79,207,0.3)',
+                    }, {
+                        label: 'QR Scans',
+                        value: (store?.stats?.totalOrders || 0) * 8 + 45,
+                        trend: '+5%',
+                        icon: 'qr_code_2',
+                        gradient: 'linear-gradient(135deg, #F76B8A 0%, #E8436A 100%)',
+                        shadow: '0 4px 20px rgba(232,67,106,0.3)',
+                    }].map(({ label, value, trend, icon, gradient, shadow }) => (
+                        <div
+                            key={label}
+                            className="relative rounded-2xl p-5 overflow-hidden cursor-default transition-all duration-200 hover:-translate-y-1"
+                            style={{ background: gradient, boxShadow: shadow }}
+                        >
+                            {/* Faded decorative icon */}
+                            <span
+                                className="material-symbols-outlined absolute -bottom-2 -right-2 text-[80px] pointer-events-none select-none"
+                                style={{ color: 'rgba(255,255,255,0.08)' }}
+                            >{icon}</span>
 
-                    {/* Revenue - Green */}
-                    <div className="bg-white p-4 rounded-2xl border border-slate-100 shadow-md shadow-slate-200/50 hover:shadow-lg transition-shadow">
-                        <div className="flex items-center justify-between mb-3">
-                            <div className="w-9 h-9 rounded-xl bg-green-50 flex items-center justify-center">
-                                <span className="material-symbols-outlined text-green-600 text-[20px]">payments</span>
+                            {/* Label + icon row */}
+                            <div className="flex items-center justify-between mb-3">
+                                <p className="text-[11px] font-semibold uppercase tracking-[0.06em] text-white/75">{label}</p>
+                                <span className="material-symbols-outlined text-white/60 text-[24px]">{icon}</span>
                             </div>
-                            <span className="bg-green-100 text-green-700 px-1.5 py-0.5 rounded-full text-[10px] font-black">+8%</span>
-                        </div>
-                        <p className="text-[10px] text-slate-500 font-bold uppercase tracking-wider mb-0.5">Revenue</p>
-                        <p className="text-xl font-black text-slate-800">₹{(store?.stats?.totalRev || 0).toLocaleString()}</p>
-                    </div>
 
-                    {/* Store Views - Purple */}
-                    <div className="bg-white p-4 rounded-2xl border border-slate-100 shadow-md shadow-slate-200/50 hover:shadow-lg transition-shadow">
-                        <div className="flex items-center justify-between mb-3">
-                            <div className="w-9 h-9 rounded-xl bg-purple-50 flex items-center justify-center">
-                                <span className="material-symbols-outlined text-purple-600 text-[20px]">visibility</span>
-                            </div>
-                            <span className="bg-green-100 text-green-700 px-1.5 py-0.5 rounded-full text-[10px] font-black">+24%</span>
-                        </div>
-                        <p className="text-[10px] text-slate-500 font-bold uppercase tracking-wider mb-0.5">Store Views</p>
-                        <p className="text-xl font-black text-slate-800">{(store?.stats?.totalOrders || 0) * 14 + 120}</p>
-                    </div>
+                            {/* Big number */}
+                            <p className="text-[32px] font-extrabold text-white leading-none mb-2">{value}</p>
 
-                    {/* QR Scans - Orange */}
-                    <div className="bg-white p-4 rounded-2xl border border-slate-100 shadow-md shadow-slate-200/50 hover:shadow-lg transition-shadow">
-                        <div className="flex items-center justify-between mb-3">
-                            <div className="w-9 h-9 rounded-xl bg-orange-50 flex items-center justify-center">
-                                <span className="material-symbols-outlined text-orange-600 text-[20px]">qr_code_2</span>
+                            {/* Trend + sparkline */}
+                            <div className="flex items-end justify-between">
+                                <p className="text-[12px] text-white/70">↑ {trend} vs last week</p>
+                                <div className="flex items-end gap-[3px]">
+                                    {[40, 60, 80, 55, 100].map((h, i) => (
+                                        <div key={i} className="w-1 rounded-sm bg-white/60" style={{ height: `${h * 0.2}px` }} />
+                                    ))}
+                                </div>
                             </div>
-                            <span className="bg-green-100 text-green-700 px-1.5 py-0.5 rounded-full text-[10px] font-black">+5%</span>
                         </div>
-                        <p className="text-[10px] text-slate-500 font-bold uppercase tracking-wider mb-0.5">QR Scans</p>
-                        <p className="text-xl font-black text-slate-800">{(store?.stats?.totalOrders || 0) * 8 + 45}</p>
-                    </div>
+                    ))}
                 </div>
 
                 {/* Main Content Layout */}
@@ -168,23 +187,23 @@ export default function ShopkeeperDashboard() {
                     {/* Recent Orders List */}
                     <div className="lg:col-span-2">
                         <div className="flex justify-between items-center mb-3">
-                            <h2 className="text-[15px] font-black text-slate-800 tracking-tight">Recent Orders</h2>
-                            <Link href="/dashboard/orders" className="text-[12px] font-bold text-primary hover:text-blue-700 flex items-center gap-1 group">
-                                View All <span className="material-symbols-outlined text-[14px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                            <h2 className="text-[15px] font-semibold text-dash-text">Recent Orders</h2>
+                            <Link href="/dashboard/orders" className="text-[12px] font-semibold text-dash-primary hover:underline flex items-center gap-1 group">
+                                View All <span className="material-symbols-outlined text-[14px] group-hover:translate-x-0.5 transition-transform">arrow_forward</span>
                             </Link>
                         </div>
 
-                        <div className="bg-white border border-slate-100 rounded-2xl overflow-x-auto shadow-md shadow-slate-200/50">
+                        <div className="bg-dash-card border border-dash-border rounded-2xl overflow-x-auto shadow-dash-card">
                             <table className="w-full text-left border-collapse min-w-[500px]">
-                                <thead className="bg-slate-50 border-b border-slate-200 text-slate-500">
+                                <thead className="bg-dash-surface border-b-2 border-dash-border">
                                     <tr>
-                                        <th className="px-4 py-2.5 font-medium uppercase tracking-widest text-[10px]">Order ID</th>
-                                        <th className="px-4 py-2.5 font-medium uppercase tracking-widest text-[10px]">Customer</th>
-                                        <th className="px-4 py-2.5 font-medium uppercase tracking-widest text-[10px]">Status</th>
-                                        <th className="px-4 py-2.5 font-medium uppercase tracking-widest text-[10px] text-right">Amount</th>
+                                        <th className="px-5 py-3.5 font-bold uppercase tracking-[0.07em] text-[11px] text-dash-muted">Order ID</th>
+                                        <th className="px-5 py-3.5 font-bold uppercase tracking-[0.07em] text-[11px] text-dash-muted">Customer</th>
+                                        <th className="px-5 py-3.5 font-bold uppercase tracking-[0.07em] text-[11px] text-dash-muted">Status</th>
+                                        <th className="px-5 py-3.5 font-bold uppercase tracking-[0.07em] text-[11px] text-dash-muted text-right">Amount</th>
                                     </tr>
                                 </thead>
-                                <tbody className="divide-y divide-slate-100">
+                                <tbody className="divide-y divide-dash-bg">
                                     {store?.recentOrders?.length > 0 ? (
                                         store.recentOrders.map((order: any) => {
                                             let address = order.delivery_address;
@@ -192,41 +211,44 @@ export default function ShopkeeperDashboard() {
                                                 try { address = JSON.parse(address); } catch (e) { }
                                             }
 
-                                            // Status badge mappings matching TechPremium
-                                            let badgeClass = 'bg-slate-100 text-slate-600';
-                                            let statusText = order.status;
-                                            if (order.status === 'confirmed') badgeClass = 'bg-orange-100 text-orange-700';
-                                            else if (order.status === 'delivered') badgeClass = 'bg-green-100 text-green-700';
-                                            else if (order.status === 'cancelled') badgeClass = 'bg-red-100 text-red-700';
+                                            // Adminty status badge mappings
+                                            let badgeStyle = { bg: '#FEF3C7', color: '#92400E' };
+                                            if (order.status === 'confirmed') badgeStyle = { bg: '#DBEAFE', color: '#1D40AF' };
+                                            else if (order.status === 'shipped') badgeStyle = { bg: '#E0F2FE', color: '#0369A1' };
+                                            else if (order.status === 'delivered') badgeStyle = { bg: '#DCFCE7', color: '#15803D' };
+                                            else if (order.status === 'cancelled') badgeStyle = { bg: '#FEE2E2', color: '#DC2626' };
 
                                             return (
-                                                <tr key={order.id} onClick={() => router.push(`/dashboard/orders/${order.id}`)} className="hover:bg-slate-50 transition-colors cursor-pointer group">
-                                                    <td className="px-4 py-2.5 whitespace-nowrap">
-                                                        <span className="text-[12px] font-bold text-slate-700 block mb-0.5">#{order.id.slice(0, 6)}</span>
-                                                        <span className="text-[10px] font-medium text-slate-400">{new Date(order.created_at).toLocaleDateString()}</span>
+                                                <tr key={order.id} onClick={() => router.push(`/dashboard/orders/${order.id}`)} className="hover:bg-[#FAFBFF] transition-colors cursor-pointer">
+                                                    <td className="px-5 py-3.5 whitespace-nowrap">
+                                                        <span className="text-[13px] font-semibold text-dash-text block">#{order.id.slice(0, 6).toUpperCase()}</span>
+                                                        <span className="text-[11px] text-dash-muted">{new Date(order.created_at).toLocaleDateString('en-IN', { day: 'numeric', month: 'short' })}</span>
                                                     </td>
-                                                    <td className="px-4 py-2.5">
-                                                        <p className="font-bold text-slate-900 text-xs">{address?.full_name || 'Guest User'}</p>
+                                                    <td className="px-5 py-3.5">
+                                                        <p className="font-semibold text-dash-text text-[14px]">{address?.full_name || 'Guest User'}</p>
                                                     </td>
-                                                    <td className="px-4 py-2.5 whitespace-nowrap">
-                                                        <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider inline-block ${badgeClass}`}>
-                                                            {statusText}
+                                                    <td className="px-5 py-3.5 whitespace-nowrap">
+                                                        <span
+                                                            className="px-3 py-1 rounded-full text-[11px] font-semibold uppercase tracking-wide inline-block capitalize"
+                                                            style={{ background: badgeStyle.bg, color: badgeStyle.color }}
+                                                        >
+                                                            {order.status}
                                                         </span>
                                                     </td>
-                                                    <td className="px-4 py-2.5 whitespace-nowrap text-right">
-                                                        <p className="font-bold text-sm text-slate-900">₹{order.total_amount.toLocaleString()}</p>
+                                                    <td className="px-5 py-3.5 whitespace-nowrap text-right">
+                                                        <p className="font-bold text-[14px] text-dash-text">₹{order.total_amount.toLocaleString()}</p>
                                                     </td>
                                                 </tr>
                                             )
                                         })
                                     ) : (
                                         <tr>
-                                            <td colSpan={4} className="px-5 py-10 text-center text-slate-500">
-                                                <div className="mx-auto w-12 h-12 bg-slate-50 rounded-full flex items-center justify-center mb-3">
-                                                    <span className="material-symbols-outlined text-slate-300 text-[24px]">inbox</span>
+                                            <td colSpan={4} className="px-5 py-12 text-center">
+                                                <div className="mx-auto w-12 h-12 bg-dash-surface rounded-full flex items-center justify-center mb-3">
+                                                    <span className="material-symbols-outlined text-dash-icon text-[24px]">inbox</span>
                                                 </div>
-                                                <p className="text-[14px] font-bold text-slate-900">No recent orders</p>
-                                                <p className="text-[13px] text-slate-500 mt-1">Your store is ready for business!</p>
+                                                <p className="text-[14px] font-semibold text-dash-text">No recent orders</p>
+                                                <p className="text-[13px] text-dash-muted mt-1">Your store is ready for business!</p>
                                             </td>
                                         </tr>
                                     )}
@@ -236,47 +258,50 @@ export default function ShopkeeperDashboard() {
                     </div>
 
                     {/* Quick Tools & Info */}
-                    <div className="space-y-6">
+                    <div className="space-y-5">
                         {/* Quick Action Grid */}
                         <div>
-                            <h2 className="text-[15px] font-black text-slate-800 tracking-tight mb-3">Quick Tools</h2>
-                            <div className="grid grid-cols-2 gap-2">
-                                <Link href="/dashboard/products/create" className="flex items-center gap-3 bg-white p-4 rounded-xl border border-slate-200 hover:border-primary transition-all group shadow-sm">
-                                    <div className="w-10 h-10 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
+                            <h2 className="text-[15px] font-semibold text-dash-text mb-3">Quick Tools</h2>
+                            <div className="grid grid-cols-2 gap-3">
+                                <Link href="/dashboard/products/create" className="flex items-center gap-3 bg-dash-card p-4 rounded-xl border border-dash-border hover:border-dash-primary hover:shadow-dash-card transition-all group">
+                                    <div className="w-10 h-10 rounded-[10px] bg-dash-primary-light text-dash-primary flex items-center justify-center shrink-0">
                                         <span className="material-symbols-outlined text-[20px] group-hover:scale-110 transition-transform">add_box</span>
                                     </div>
-                                    <span className="text-[13px] font-bold text-slate-700">Add Item</span>
+                                    <span className="text-[13px] font-semibold text-dash-text">Add Item</span>
                                 </Link>
-                                <Link href="/dashboard/marketing/offers" className="flex items-center gap-3 bg-white p-4 rounded-xl border border-slate-200 hover:border-primary transition-all group shadow-sm">
-                                    <div className="w-10 h-10 rounded-lg bg-orange-50 text-orange-600 flex items-center justify-center shrink-0">
+                                <Link href="/dashboard/marketing/offers" className="flex items-center gap-3 bg-dash-card p-4 rounded-xl border border-dash-border hover:border-dash-primary hover:shadow-dash-card transition-all group">
+                                    <div className="w-10 h-10 rounded-[10px] bg-orange-50 text-orange-500 flex items-center justify-center shrink-0">
                                         <span className="material-symbols-outlined text-[20px] group-hover:scale-110 transition-transform">local_offer</span>
                                     </div>
-                                    <span className="text-[13px] font-bold text-slate-700">New Offer</span>
+                                    <span className="text-[13px] font-semibold text-dash-text">New Offer</span>
                                 </Link>
-                                <Link href="/dashboard/qrcode" className="flex items-center gap-3 bg-white p-4 rounded-xl border border-slate-200 hover:border-primary transition-all group shadow-sm">
-                                    <div className="w-10 h-10 rounded-lg bg-purple-50 text-purple-600 flex items-center justify-center shrink-0">
+                                <Link href="/dashboard/qrcode" className="flex items-center gap-3 bg-dash-card p-4 rounded-xl border border-dash-border hover:border-dash-primary hover:shadow-dash-card transition-all group">
+                                    <div className="w-10 h-10 rounded-[10px] bg-purple-50 text-purple-600 flex items-center justify-center shrink-0">
                                         <span className="material-symbols-outlined text-[20px] group-hover:scale-110 transition-transform">qr_code_2</span>
                                     </div>
-                                    <span className="text-[13px] font-bold text-slate-700">Store QR</span>
+                                    <span className="text-[13px] font-semibold text-dash-text">Store QR</span>
                                 </Link>
-                                <button onClick={() => { }} className="flex items-center gap-3 bg-white p-4 rounded-xl border border-slate-200 hover:border-primary transition-all group text-left shadow-sm">
-                                    <div className="w-10 h-10 rounded-lg bg-green-50 text-green-600 flex items-center justify-center shrink-0">
+                                <button onClick={() => { }} className="flex items-center gap-3 bg-dash-card p-4 rounded-xl border border-dash-border hover:border-dash-primary hover:shadow-dash-card transition-all group text-left">
+                                    <div className="w-10 h-10 rounded-[10px] bg-green-50 text-green-600 flex items-center justify-center shrink-0">
                                         <span className="material-symbols-outlined text-[20px] group-hover:scale-110 transition-transform">share</span>
                                     </div>
-                                    <span className="text-[13px] font-bold text-slate-700">Share Link</span>
+                                    <span className="text-[13px] font-semibold text-dash-text">Share Link</span>
                                 </button>
                             </div>
                         </div>
 
                         {/* Store Promotion Banner */}
-                        <div className="bg-gradient-to-r from-primary to-blue-600 rounded-xl p-6 text-white shadow-md relative overflow-hidden flex flex-col items-start justify-center min-h-[180px]">
+                        <div
+                            className="rounded-2xl p-6 text-white relative overflow-hidden flex flex-col items-start justify-center min-h-[180px]"
+                            style={{ background: 'linear-gradient(135deg, #4B44D6 0%, #7C6FE0 100%)', boxShadow: '0 4px 20px rgba(75,68,214,0.25)' }}
+                        >
                             <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/4 blur-3xl pointer-events-none" />
                             <div className="absolute bottom-0 left-0 w-48 h-48 bg-white/10 rounded-full translate-y-1/2 -translate-x-1/4 blur-2xl pointer-events-none" />
 
                             <h3 className="text-[20px] font-bold mb-2 relative z-10 leading-tight">Grow your business with social commerce</h3>
-                            <p className="text-[13px] text-white/80 font-medium mb-5 relative z-10 max-w-[90%] block">Connect directly on WhatsApp and boost sales heavily using integrated sharing tools.</p>
+                            <p className="text-[13px] text-white/80 font-medium mb-5 relative z-10 max-w-[90%] block">Connect directly on WhatsApp and boost sales using integrated sharing tools.</p>
 
-                            <Button variant="secondary" size="sm" className="bg-white text-primary border-none shadow-sm font-bold h-10 px-5 text-[13px] hover:bg-gray-50 active:scale-95 transition-transform flex items-center gap-2 relative z-10">
+                            <Button variant="secondary" size="sm" className="bg-white text-dash-primary border-none shadow-sm font-bold h-10 px-5 text-[13px] hover:bg-gray-50 active:scale-95 transition-transform flex items-center gap-2 relative z-10 rounded-[9px]">
                                 <span className="material-symbols-outlined text-[18px]">share</span> Share on WhatsApp
                             </Button>
                         </div>

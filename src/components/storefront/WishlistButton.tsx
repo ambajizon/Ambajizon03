@@ -6,7 +6,7 @@ import { addToWishlist, removeFromWishlist } from '@/app/actions/wishlist'
 import { createClient } from '@/lib/supabase/client'
 import toast from 'react-hot-toast'
 
-export default function WishlistButton({ storeId, productId }: { storeId: string, productId: string }) {
+export default function WishlistButton({ storeId, productId, inline = false }: { storeId: string, productId: string, inline?: boolean }) {
     const [isWishlisted, setIsWishlisted] = useState(false)
     const [loading, setLoading] = useState(true)
 
@@ -74,15 +74,30 @@ export default function WishlistButton({ storeId, productId }: { storeId: string
 
     if (loading) return null
 
+    if (inline) {
+        return (
+            <button
+                onClick={toggle}
+                className="w-full h-full flex items-center justify-center transition-all active:scale-90"
+            >
+                <Heart
+                    size={24}
+                    className={isWishlisted ? "fill-sf-accent text-sf-accent" : "text-sf-muted group-hover:text-sf-accent transition-colors"}
+                />
+            </button>
+        )
+    }
+
     return (
         <button
             onClick={toggle}
-            className="absolute top-2 right-2 z-10 p-2 bg-white/80 backdrop-blur-sm rounded-full shadow-sm hover:scale-110 active:scale-95 transition-all text-gray-500 hover:text-red-500"
+            className="absolute top-3 right-3 z-10 p-2 bg-sf-surface/80 backdrop-blur-md rounded-full shadow-sm hover:scale-110 active:scale-90 transition-all text-sf-muted hover:text-sf-accent border border-sf-border/50"
         >
             <Heart
                 size={18}
-                className={isWishlisted ? "fill-red-500 text-red-500" : "fill-transparent"}
+                className={isWishlisted ? "fill-sf-accent text-sf-accent" : "fill-transparent"}
             />
         </button>
     )
 }
+

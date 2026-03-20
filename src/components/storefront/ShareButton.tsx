@@ -25,9 +25,10 @@ export default function ShareButton({ title, text, url, className, iconClassName
     return (
         <button
             onClick={handleShare}
-            className={className || "w-12 h-12 rounded-xl flex items-center justify-center bg-gray-100 hover:bg-gray-200"}
+            className={className || "w-12 h-12 rounded-xl flex items-center justify-center bg-sf-bg hover:bg-sf-border transition-all active:scale-90 shadow-sm border border-sf-border/50"}
         >
-            <Share2 size={20} className={iconClassName || "text-gray-500"} />
+            <Share2 size={20} className={iconClassName || "text-sf-muted"} />
         </button>
     )
 }
+

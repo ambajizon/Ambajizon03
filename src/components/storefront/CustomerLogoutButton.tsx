@@ -4,7 +4,7 @@ import { createClient } from '@/lib/supabase/client'
 import { useRouter } from 'next/navigation'
 import { LogOut } from 'lucide-react'
 
-export default function CustomerLogoutButton({ storeSlug }: { storeSlug: string }) {
+export default function CustomerLogoutButton({ storeSlug, compact = false }: { storeSlug: string; compact?: boolean }) {
     const router = useRouter()
 
     const handleCustomerLogout = async () => {
@@ -16,6 +16,18 @@ export default function CustomerLogoutButton({ storeSlug }: { storeSlug: string 
         } catch (error) {
             console.error('Logout error:', error)
         }
+    }
+
+    if (compact) {
+        return (
+            <button
+                onClick={handleCustomerLogout}
+                className="flex items-center gap-2 text-[13px] font-medium text-[#DC2626] hover:text-red-700 transition-colors"
+            >
+                <LogOut size={14} />
+                Sign Out
+            </button>
+        )
     }
 
     return (

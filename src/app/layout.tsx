@@ -9,7 +9,7 @@ import SWRegister from '@/components/SWRegister';
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Ambajizon ShopVCard",
+  title: "ShaktiQR ShopVCard",
   description: "SaaS Platform for Shopkeepers",
 };
 

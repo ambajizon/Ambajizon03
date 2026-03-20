@@ -7,6 +7,7 @@ import Link from 'next/link'
 
 export default function DashboardHeader() {
     const [storeName, setStoreName] = useState('My Store')
+    const [storeSlug, setStoreSlug] = useState<string | null>(null)
     const [storeId, setStoreId] = useState<string | null>(null)
     const [isLive, setIsLive] = useState(true)
     const [userEmail, setUserEmail] = useState<string | null>(null)
@@ -25,13 +26,14 @@ export default function DashboardHeader() {
 
                 const { data } = await supabase
                     .from('stores')
-                    .select('id, name')
+                    .select('id, name, slug')
                     .eq('shopkeeper_id', user.id)
                     .maybeSingle()
 
                 if (data) {
                     if (data.name) setStoreName(data.name)
                     if (data.id) setStoreId(data.id)
+                    if (data.slug) setStoreSlug(data.slug)
                     setIsLive(true)
                 }
             }
@@ -80,37 +82,51 @@ export default function DashboardHeader() {
         }
     }
 
+    const displayName = storeInfo.name || storeName || 'Rupa Toys'
     const initials = userName ? userName.charAt(0).toUpperCase() : 'A'
+    const slug = storeInfo.slug || storeSlug || 'setup'
 
     return (
-        <header className="bg-indigo-900 px-4 lg:px-5 py-2.5 sticky top-0 z-30 flex items-center justify-between shadow-lg shadow-indigo-900/30">
-            {/* Left: Store Name + Live Badge */}
+        <header
+            className="bg-white border-b border-dash-border px-5 lg:px-6 h-[64px] flex items-center justify-between sticky top-0 z-30 shrink-0"
+            style={{ boxShadow: '0 1px 4px rgba(0,0,0,0.06)' }}
+        >
+            {/* Left: Store name + LIVE badge */}
             <div className="flex items-center gap-3">
                 <div className="w-10 lg:hidden" /> {/* Hamburger spacer */}
-                <h2 className="text-[13px] font-black text-white tracking-tight hidden sm:block">
-                    {storeInfo.name || storeName || 'Ambajizon'}
+                <h2 className="text-[14px] font-semibold text-dash-text hidden sm:block truncate max-w-[180px]">
+                    {displayName}
                 </h2>
                 <button
                     onClick={handleToggleLive}
-                    className={`flex items-center gap-1 ml-1 px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider transition-colors ${isLive
-                        ? 'bg-green-500/20 text-green-300 border border-green-500/30 hover:bg-green-500/30'
-                        : 'bg-red-500/20 text-red-300 border border-red-500/30 hover:bg-red-500/30'
-                        }`}
+                    className={`flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-semibold uppercase tracking-wider transition-colors ${isLive
+                        ? 'bg-[#DCFCE7] text-[#15803D] border border-[#86EFAC] hover:bg-[#BBFDE7]'
+                        : 'bg-[#FEE2E2] text-[#DC2626] border border-[#FECACA] hover:bg-[#FEE2E2]'
+                    }`}
                     title={isLive ? 'Turn Offline' : 'Go Online'}
                 >
-                    <span className={`w-1.5 h-1.5 rounded-full ${isLive ? 'bg-green-400 animate-pulse' : 'bg-red-400'}`} />
+                    <span className={`w-1.5 h-1.5 rounded-full ${isLive ? 'bg-[#22C55E] animate-pulse' : 'bg-[#EF4444]'}`} />
                     {isLive ? 'LIVE' : 'OFFLINE'}
                 </button>
             </div>
 
-            {/* Center: Glass Search Bar */}
-            <div className="flex-1 max-w-sm mx-4 lg:mx-10 hidden md:flex">
+            {/* Center: Search bar */}
+            <div className="flex-1 max-w-[360px] mx-4 lg:mx-10 hidden md:flex">
                 <div className="relative w-full">
-                    <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-indigo-300 text-[18px]">search</span>
+                    <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-dash-icon text-[18px]">search</span>
                     <input
                         type="text"
                         placeholder="Search orders, products..."
-                        className="w-full bg-white/10 border border-white/10 rounded-lg pl-9 pr-3 py-2 text-xs font-medium text-white placeholder:text-indigo-300 focus:outline-none focus:ring-2 focus:ring-white/30 transition"
+                        className="w-full bg-dash-bg border border-dash-border rounded-[10px] pl-9 pr-4 py-2.5 text-[13px] text-dash-muted placeholder:text-dash-icon focus:outline-none focus:border-dash-primary transition-all duration-150"
+                        style={{ '--tw-ring-color': 'rgba(75,68,214,0.1)' } as React.CSSProperties}
+                        onFocus={e => {
+                            e.target.style.boxShadow = '0 0 0 3px rgba(75,68,214,0.12)'
+                            e.target.style.background = '#FFFFFF'
+                        }}
+                        onBlur={e => {
+                            e.target.style.boxShadow = ''
+                            e.target.style.background = ''
+                        }}
                     />
                 </div>
             </div>
@@ -119,48 +135,56 @@ export default function DashboardHeader() {
             <div className="flex items-center gap-2 sm:gap-3">
                 {/* View Store */}
                 <Link
-                    href={`/${storeInfo.slug || 'setup'}`}
+                    href={`/${slug}`}
                     target="_blank"
-                    className="bg-white/10 border border-white/15 text-white px-2.5 py-1.5 rounded-lg font-bold text-[11px] flex items-center gap-1 hover:bg-white/20 transition shrink-0 hidden sm:flex"
+                    className="bg-dash-primary-light border border-[#C7C4F5] text-dash-primary px-4 py-2 rounded-[9px] font-semibold text-[13px] flex items-center gap-1.5 hover:bg-dash-primary hover:text-white hover:border-dash-primary transition-all duration-150 shrink-0 hidden sm:flex"
                 >
                     <span className="material-symbols-outlined text-[16px]">visibility</span>
                     View Store
                 </Link>
 
-                {/* Notifications */}
-                <button className="relative p-2 text-indigo-200 hover:text-white hover:bg-white/10 rounded-full transition-colors hidden sm:block">
-                    <span className="material-symbols-outlined text-[20px]">notifications</span>
-                    <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full border-2 border-indigo-900" />
+                {/* Notification bell */}
+                <button className="relative p-2 text-dash-muted hover:text-dash-primary hover:bg-dash-primary-light rounded-full transition-colors hidden sm:flex items-center justify-center">
+                    <span className="material-symbols-outlined text-[22px]">notifications</span>
+                    <span className="absolute top-1.5 right-1.5 w-[7px] h-[7px] bg-dash-danger rounded-full border-2 border-white" />
                 </button>
 
-                {/* Profile Dropdown */}
+                {/* Profile dropdown */}
                 <div className="relative z-50" ref={dropdownRef}>
                     <button
                         onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                        className="flex items-center gap-2 hover:bg-white/10 p-1.5 rounded-xl transition-colors"
+                        className="flex items-center gap-2 hover:bg-dash-bg px-3 py-1.5 rounded-[10px] transition-colors"
                     >
-                        <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-gradient-to-br from-orange-400 to-pink-500 flex items-center justify-center text-white font-black text-xs shrink-0 ring-2 ring-white/20">
+                        <div
+                            className="w-9 h-9 rounded-full flex items-center justify-center text-white font-semibold text-[14px] shrink-0"
+                            style={{ background: '#4B44D6' }}
+                        >
                             {initials}
                         </div>
                         <div className="hidden sm:block text-left">
-                            <p className="text-[12px] font-bold text-white leading-tight">{userName}</p>
+                            <p className="text-[13px] font-semibold text-dash-text leading-tight truncate max-w-[100px]">{userName}</p>
                         </div>
-                        <span className="material-symbols-outlined text-indigo-300 text-[18px] hidden sm:block">expand_more</span>
+                        <span className="material-symbols-outlined text-dash-icon text-[18px] hidden sm:block">expand_more</span>
                     </button>
 
                     {isDropdownOpen && (
-                        <div className="absolute right-0 top-full mt-2 w-52 bg-white border border-slate-200 rounded-xl shadow-xl z-[60] overflow-hidden animate-in fade-in slide-in-from-top-2">
-                            <div className="p-3 border-b border-slate-100 bg-slate-50">
-                                <p className="text-xs font-bold text-slate-700 truncate">{userName}</p>
-                                <p className="text-[11px] text-slate-400 truncate">{userEmail || 'seller@store.com'}</p>
+                        <div className="absolute right-0 top-full mt-2 w-52 bg-white border border-dash-border rounded-[14px] overflow-hidden z-[60]"
+                            style={{ boxShadow: '0 8px 24px rgba(74,68,214,0.12)' }}>
+                            <div className="p-3 border-b border-dash-border bg-dash-surface">
+                                <p className="text-[13px] font-semibold text-dash-text truncate">{userName}</p>
+                                <p className="text-[11px] text-dash-icon truncate">{userEmail || 'seller@store.com'}</p>
                             </div>
-                            <Link href="/dashboard/settings" className="w-full text-left p-3 text-sm font-medium text-slate-700 hover:bg-slate-50 flex items-center gap-2 transition-colors">
-                                <span className="material-symbols-outlined text-[18px] text-slate-400">settings</span>
+                            <Link
+                                href="/dashboard/settings"
+                                onClick={() => setIsDropdownOpen(false)}
+                                className="flex items-center gap-2.5 w-full px-4 py-2.5 text-[13px] font-medium text-dash-muted hover:bg-dash-bg hover:text-dash-primary transition-colors"
+                            >
+                                <span className="material-symbols-outlined text-[18px]">settings</span>
                                 Settings
                             </Link>
                             <button
                                 onClick={handleLogout}
-                                className="w-full text-left p-3 text-sm font-bold text-red-600 hover:bg-red-50 flex items-center gap-2 transition-colors border-t border-slate-100"
+                                className="flex items-center gap-2.5 w-full px-4 py-2.5 text-[13px] font-semibold text-dash-danger hover:bg-[#FEF2F2] transition-colors border-t border-dash-border"
                             >
                                 <span className="material-symbols-outlined text-[18px]">logout</span>
                                 Sign Out

@@ -22,7 +22,7 @@ export default function AddToCartButton({ storeSlug, storeId, productId, stock, 
     const router = useRouter()
 
     const handleAdd = async (e: React.MouseEvent) => {
-        e.preventDefault() // Prevent link navigation if inside a link
+        e.preventDefault()
         e.stopPropagation()
 
         if (stock <= 0) return
@@ -42,8 +42,8 @@ export default function AddToCartButton({ storeSlug, storeId, productId, stock, 
                 router.push(`/${storeSlug}/shop/checkout`)
             } else {
                 setAdded(true)
-                setTimeout(() => setAdded(false), 2000)
-                router.refresh() // Update cart count in header if we had one
+                setTimeout(() => setAdded(false), 1800)
+                router.refresh()
             }
         }
     }
@@ -53,13 +53,17 @@ export default function AddToCartButton({ storeSlug, storeId, productId, stock, 
             <button
                 onClick={handleAdd}
                 disabled={loading || stock <= 0}
-                className={`flex-1 btn-press font-bold py-3 rounded-xl transition flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed text-sm md:text-base ${buyNow
-                    ? 'bg-primary border border-primary text-white hover:bg-primary/90 shadow-sm'
-                    : 'bg-white border-2 border-primary text-primary hover:bg-blue-50'
-                    } ${added && !buyNow ? 'bg-green-50 border-green-500 text-green-700 scale-105' : ''}`}
+                className={`flex-1 h-full font-bold px-6 rounded-[10px] transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed text-[15px] active:scale-95
+                    ${buyNow
+                        ? 'bg-rt-dark text-white hover:bg-rt-text/90'
+                        : added
+                            ? 'bg-emerald-500 text-white'
+                            : 'bg-rt-primary text-white hover:bg-rt-primary-dark'
+                    }`}
+                style={{ height: buyNow ? '48px' : '52px' }}
             >
-                {loading ? <Loader2 className="animate-spin" size={20} /> : added && !buyNow ? <Check size={20} /> : <ShoppingCart size={20} />}
-                {buyNow ? 'Buy Now' : added ? 'Added' : 'Add to Cart'}
+                {loading ? <Loader2 className="animate-spin" size={20} /> : added && !buyNow ? <Check size={20} strokeWidth={3} /> : <ShoppingCart size={20} strokeWidth={2.5} />}
+                {buyNow ? 'Buy Now' : added ? '✓ Added!' : 'Add to Cart'}
             </button>
         )
     }
@@ -69,12 +73,12 @@ export default function AddToCartButton({ storeSlug, storeId, productId, stock, 
             <button
                 onClick={handleAdd}
                 disabled={loading || stock <= 0}
-                className={`w-full py-2.5 rounded-xl text-[14px] font-bold transition flex items-center justify-center gap-1.5 btn-press shadow-sm
-                    ${added ? 'bg-green-500 text-white hover:bg-green-600 border border-green-600' : 'bg-primary text-white hover:bg-primary/90 border border-transparent'}
+                className={`w-full py-3 text-[13px] font-semibold transition-all flex items-center justify-center gap-1.5 active:scale-95
+                    ${added ? 'bg-emerald-500 text-white' : 'bg-rt-primary text-white hover:bg-rt-primary-dark'}
                 `}
             >
-                {loading ? <Loader2 className="animate-spin" size={18} /> : added ? <Check size={18} /> : <ShoppingCart size={18} />}
-                {added ? 'Added to Cart' : 'Add to Cart'}
+                {loading ? <Loader2 className="animate-spin" size={16} /> : added ? <Check size={16} strokeWidth={3} /> : <ShoppingCart size={16} strokeWidth={2.5} />}
+                {added ? '✓ Added!' : 'Add to Cart'}
             </button>
         )
     }
@@ -83,12 +87,12 @@ export default function AddToCartButton({ storeSlug, storeId, productId, stock, 
         <button
             onClick={handleAdd}
             disabled={loading || stock <= 0}
-            className={`w-full mt-2 py-1.5 rounded-md text-sm font-medium transition flex items-center justify-center gap-1 btn-press
-                ${added ? 'bg-green-100 text-green-700 scale-105' : 'bg-primary/10 text-primary hover:bg-primary hover:text-white'}
+            className={`w-full mt-2 py-2.5 rounded-[10px] text-[13px] font-semibold transition-all flex items-center justify-center gap-1.5 active:scale-95
+                ${added ? 'bg-emerald-50 text-emerald-600 border border-emerald-200' : 'bg-rt-surface text-rt-text border border-rt-border hover:bg-rt-primary hover:text-white hover:border-rt-primary'}
             `}
         >
-            {loading ? <Loader2 className="animate-spin" size={16} /> : added ? <Check size={16} /> : <ShoppingCart size={16} />}
-            {added ? 'Added' : 'Add'}
+            {loading ? <Loader2 className="animate-spin" size={16} /> : added ? <Check size={16} strokeWidth={3} /> : <ShoppingCart size={16} strokeWidth={2.5} />}
+            {added ? '✓ Added' : 'Add'}
         </button>
     )
 }

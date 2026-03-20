@@ -39,7 +39,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         title: store.name,
         description: `Welcome to ${store.name}`,
         icons: {
-            icon: store.logo_url || '/icons/ambajizon-192.png'
+            icon: store.logo_url || '/icons/shaktiqr-192.png'
         },
         manifest: `/api/manifest/${params.store}/manifest.json`,
         themeColor: store.primary_color || '#3b82f6',
@@ -71,7 +71,7 @@ export default async function StoreLayout({ children, params }: Props) {
             <AnalyticsRecorder storeId={store.id} />
 
             {/* Main Content */}
-            <main className="w-full max-w-md md:max-w-5xl lg:max-w-7xl mx-auto bg-white min-h-screen md:shadow-xl shadow-2xl overflow-x-hidden relative pb-20 md:pb-0">
+            <main className="w-full min-h-screen relative pb-20 md:pb-0">
                 {store.is_live === false ? (
                     <div className="flex flex-col items-center justify-center min-h-[80vh] p-6 text-center animate-in fade-in zoom-in duration-500">
                         <div className="w-24 h-24 bg-gray-50 rounded-full flex items-center justify-center text-5xl mb-6 shadow-lg shadow-gray-200/50 border-4 border-white">

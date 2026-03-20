@@ -2,9 +2,9 @@ import { MetadataRoute } from 'next';
 
 export default function manifest(): MetadataRoute.Manifest {
     return {
-        name: 'Ambajizon - The Ambaji Marketplace',
-        short_name: 'Ambajizon',
-        description: 'Buy authentic Prasad, Jewelry, and more from Ambaji',
+        name: 'ShaktiQR - Your Store, Online.',
+        short_name: 'ShaktiQR',
+        description: 'Your own online store. Delivery anywhere in India.',
         start_url: '/',
         display: 'standalone',
         background_color: '#ffffff',

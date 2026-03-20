@@ -1,16 +1,20 @@
-import { getStoreBySlug, getProductsByCategory, getStoreSubcategories } from '@/app/actions/storefront'
+import { getStoreBySlug, getProductsByCategory, getStoreSubcategories, getStoreCategories } from '@/app/actions/storefront'
 import { notFound } from 'next/navigation'
 import StoreHeader from '@/components/storefront/StoreHeader'
 import ProductCard from '@/components/storefront/ProductCard'
 import MobileBottomNav from '@/components/storefront/MobileBottomNav'
 import Link from 'next/link'
-import { Package } from 'lucide-react'
+import { Package, Filter, ChevronRight } from 'lucide-react'
 
 export default async function CategoryPage({ params, searchParams }: { params: { store: string, id: string }, searchParams: { sub?: string } }) {
     const store = await getStoreBySlug(params.store)
     if (!store) notFound()
 
     const subcategoryId = searchParams.sub;
+
+    // Fetch categories to find the current one's name
+    const allCategories = await getStoreCategories(store.id)
+    const currentCategory = allCategories.find((c: any) => c.id === params.id)
 
     // Fetch products (filtered by subcategory if applicable)
     let products = await getProductsByCategory(store.id, params.id)
@@ -21,7 +25,7 @@ export default async function CategoryPage({ params, searchParams }: { params: {
     const subcategories = await getStoreSubcategories(params.id)
 
     return (
-        <div className="bg-gray-50 min-h-screen pb-24">
+        <div className="bg-sf-bg min-h-screen pb-32">
             <StoreHeader
                 storeId={store.id}
                 storeName={store.name}
@@ -30,23 +34,56 @@ export default async function CategoryPage({ params, searchParams }: { params: {
                 showBack={true}
             />
 
-            <div className="p-4">
+            <main className="max-w-[1400px] mx-auto w-full p-4 md:p-8 lg:px-10">
+                {/* Breadcrumbs */}
+                <div className="flex items-center gap-2 text-[12px] font-bold text-sf-muted uppercase tracking-wider mb-6">
+                    <Link href={`/${store.slug}/shop`} className="hover:text-sf-accent transition-colors">Store</Link>
+                    <ChevronRight size={14} className="text-gray-300" />
+                    <span className="text-sf-dark">{currentCategory?.name || 'Category'}</span>
+                </div>
+
+                <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
+                    <div>
+                        <h1 className="text-3xl md:text-5xl font-black text-sf-dark font-display tracking-tight mb-2">
+                            {currentCategory?.name || 'Products'}
+                        </h1>
+                        <p className="text-[14px] text-sf-muted font-medium">
+                            Discover our curated collection of {currentCategory?.name || 'exclusive products'}
+                        </p>
+                    </div>
+
+                    {products.length > 0 && (
+                        <div className="text-[13px] font-bold text-sf-muted bg-sf-surface border border-sf-border px-4 py-2 rounded-full shadow-sm w-fit">
+                            {products.length} Products Found
+                        </div>
+                    )}
+                </div>
+
                 {/* Subcategories Scrollable Pill List */}
                 {subcategories.length > 0 && (
-                    <div className="mb-6">
-                        <h2 className="text-sm font-bold text-gray-700 mb-3">Shop by Subcategory</h2>
-                        <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide snap-x">
+                    <div className="mb-10">
+                        <div className="flex items-center gap-2 mb-4">
+                            <Filter size={16} className="text-sf-accent" />
+                            <h2 className="text-[13px] font-black text-sf-dark uppercase tracking-widest">Filter by Subcategory</h2>
+                        </div>
+                        <div className="flex gap-2.5 overflow-x-auto pb-4 hide-scrollbar snap-x">
                             <Link
                                 href={`/${store.slug}/shop/category/${params.id}`}
-                                className={`flex-shrink-0 px-4 py-2 rounded-full text-sm font-medium border snap-start transition-colors ${!subcategoryId ? 'bg-primary text-white border-primary' : 'bg-white text-gray-600 border-gray-200'}`}
+                                className={`flex-shrink-0 px-6 py-2.5 rounded-full text-[14px] font-bold border transition-all active:scale-95 snap-start
+                                    ${!subcategoryId
+                                        ? 'bg-sf-dark text-white border-sf-dark shadow-md'
+                                        : 'bg-sf-surface text-sf-muted border-sf-border hover:border-sf-dark/30 shadow-sm'}`}
                             >
-                                All
+                                All Items
                             </Link>
                             {subcategories.map((sub: any) => (
                                 <Link
                                     key={sub.id}
                                     href={`/${store.slug}/shop/category/${params.id}?sub=${sub.id}`}
-                                    className={`flex-shrink-0 px-4 py-2 rounded-full text-sm font-medium border snap-start transition-colors ${subcategoryId === sub.id ? 'bg-primary text-white border-primary' : 'bg-white text-gray-600 border-gray-200 hover:bg-gray-50'}`}
+                                    className={`flex-shrink-0 px-6 py-2.5 rounded-full text-[14px] font-bold border transition-all active:scale-95 snap-start
+                                        ${subcategoryId === sub.id
+                                            ? 'bg-sf-dark text-white border-sf-dark shadow-md'
+                                            : 'bg-sf-surface text-sf-muted border-sf-border hover:border-sf-dark/30 shadow-sm'}`}
                                 >
                                     {sub.name}
                                 </Link>
@@ -55,24 +92,29 @@ export default async function CategoryPage({ params, searchParams }: { params: {
                     </div>
                 )}
 
-                <h1 className="text-lg font-bold text-gray-900 mb-4">Products</h1>
-
                 {products.length > 0 ? (
-                    <div className="grid grid-cols-2 gap-3">
+                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-6">
                         {products.map((product: any) => (
                             <ProductCard key={product.id} product={product} storeSlug={store.slug} />
                         ))}
                     </div>
                 ) : (
-                    <div className="p-12 text-center">
-                        <Package size={40} className="mx-auto text-gray-300 mb-3" />
-                        <p className="text-gray-500 font-medium">No products yet</p>
-                        <p className="text-gray-300 text-sm mt-1">Check back soon!</p>
+                    <div className="bg-sf-surface rounded-3xl border border-sf-border shadow-card p-16 text-center max-w-lg mx-auto mt-12">
+                        <div className="w-20 h-20 bg-sf-bg rounded-full flex items-center justify-center mx-auto mb-6 text-sf-muted shadow-inner">
+                            <Package size={36} className="stroke-[1.2px]" />
+                        </div>
+                        <h3 className="text-xl font-black text-sf-dark mb-2 font-display">No products here yet</h3>
+                        <p className="text-[14px] text-sf-muted font-medium mb-1">We're still curating this category.</p>
+                        <p className="text-[12px] text-sf-muted/60 mb-8 capitalize opacity-80">Store: {store.name}</p>
+                        <Link href={`/${store.slug}/shop`} className="inline-block bg-sf-dark text-white px-8 py-3 rounded-full font-bold shadow-md hover:bg-sf-dark/90 active:scale-95 transition-all">
+                            Back to Store
+                        </Link>
                     </div>
                 )}
-            </div>
+            </main>
 
             <MobileBottomNav storeSlug={store.slug} />
         </div>
     )
 }
+

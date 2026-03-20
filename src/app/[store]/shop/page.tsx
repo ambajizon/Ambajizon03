@@ -1,4 +1,3 @@
-// ... imports
 import { getStoreBySlug, getStoreCategories, getFeaturedProducts, getStoreOffers, getProductsBySection } from '@/app/actions/storefront'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
@@ -6,7 +5,8 @@ import Image from 'next/image'
 import StoreHeader from '@/components/storefront/StoreHeader'
 import ProductCard from '@/components/storefront/ProductCard'
 import MobileBottomNav from '@/components/storefront/MobileBottomNav'
-import { Flame, Star, Package, Clock, ChevronRight, TrendingUp, ShieldCheck, Truck, RefreshCcw, CreditCard } from 'lucide-react'
+import BackToTopButton from '@/components/storefront/BackToTopButton'
+import { Star, Package, ChevronRight, TrendingUp, ShieldCheck, Truck, CreditCard, Zap, Tag, Sparkles } from 'lucide-react'
 
 export default async function ShopPage({ params }: { params: { store: string } }) {
     const store = await getStoreBySlug(params.store)
@@ -25,9 +25,10 @@ export default async function ShopPage({ params }: { params: { store: string } }
     const heroBannerUrl = store.hero_image_url || themeConfig.hero_image_url || null
     const showExclusive = themeConfig.show_exclusive !== false
     const showFlashSale = themeConfig.show_flash_sale !== false
+    const storeTagline = themeConfig.tagline || store.footer_text || 'Premium products curated just for you. Shop with confidence.'
 
     return (
-        <div className="bg-gray-50 min-h-screen pb-24 md:pb-12">
+        <div className="bg-white min-h-screen pb-24 md:pb-12">
             <StoreHeader
                 storeId={store.id}
                 storeName={store.name}
@@ -36,54 +37,82 @@ export default async function ShopPage({ params }: { params: { store: string } }
                 showBack={false}
             />
 
-            {/* Hero Banner Area */}
-            <div className="w-full relative h-[400px] md:h-[600px] overflow-hidden bg-[#101622]">
-                {heroBannerUrl && (
-                    <Image
-                        src={heroBannerUrl}
-                        alt="Banner"
-                        fill
-                        className="object-cover"
-                        priority
-                    />
-                )}
-                <div className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-[#101622]/90 via-[#101622]/70 to-[#101622]/20 flex flex-col justify-end md:justify-center p-6 md:p-16 lg:px-24 max-w-[1400px] mx-auto w-full">
-                    <div className="text-white w-full max-w-3xl">
-                        {themeConfig.hero_subtitle && (
-                            <span className="inline-block bg-primary/20 text-primary-light border border-primary/30 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-4 md:mb-6">
-                                {themeConfig.hero_subtitle}
-                            </span>
-                        )}
-                        <h2 className="text-4xl md:text-6xl lg:text-7xl font-black font-sans leading-[1.05] tracking-tight drop-shadow-lg mb-4 md:mb-6">
-                            {themeConfig.hero_title || store.name}
-                        </h2>
-                        <p className="text-[15px] md:text-xl lg:text-xl text-gray-300 font-medium leading-relaxed max-w-xl drop-shadow-md mb-8">
-                            Upgrade your lifestyle with our curated collection of premium products. Explore the best quality deals today.
+            {/* ── HERO ─────────────────────────────────────────────── */}
+            <section style={{ background: 'linear-gradient(135deg, #FFF5F0 0%, #FFFFFF 60%)' }}>
+                <div className="max-w-[1280px] mx-auto px-6 lg:px-8 py-16 md:py-20 lg:py-24 grid grid-cols-1 md:grid-cols-[60fr_40fr] gap-10 md:gap-12 items-center">
+                    {/* Left 60% */}
+                    <div className="sf-fade-up text-center md:text-left space-y-5 order-2 md:order-1">
+                        {/* Eyebrow badge */}
+                        <div className="inline-flex items-center gap-2 bg-[#FFF5F0] text-rt-primary text-[13px] font-semibold px-4 py-1.5 rounded-full border border-[#E8400C]/20">
+                            🎉 FREE Shipping on ₹499+
+                        </div>
+
+                        <h1 className="text-[40px] md:text-[52px] lg:text-[60px] font-extrabold leading-[1.08] tracking-tight text-rt-text">
+                            {themeConfig.hero_title || 'Explore 500+\nToys for Every Age'}
+                        </h1>
+
+                        <p className="text-[16px] text-rt-muted leading-relaxed max-w-lg mx-auto md:mx-0 font-medium">
+                            {themeConfig.hero_subtitle || 'Handmade · LEGO · Games · Wooden · Educational'}
                         </p>
-                        <div className="flex items-center gap-4">
+
+                        <div className="flex flex-col sm:flex-row items-center gap-3 justify-center md:justify-start">
                             <Link
                                 href={`/${store.slug}/shop/search`}
-                                className="bg-primary text-white font-bold py-3.5 px-8 rounded-lg shadow-lg hover:shadow-primary/30 hover:bg-primary/90 transition-all hover:-translate-y-1 active:scale-95"
+                                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-rt-primary text-white font-bold py-3.5 px-8 rounded-[10px] shadow-lg hover:bg-rt-primary-dark hover:-translate-y-0.5 transition-all active:scale-95 text-[16px]"
                             >
-                                Shop Now
+                                Shop Now <ChevronRight size={18} />
                             </Link>
                             <Link
                                 href={`/${store.slug}/shop/search`}
-                                className="bg-white/10 backdrop-blur-sm border border-white/20 text-white font-bold py-3.5 px-8 rounded-lg hover:bg-white/20 transition-all active:scale-95"
+                                className="text-rt-accent underline underline-offset-2 font-medium text-[14px] hover:text-blue-700 transition-colors"
                             >
-                                View Deals
+                                View Today&apos;s Deals
                             </Link>
                         </div>
+
+                        {/* Trust row */}
+                        <div className="flex items-center gap-4 justify-center md:justify-start text-[13px] text-rt-muted font-medium flex-wrap pt-1">
+                            <span className="flex items-center gap-1.5"><ShieldCheck size={14} className="text-rt-success shrink-0" /> {allProducts.length > 0 ? `${allProducts.length}+` : '9k+'} Products</span>
+                            <span className="text-rt-border">|</span>
+                            <span className="flex items-center gap-1.5"><Truck size={14} className="text-rt-primary shrink-0" /> Free Shipping ₹499+</span>
+                            <span className="text-rt-border">|</span>
+                            <span className="flex items-center gap-1.5"><Zap size={14} className="text-amber-500 shrink-0" /> 2-3 Day Delivery</span>
+                        </div>
+                    </div>
+
+                    {/* Right 40%: hero image */}
+                    <div className="relative order-1 md:order-2 flex items-center justify-center">
+                        {heroBannerUrl ? (
+                            <div className="relative w-full aspect-[4/3] max-w-md mx-auto">
+                                <Image
+                                    src={heroBannerUrl}
+                                    alt={store.name}
+                                    fill
+                                    priority
+                                    className="object-contain drop-shadow-2xl"
+                                />
+                            </div>
+                        ) : (
+                            <div className="w-full max-w-sm aspect-square rounded-3xl bg-gradient-to-br from-orange-50 to-amber-100 flex items-center justify-center mx-auto border border-orange-100">
+                                <div className="grid grid-cols-2 gap-5 p-8">
+                                    {['🚂', '🎯', '🧩', '🪀'].map((emoji, i) => (
+                                        <div key={i} className="w-20 h-20 bg-white rounded-2xl flex items-center justify-center text-4xl shadow-rt-card hover:shadow-rt-card-hover hover:-translate-y-1 transition-all cursor-default">
+                                            {emoji}
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
                     </div>
                 </div>
-            </div>
+            </section>
 
-            <main className="max-w-[1400px] mx-auto w-full pb-8 lg:px-8">
+            <main className="max-w-[1280px] mx-auto w-full pb-8 px-6 lg:px-8">
 
-                {/* Festival Offer Row underneath Hero */}
+                {/* Festival Offer Banner */}
                 {activeOffer && activeOffer.banner_url && (
-                    <div className="w-full mt-4 md:mt-8 px-4 md:px-6 lg:px-8">
-                        <div className="relative rounded-[16px] md:rounded-[24px] overflow-hidden h-[100px] md:h-[180px] lg:h-[220px] bg-gray-200 shadow-sm border border-gray-100 group">
+                    <div className="w-full mt-8 md:mt-10">
+                        <div className="relative rounded-2xl overflow-hidden h-[100px] md:h-[180px] bg-gray-200 shadow-rt-card group">
                             <Image
                                 src={activeOffer.banner_url}
                                 alt={activeOffer.title || 'Festival Offer'}
@@ -91,8 +120,8 @@ export default async function ShopPage({ params }: { params: { store: string } }
                                 className="object-cover transition-transform duration-700 group-hover:scale-105"
                                 unoptimized={true}
                             />
-                            <div className="absolute inset-0 bg-gradient-to-r from-gray-900/80 via-gray-900/40 to-transparent flex items-center p-5 md:p-12">
-                                <h3 className="text-white font-black text-xl md:text-4xl lg:text-5xl max-w-[70%] md:max-w-[50%] leading-tight drop-shadow-lg tracking-tight">
+                            <div className="absolute inset-0 bg-gradient-to-r from-gray-900/80 via-gray-900/30 to-transparent flex items-center p-6 md:p-12">
+                                <h3 className="text-white font-bold text-xl md:text-4xl max-w-[70%] leading-tight drop-shadow-lg">
                                     {activeOffer.title}
                                 </h3>
                             </div>
@@ -100,317 +129,307 @@ export default async function ShopPage({ params }: { params: { store: string } }
                     </div>
                 )}
 
-                {/* Categories Grid (Desktop) / Scroll (Mobile) */}
-                {
-                    categories.length > 0 && (
-                        <section className="pt-6 md:pt-12 px-4 md:px-6 lg:px-8 max-w-7xl mx-auto w-full">
-                            <div className="flex items-center justify-between mb-5 md:mb-8">
-                                <h3 className="text-[18px] md:text-2xl lg:text-3xl font-black text-gray-900 tracking-tight">Shop by Category</h3>
+                {/* ── Categories ─────────────────────────────────────────── */}
+                {categories.length > 0 && (
+                    <section className="pt-10 md:pt-14">
+                        <div className="flex items-center justify-between mb-6">
+                            <div>
+                                <h2 className="text-2xl font-bold text-rt-text">Shop by Category</h2>
+                                <div className="mt-1 w-12 h-[3px] bg-rt-primary rounded-full" />
+                                <p className="text-[14px] text-rt-muted mt-2">Explore 500+ toys by age, type or brand</p>
                             </div>
-
-                            {/* Mobile: Horizontal Scroll (unchanged behavior, wrapped in responsive container) */}
-                            <div className="md:hidden flex gap-4 overflow-x-auto pb-4 scrollbar-hide snap-x relative z-10" style={{ maskImage: 'linear-gradient(to right, black 90%, transparent 100%)', WebkitMaskImage: 'linear-gradient(to right, black 90%, transparent 100%)' }}>
-                                <Link
-                                    href={`/${store.slug}/shop/search`}
-                                    className="flex-shrink-0 w-[76px] flex flex-col items-center gap-2.5 snap-start active:scale-95 transition-transform"
-                                >
-                                    <div className="w-24 h-24 rounded-full p-2 bg-slate-200 border-2 border-transparent group-hover:border-primary transition-all">
-                                        <div className="w-full h-full rounded-full bg-slate-300 flex items-center justify-center">
-                                            <Package size={24} className="text-slate-500" />
-                                        </div>
-                                    </div>
-                                    <span className="text-sm font-bold text-gray-900 w-full text-center mt-1">All Items</span>
-                                </Link>
-
-                                {categories.map((cat: any) => (
-                                    <Link
-                                        key={cat.id}
-                                        href={`/${store.slug}/shop/category/${cat.id}`}
-                                        className="flex-shrink-0 w-[76px] flex flex-col items-center gap-2.5 snap-start active:scale-95 transition-transform group"
-                                    >
-                                        <div className="w-24 h-24 rounded-full p-2 bg-slate-200 border-2 border-transparent group-hover:border-primary transition-all">
-                                            <div className="w-full h-full rounded-full overflow-hidden relative bg-slate-300 flex items-center justify-center">
-                                                {cat.image_url ? (
-                                                    <Image src={cat.image_url} alt={cat.name} fill className="object-cover" />
-                                                ) : (
-                                                    <span className="text-gray-500 font-bold text-sm">{cat.name.substring(0, 2).toUpperCase()}</span>
-                                                )}
-                                            </div>
-                                        </div>
-                                        <span className="text-sm text-center font-bold text-gray-900 line-clamp-2 w-full mt-1">
-                                            {cat.name}
-                                        </span>
-                                    </Link>
-                                ))}
-                            </div>
-
-                            {/* Desktop: Wrap Grid */}
-                            <div className="hidden md:flex flex-wrap lg:grid lg:grid-cols-6 xl:grid-cols-8 gap-6 lg:gap-8">
-                                <Link
-                                    href={`/${store.slug}/shop/search`}
-                                    className="w-[100px] lg:w-[120px] flex flex-col items-center gap-3 group mx-auto"
-                                >
-                                    <div className="w-24 h-24 md:w-32 md:h-32 rounded-full p-2 bg-slate-200 border-2 border-transparent group-hover:border-primary transition-all">
-                                        <div className="w-full h-full rounded-full bg-slate-300 flex items-center justify-center">
-                                            <Package size={32} className="text-slate-500 group-hover:text-primary transition-colors" strokeWidth={2} />
-                                        </div>
-                                    </div>
-                                    <span className="text-sm text-center font-bold text-gray-900 group-hover:text-primary transition-colors mt-1">All Items</span>
-                                </Link>
-
-                                {categories.slice(0, 15).map((cat: any) => (
-                                    <Link
-                                        key={cat.id}
-                                        href={`/${store.slug}/shop/category/${cat.id}`}
-                                        className="w-[100px] lg:w-[120px] flex flex-col items-center gap-3 group mx-auto"
-                                    >
-                                        <div className="w-24 h-24 rounded-full bg-white border border-gray-100 p-1 shadow-[0_4px_12px_rgba(0,0,0,0.04)] relative group-hover:border-primary group-hover:shadow-[0_8px_20px_rgba(0,0,0,0.1)] transition-all duration-300 group-hover:scale-105">
-                                            <div className="w-full h-full rounded-full overflow-hidden relative bg-gray-50 flex items-center justify-center">
-                                                {cat.image_url ? (
-                                                    <Image src={cat.image_url} alt={cat.name} fill className="object-cover group-hover:scale-110 transition-transform duration-500" />
-                                                ) : (
-                                                    <span className="text-gray-400 font-black text-xl lg:text-xl">{cat.name.substring(0, 2).toUpperCase()}</span>
-                                                )}
-                                            </div>
-                                        </div>
-                                        <span className="text-sm text-center font-medium text-gray-700 group-hover:text-gray-900 transition-colors line-clamp-2 w-full leading-tight">
-                                            {cat.name}
-                                        </span>
-                                    </Link>
-                                ))}
-                            </div>
-                        </section>
-                    )
-                }
-
-                {/* Flash Sale Section */}
-                {
-                    showFlashSale && flashSaleProducts.length > 0 && (
-                        <section className="mt-8 md:mt-12 py-10 md:py-16 bg-slate-100 w-full overflow-hidden border-y border-slate-200">
-                            <div className="max-w-[1400px] mx-auto px-4 md:px-6 lg:px-8 w-full">
-                                <div className="flex flex-col md:flex-row md:items-center justify-between mb-8 md:mb-10 relative z-10 gap-4">
-                                    <div className="flex flex-col sm:flex-row sm:items-center gap-4 md:gap-6">
-                                        <h3 className="text-2xl md:text-3xl lg:text-4xl font-black tracking-tight text-gray-900">Flash Sale</h3>
-                                        <div className="flex items-center gap-3">
-                                            <span className="text-sm font-bold text-gray-400 uppercase tracking-widest">Ends In:</span>
-                                            <div className="flex gap-2">
-                                                <div className="bg-primary text-white font-mono font-bold text-lg md:text-xl w-10 md:w-12 h-10 md:h-12 flex items-center justify-center rounded uppercase shadow-sm">
-                                                    08
-                                                </div>
-                                                <div className="bg-primary text-white font-mono font-bold text-lg md:text-xl w-10 md:w-12 h-10 md:h-12 flex items-center justify-center rounded uppercase shadow-sm">
-                                                    24
-                                                </div>
-                                                <div className="bg-primary text-white font-mono font-bold text-lg md:text-xl w-10 md:w-12 h-10 md:h-12 flex items-center justify-center rounded uppercase shadow-sm">
-                                                    56
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="hidden md:block">
-                                        <Link href={`/${store.slug}/shop/search`} className="text-[15px] font-bold text-gray-600 hover:text-primary flex items-center transition-colors">
-                                            View All <ChevronRight size={20} className="ml-1" strokeWidth={2.5} />
-                                        </Link>
-                                    </div>
-                                </div>
-
-                                <div className="flex md:grid gap-4 md:gap-5 lg:gap-6 overflow-x-auto md:overflow-visible pb-4 md:pb-0 -mx-4 px-4 md:mx-0 md:px-0 scrollbar-hide snap-x relative z-10 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-                                    {flashSaleProducts.slice(0, 5).map((product: any) => (
-                                        <div key={product.id} className="min-w-[200px] md:min-w-0 snap-start shrink-0">
-                                            <ProductCard product={product} storeSlug={store.slug} />
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-                        </section>
-                    )
-                }
-
-                {/* Exclusive Section */}
-                {
-                    showExclusive && exclusiveProducts.length > 0 && (
-                        <section className="pt-8 md:pt-16 px-4 md:px-6 lg:px-8 max-w-7xl mx-auto w-full">
-                            <div className="flex items-end justify-between mb-6 md:mb-10 border-b border-gray-100 pb-4">
-                                <div className="flex items-center gap-3">
-                                    <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-warning/10 flex items-center justify-center shrink-0">
-                                        <Star size={24} className="text-warning fill-warning" />
-                                    </div>
-                                    <div>
-                                        <h3 className="text-xl md:text-2xl lg:text-3xl font-black text-gray-900 tracking-tight">Exclusive Picks</h3>
-                                        <p className="text-[13px] md:text-[15px] text-gray-500 font-medium mt-1">Curated specially for you</p>
-                                    </div>
-                                </div>
-                                <Link href={`/${store.slug}/shop/search`} className="hidden md:flex text-[15px] font-bold text-primary items-center hover:bg-primary/5 px-4 py-2 rounded-full transition-colors">
-                                    View all <ChevronRight size={18} className="ml-0.5" />
-                                </Link>
-                                <Link href={`/${store.slug}/shop/search`} className="md:hidden text-[13px] font-bold text-primary flex items-center hover:underline h-full mb-1">
-                                    See all <ChevronRight size={14} className="ml-0.5" />
-                                </Link>
-                            </div>
-                            <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 md:gap-6 lg:gap-8">
-                                {exclusiveProducts.map((product: any) => (
-                                    <ProductCard key={product.id} product={product} storeSlug={store.slug} />
-                                ))}
-                            </div>
-                        </section>
-                    )
-                }
-
-                {/* All Products Grid */}
-                <section className="pt-8 md:pt-16 px-4 md:px-6 lg:px-0 max-w-7xl mx-auto w-full">
-                    <div className="w-full">
-                        <div className="flex items-end justify-between mb-6 md:mb-10 border-b border-gray-100 pb-4">
-                            <div className="flex items-center gap-3">
-                                <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-success/10 flex items-center justify-center shrink-0">
-                                    <TrendingUp size={24} className="text-success" />
-                                </div>
-                                <div>
-                                    <h3 className="text-xl md:text-2xl lg:text-3xl font-black text-gray-900 tracking-tight">Just For You</h3>
-                                    <p className="text-[13px] md:text-[15px] text-gray-500 font-medium mt-1">Explore our entire catalogue</p>
-                                </div>
-                            </div>
+                            <Link href={`/${store.slug}/shop/search`} className="hidden md:flex items-center gap-1.5 text-rt-primary font-semibold text-[14px] hover:text-rt-primary-dark transition-colors">
+                                View All <ChevronRight size={16} />
+                            </Link>
                         </div>
 
-                        {allProducts.length > 0 ? (
-                            <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4 lg:gap-5 xl:gap-6">
-                                {allProducts.map((product: any) => (
-                                    <ProductCard key={product.id} product={product} storeSlug={store.slug} />
+                        {/* Category grid — rectangular cards */}
+                        <div className="flex gap-3 md:grid md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 overflow-x-auto md:overflow-visible pb-4 md:pb-0 hide-scrollbar snap-x">
+                            {/* All */}
+                            <Link
+                                href={`/${store.slug}/shop/search`}
+                                className="flex-shrink-0 w-[130px] md:w-auto h-[90px] md:h-[100px] rounded-2xl bg-rt-primary text-white flex flex-col items-center justify-center gap-2 snap-start hover:-translate-y-1 hover:shadow-lg transition-all active:scale-95 group"
+                            >
+                                <Package size={24} className="text-white" strokeWidth={2.5} />
+                                <span className="font-semibold text-[12px] uppercase tracking-wide">All Toys</span>
+                            </Link>
+
+                            {categories.map((cat: any, i: number) => {
+                                const bgs = [
+                                    'from-amber-100 to-yellow-50 shadow-amber-100',
+                                    'from-blue-100 to-sky-50 shadow-blue-100',
+                                    'from-pink-100 to-rose-50 shadow-pink-100',
+                                    'from-emerald-100 to-green-50 shadow-emerald-100',
+                                    'from-yellow-100 to-lime-50 shadow-yellow-100',
+                                    'from-violet-100 to-purple-50 shadow-violet-100',
+                                ]
+                                const bg = bgs[i % bgs.length]
+                                return (
+                                    <Link
+                                        key={cat.id}
+                                        href={`/${store.slug}/shop/category/${cat.id}`}
+                                        className={`flex-shrink-0 w-[130px] md:w-auto h-[90px] md:h-[100px] rounded-2xl bg-gradient-to-br ${bg} border border-rt-border flex flex-col items-center justify-center gap-2 snap-start hover:-translate-y-1 hover:shadow-lg transition-all active:scale-95 group`}
+                                    >
+                                        <div className="w-10 h-10 bg-white/70 rounded-xl overflow-hidden relative">
+                                            {cat.image_url ? (
+                                                <Image src={cat.image_url} alt={cat.name} fill className="object-cover" />
+                                            ) : (
+                                                <div className="w-full h-full flex items-center justify-center text-rt-text/50 font-bold text-sm">
+                                                    {cat.name.substring(0, 2).toUpperCase()}
+                                                </div>
+                                            )}
+                                        </div>
+                                        <span className="font-semibold text-[12px] text-rt-text text-center line-clamp-1 truncate w-full px-2">{cat.name}</span>
+                                    </Link>
+                                )
+                            })}
+                        </div>
+                    </section>
+                )}
+
+                {/* ── Flash Sale ────────────────────────────────────────────── */}
+                {showFlashSale && flashSaleProducts.length > 0 && (
+                    <section className="mt-10 md:mt-14 py-10 md:py-12 bg-rt-surface border-y border-rt-border overflow-hidden">
+                        <div className="max-w-[1280px] mx-auto px-6 lg:px-8">
+                            <div className="flex items-center justify-between mb-8">
+                                <div>
+                                    <div className="flex items-center gap-2 mb-1">
+                                        <Zap size={20} className="text-rt-primary" />
+                                        <h2 className="text-2xl font-bold text-rt-text">Flash Sale</h2>
+                                    </div>
+                                    <div className="w-12 h-[3px] bg-rt-primary rounded-full" />
+                                    <p className="text-[14px] text-rt-muted mt-2">Limited time premium deals</p>
+                                </div>
+                                <Link href={`/${store.slug}/shop/search`} className="text-[14px] font-semibold text-rt-primary flex items-center gap-1 hover:text-rt-primary-dark transition-colors">
+                                    View All <ChevronRight size={16} />
+                                </Link>
+                            </div>
+                            <div className="flex md:grid gap-4 overflow-x-auto md:overflow-visible pb-2 md:pb-0 scrollbar-hide snap-x md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+                                {flashSaleProducts.slice(0, 5).map((product: any, i: number) => (
+                                    <div key={product.id} className="min-w-[200px] md:min-w-0 snap-start shrink-0">
+                                        <ProductCard product={product} storeSlug={store.slug} index={i} />
+                                    </div>
                                 ))}
                             </div>
-                        ) : (
-                            <div className="py-20 md:py-32 text-center bg-white rounded-[24px] border border-dashed border-gray-200">
-                                <div className="w-20 h-20 md:w-24 md:h-24 bg-gray-50 flex items-center justify-center rounded-full mx-auto mb-6">
-                                    <Package size={40} className="text-gray-300 md:w-12 md:h-12" />
+                        </div>
+                    </section>
+                )}
+
+                {/* ── Exclusive Picks ───────────────────────────────────────── */}
+                {showExclusive && exclusiveProducts.length > 0 && (
+                    <section className="pt-10 md:pt-14">
+                        <div className="flex items-end justify-between mb-6 pb-4">
+                            <div>
+                                <div className="flex items-center gap-2 mb-1">
+                                    <Star size={20} className="text-amber-500 fill-amber-400" />
+                                    <h2 className="text-2xl font-bold text-rt-text">Exclusive Picks</h2>
                                 </div>
-                                <h3 className="text-[18px] md:text-2xl font-black text-gray-900 mb-2">No products yet</h3>
-                                <p className="text-[14px] md:text-[16px] text-gray-500 max-w-md mx-auto">This store currently doesn't have any products available in its catalogue. Check back soon!</p>
+                                <div className="w-12 h-[3px] bg-rt-primary rounded-full" />
+                                <p className="text-[14px] text-rt-muted mt-2">Curated specially for your childhood</p>
                             </div>
-                        )}
+                            <Link href={`/${store.slug}/shop/search`} className="text-[14px] font-semibold text-rt-primary flex items-center gap-0.5 hover:text-rt-primary-dark transition-colors">
+                                View all <ChevronRight size={17} />
+                            </Link>
+                        </div>
+                        <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 md:gap-5">
+                            {exclusiveProducts.map((product: any, i: number) => (
+                                <ProductCard key={product.id} product={product} storeSlug={store.slug} index={i} />
+                            ))}
+                        </div>
+                    </section>
+                )}
+
+                {/* ── Promotional Banner ────────────────────────────────────── */}
+                {allProducts.length > 0 && (
+                    <div className="mt-10 md:mt-14 rounded-2xl overflow-hidden" style={{ background: 'linear-gradient(135deg, #E8400C 0%, #B52E08 100%)' }}>
+                        <div className="grid grid-cols-1 md:grid-cols-2 min-h-[160px] md:min-h-[200px]">
+                            <div className="p-7 md:p-10 flex flex-col justify-center gap-4">
+                                <span className="inline-block bg-white/20 text-white text-[11px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-full w-fit">
+                                    🔥 Hot Deals
+                                </span>
+                                <h2 className="text-[28px] md:text-[34px] font-bold text-white leading-tight">
+                                    Shop Smarter, <span className="text-yellow-200">Not Harder</span>
+                                </h2>
+                                <p className="text-orange-100 text-[14px] max-w-xs">
+                                    Browse our latest arrivals — fresh styles added daily, just for you.
+                                </p>
+                                <Link href={`/${store.slug}/shop/search`}
+                                    className="inline-flex items-center gap-2 bg-white text-rt-primary font-bold py-3 px-6 rounded-[10px] w-fit text-[14px] hover:bg-orange-50 transition-colors active:scale-95">
+                                    Browse All <ChevronRight size={16} />
+                                </Link>
+                            </div>
+                            {heroBannerUrl && (
+                                <div className="hidden md:block relative overflow-hidden">
+                                    <Image src={heroBannerUrl} alt="Promo" fill className="object-cover opacity-50" />
+                                    <div className="absolute inset-0" style={{ background: 'radial-gradient(ellipse at right, transparent 40%, #B52E08 100%)' }} />
+                                </div>
+                            )}
+                        </div>
                     </div>
+                )}
+
+                {/* ── Just For You (all products) ───────────────────────────── */}
+                <section className="pt-10 md:pt-14">
+                    <div className="flex items-end justify-between mb-6 pb-4">
+                        <div>
+                            <div className="flex items-center gap-2 mb-1">
+                                <TrendingUp size={20} className="text-rt-success" />
+                                <h2 className="text-2xl font-bold text-rt-text">Just For You</h2>
+                            </div>
+                            <div className="w-12 h-[3px] bg-rt-primary rounded-full" />
+                            <p className="text-[14px] text-rt-muted mt-2">Explore our entire world of play</p>
+                        </div>
+                    </div>
+
+                    {allProducts.length > 0 ? (
+                        <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4 lg:gap-5">
+                            {allProducts.map((product: any, i: number) => (
+                                <ProductCard key={product.id} product={product} storeSlug={store.slug} index={i} />
+                            ))}
+                        </div>
+                    ) : (
+                        <div className="py-20 text-center bg-rt-surface rounded-2xl border border-dashed border-rt-border">
+                            <div className="text-5xl mb-4">🛍️</div>
+                            <h3 className="text-[18px] font-bold text-rt-text mb-2">No products yet</h3>
+                            <p className="text-[14px] text-rt-muted max-w-md mx-auto mb-6">
+                                This store is getting ready. Check back soon for amazing products!
+                            </p>
+                            <Link href={`/${store.slug}/shop/search`}
+                                className="inline-flex items-center gap-2 bg-rt-primary text-white font-bold py-3 px-6 rounded-[10px] text-sm hover:bg-rt-primary-dark transition-colors">
+                                Browse All
+                            </Link>
+                        </div>
+                    )}
                 </section>
             </main>
 
-            {/* Trust Badges Section */}
-            <section className="bg-slate-50 border-t border-slate-200 py-16">
-                <div className="max-w-[1400px] mx-auto px-6 lg:px-8">
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
-                        <div className="bg-primary/5 rounded-xl p-6 flex flex-col md:flex-row items-center md:items-start text-center md:text-left gap-4 hover:shadow-sm transition-shadow">
-                            <div className="w-14 h-14 shrink-0 rounded-full bg-primary/10 flex items-center justify-center text-primary">
-                                <ShieldCheck size={28} />
-                            </div>
-                            <div>
-                                <h4 className="font-bold text-lg text-slate-900">Genuine Products</h4>
-                                <p className="text-sm text-slate-500 mt-1">100% original items with international warranty.</p>
-                            </div>
+            {/* ── Help Section ─────────────────────────────────────────────── */}
+            <section className="bg-white border-y border-sf-border mt-10 md:mt-16 py-10 md:py-14">
+                <div className="max-w-[1400px] mx-auto px-5 md:px-8 lg:px-12">
+                    <div className="flex flex-col md:flex-row items-center justify-between gap-10">
+                        <div className="text-center md:text-left space-y-3">
+                            <h3 className="text-2xl font-black text-sf-dark font-display">Need Help Choosing?</h3>
+                            <p className="text-sf-muted font-medium max-w-sm">Our toy experts are here to help you find the perfect gift for every age and occasion.</p>
                         </div>
-                        <div className="bg-primary/5 rounded-xl p-6 flex flex-col md:flex-row items-center md:items-start text-center md:text-left gap-4 hover:shadow-sm transition-shadow">
-                            <div className="w-14 h-14 shrink-0 rounded-full bg-primary/10 flex items-center justify-center text-primary">
-                                <Truck size={28} />
-                            </div>
-                            <div>
-                                <h4 className="font-bold text-lg text-slate-900">Fast Delivery</h4>
-                                <p className="text-sm text-slate-500 mt-1">Free shipping on orders over $100 within 48 hours.</p>
-                            </div>
-                        </div>
-                        <div className="bg-primary/5 rounded-xl p-6 flex flex-col md:flex-row items-center md:items-start text-center md:text-left gap-4 hover:shadow-sm transition-shadow">
-                            <div className="w-14 h-14 shrink-0 rounded-full bg-primary/10 flex items-center justify-center text-primary">
-                                <CreditCard size={28} />
-                            </div>
-                            <div>
-                                <h4 className="font-bold text-lg text-slate-900">Secure Payment</h4>
-                                <p className="text-sm text-slate-500 mt-1">PCI-DSS compliant encrypted transactions.</p>
-                            </div>
+                        <div className="flex items-center gap-4 flex-wrap justify-center">
+                            {store.whatsapp_number && (
+                                <a
+                                    href={`https://wa.me/91${store.whatsapp_number.replace(/\D/g, '')}`}
+                                    className="inline-flex items-center gap-3 bg-[#25D366] text-white font-bold py-4 px-8 rounded-2xl shadow-xl hover:-translate-y-1 transition-all active:scale-95"
+                                >
+                                    <Zap size={20} fill="white" />
+                                    Chat with an Expert
+                                </a>
+                            )}
+                            <Link href={`/${store.slug}/shop/search`} className="inline-flex items-center gap-2 font-bold text-sf-dark hover:underline">
+                                Browse Catalog <ChevronRight size={18} />
+                            </Link>
                         </div>
                     </div>
                 </div>
             </section>
 
-            {/* Premium Footer Area (Mobile + Desktop 4-column) */}
-            <div className="bg-slate-950 text-slate-50 pt-16 lg:pt-20 pb-16 lg:pb-20">
-                <div className="max-w-[1400px] mx-auto px-6 lg:px-8">
-                    <div className="flex flex-col lg:flex-row gap-12 lg:gap-20">
-                        {/* Column 1: Brand Info */}
-                        <div className="lg:w-[320px] shrink-0 text-center lg:text-left space-y-5">
-                            <div className="flex flex-col lg:flex-row items-center justify-center lg:justify-start gap-4 mb-6">
+            <footer style={{ background: '#111827' }} className="border-t border-white/5 text-slate-50 pt-14 pb-10">
+                <div className="max-w-[1280px] mx-auto px-6 lg:px-8">
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-10 lg:gap-14 mb-12">
+                        {/* Brand column */}
+                        <div className="col-span-2 md:col-span-1 space-y-5">
+                            <div className="flex items-center gap-3">
                                 {store.logo_url ? (
-                                    <div className="relative w-12 h-12 rounded-lg overflow-hidden bg-white shadow-sm p-0.5">
-                                        <div className="relative w-full h-full rounded-md overflow-hidden">
-                                            <Image src={store.logo_url} alt={store.name} fill className="object-cover" />
-                                        </div>
+                                    <div className="relative w-10 h-10 rounded-xl overflow-hidden bg-white/10 border border-white/10 shrink-0">
+                                        <Image src={store.logo_url} alt={store.name} fill className="object-cover" />
                                     </div>
                                 ) : (
-                                    <div className="w-12 h-12 rounded-lg bg-primary flex items-center justify-center text-xl font-black text-white shadow-sm">
+                                    <div className="w-10 h-10 rounded-xl bg-rt-primary flex items-center justify-center text-lg font-bold text-white shrink-0">
                                         {store.name.charAt(0)}
                                     </div>
                                 )}
-                                <h4 className="font-black text-2xl text-white tracking-tight">{store.name}</h4>
+                                <h4 className="font-bold text-xl text-white">{store.name}</h4>
                             </div>
-                            <p className="text-[14px] text-slate-400 leading-relaxed max-w-sm mx-auto lg:mx-0">
-                                {store.footer_text || 'The ultimate destination for premium enthusiasts. We curate only the best performing and most aesthetic items.'}
+                            <p className="text-[13px] text-slate-400 leading-relaxed">
+                                {store.footer_text || 'Premium toys curated with love and delivered with care.'}
                             </p>
-                            <div className="flex items-center justify-center lg:justify-start gap-4 pt-2">
-                                <CreditCard size={24} className="text-slate-500" />
-                                <ShieldCheck size={24} className="text-slate-500" />
+                            <div className="flex items-center gap-3">
+                                {['fb', 'ig', 'tw'].map(s => (
+                                    <div key={s} className="w-9 h-9 rounded-lg bg-white/5 border border-white/5 flex items-center justify-center text-slate-400 hover:text-white hover:bg-rt-primary/20 hover:border-rt-primary/30 transition-all cursor-pointer text-[11px] font-bold uppercase tracking-wide">
+                                        {s}
+                                    </div>
+                                ))}
                             </div>
                         </div>
 
-                        {/* Column 2, 3, 4: Links (Desktop & Mobile 3-column Layout) */}
-                        <div className="grid grid-cols-2 lg:grid-cols-3 flex-1 gap-10 lg:gap-8 text-center lg:text-left">
-                            <div>
-                                <h5 className="font-bold text-white mb-6 text-[16px] tracking-wide text-sm lg:text-base">Store Info</h5>
-                                <ul className="space-y-4">
-                                    <li><Link href={`/${store.slug}/shop/dynamic/our-story`} className="text-[13px] text-slate-400 hover:text-white transition-colors">Our Story</Link></li>
-                                    <li><Link href={`/${store.slug}/shop/dynamic/find-a-store`} className="text-[13px] text-slate-400 hover:text-white transition-colors">Find a Store</Link></li>
-                                    <li><Link href={`/${store.slug}/shop/dynamic/career`} className="text-[13px] text-slate-400 hover:text-white transition-colors">Career</Link></li>
-                                    <li><Link href={`/${store.slug}/shop/dynamic/affiliates`} className="text-[13px] text-slate-400 hover:text-white transition-colors">Affiliates</Link></li>
-                                </ul>
-                            </div>
-                            <div className="col-span-2 lg:col-span-1">
-                                <h5 className="font-bold text-white mb-6 text-[16px] tracking-wide text-sm lg:text-base">Legal & Policies</h5>
-                                <ul className="space-y-4 grid grid-cols-2 gap-x-4 gap-y-0 lg:block lg:space-y-4">
-                                    <li><Link href={`/${store.slug}/policies/terms-conditions`} className="text-[13px] text-slate-400 hover:text-white transition-colors">Terms & Conditions</Link></li>
-                                    <li><Link href={`/${store.slug}/policies/privacy-policy`} className="text-[13px] text-slate-400 hover:text-white transition-colors">Privacy Policy</Link></li>
-                                    <li><Link href={`/${store.slug}/policies/returns-policy`} className="text-[13px] text-slate-400 hover:text-white transition-colors">Returns & Cancellations</Link></li>
-                                    <li><Link href={`/${store.slug}/policies/refunds-policy`} className="text-[13px] text-slate-400 hover:text-white transition-colors">Refunds Policy</Link></li>
-                                    <li><Link href={`/${store.slug}/policies/shipping-policy`} className="text-[13px] text-slate-400 hover:text-white transition-colors">Shipping Policy</Link></li>
-                                    <li><Link href={`/${store.slug}/policies/disclaimer`} className="text-[13px] text-slate-400 hover:text-white transition-colors">Disclaimer</Link></li>
-                                </ul>
-                            </div>
-                            <div className="col-span-2 lg:col-span-1">
-                                <h5 className="font-bold text-white mb-6 text-[16px] tracking-wide text-sm lg:text-base">Need Help?</h5>
-                                <p className="text-[13px] text-slate-400 mb-6 max-w-xs mx-auto lg:mx-0">Contact our experts anytime. We are available 24/7.</p>
+                        {/* Store Discovery */}
+                        <div>
+                            <h5 className="text-[11px] font-semibold uppercase tracking-[0.15em] text-slate-500 mb-5">Discover</h5>
+                            <ul className="space-y-3">
+                                {[
+                                    { label: 'All Products', path: 'search' },
+                                    { label: 'Our Story', path: 'our-story' },
+                                    { label: 'Bulk Orders', path: 'bulk' },
+                                    { label: 'Contact Us', path: 'contact' },
+                                ].map(({ label, path }) => (
+                                    <li key={path}>
+                                        <Link href={`/${store.slug}/shop/${path}`}
+                                            className="text-[13px] text-slate-400 hover:text-white transition-colors flex items-center gap-2 group">
+                                            <div className="w-1 h-1 rounded-full bg-rt-primary scale-0 group-hover:scale-100 transition-transform" />
+                                            {label}
+                                        </Link>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
 
-                                {store.whatsapp_number && (
-                                    <a href={`https://wa.me/91${store.whatsapp_number.replace(/\D/g, '')}`} target="_blank" rel="noopener noreferrer"
-                                        className="w-full max-w-[220px] mx-auto lg:mx-0 flex items-center justify-center gap-2 bg-[#25D366] text-white font-bold h-11 rounded hover:bg-green-600 transition shadow-[0_4px_15px_rgba(37,211,102,0.2)] hover:shadow-[0_6px_20px_rgba(37,211,102,0.3)] active:scale-95 text-[14px]">
-                                        <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" /></svg>
-                                        <span>WhatsApp Support</span>
-                                    </a>
-                                )}
-                                {store.phone_number && (
-                                    <div className="flex items-center justify-center lg:justify-start gap-3 mt-5 text-slate-300">
-                                        <Truck size={18} className="text-slate-500" />
-                                        <span className="font-medium text-sm">+91 {store.phone_number.replace(/\D/g, '')}</span>
-                                    </div>
-                                )}
-                            </div>
+                        {/* Customer Care */}
+                        <div>
+                            <h5 className="text-[11px] font-semibold uppercase tracking-[0.15em] text-slate-500 mb-5">Support</h5>
+                            <ul className="space-y-3">
+                                {[
+                                    { label: 'Terms of Service', path: 'terms-conditions' },
+                                    { label: 'Privacy Policy', path: 'privacy-policy' },
+                                    { label: 'Shipping & Returns', path: 'returns-policy' },
+                                    { label: 'Help Center', path: 'help' },
+                                ].map(({ label, path }) => (
+                                    <li key={path}>
+                                        <Link href={`/${store.slug}/policies/${path}`}
+                                            className="text-[13px] text-slate-400 hover:text-white transition-colors flex items-center gap-2 group">
+                                            <div className="w-1 h-1 rounded-full bg-rt-primary scale-0 group-hover:scale-100 transition-transform" />
+                                            {label}
+                                        </Link>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+
+                        {/* Contact / WhatsApp */}
+                        <div>
+                            <h5 className="text-[11px] font-semibold uppercase tracking-[0.15em] text-slate-500 mb-5">Contact</h5>
+                            <p className="text-[13px] text-slate-400 mb-4 leading-relaxed">Need help? Chat with us on WhatsApp for quick support.</p>
+                            {store.whatsapp_number && (
+                                <a
+                                    href={`https://wa.me/91${store.whatsapp_number.replace(/\D/g, '')}`}
+                                    className="inline-flex items-center gap-2 bg-[#25D366] text-white font-semibold py-2.5 px-5 rounded-[10px] text-[13px] hover:bg-[#20B858] transition-colors active:scale-95"
+                                >
+                                    <Zap size={15} fill="white" /> Chat with Us
+                                </a>
+                            )}
                         </div>
                     </div>
 
-                    <div className="mt-16 pt-8 border-t border-slate-800 flex flex-col md:flex-row items-center justify-between gap-4">
-                        <p className="text-[12px] text-slate-500 font-medium">
-                            &copy; {new Date().getFullYear()} {store.name} Store. All rights reserved.
-                        </p>
+                    {/* Bottom bar */}
+                    <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-4">
+                        <p className="text-[12px] text-slate-500">&copy; {new Date().getFullYear()} {store.name}. All rights reserved.</p>
                         <div className="flex gap-2">
-                            <div className="w-8 h-5 bg-slate-800 rounded"></div>
-                            <div className="w-8 h-5 bg-slate-800 rounded"></div>
-                            <div className="w-8 h-5 bg-slate-800 rounded"></div>
-                            <div className="w-8 h-5 bg-slate-800 rounded"></div>
+                            {['UPI', 'Card', 'Net Banking', 'COD'].map(m => (
+                                <div key={m} className="h-7 px-2.5 bg-white/5 border border-white/5 rounded-lg flex items-center justify-center text-[9px] font-bold tracking-widest text-slate-500 uppercase">
+                                    {m}
+                                </div>
+                            ))}
                         </div>
                     </div>
                 </div>
-            </div>
+            </footer>
 
-            {/* Mobile Bottom Nav */}
+            <BackToTopButton />
             <MobileBottomNav storeSlug={store.slug} />
         </div>
     )

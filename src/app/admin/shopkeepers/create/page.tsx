@@ -105,7 +105,7 @@ export default function CreateShopkeeperPage() {
                                 value={formData.slug}
                                 onChange={e => setFormData({ ...formData, slug: e.target.value })}
                             />
-                            <p className="text-xs text-gray-500 mt-1">ambajizon.in/{formData.slug}</p>
+                            <p className="text-xs text-gray-500 mt-1">shaktiqr.in/{formData.slug}</p>
                         </div>
                     </div>
                 </div>
