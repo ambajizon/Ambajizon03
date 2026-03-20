@@ -291,7 +291,9 @@ export default function ProductForm({ initialData }: ProductFormProps) {
                                     onChange={e => setFormData({ ...formData, name: e.target.value })}
                                     className="w-full bg-gray-50 border border-gray-200 rounded-[16px] px-4 h-[52px] text-[15px] font-medium focus:ring-4 focus:ring-primary/10 focus:border-primary outline-none transition-all shadow-sm"
                                     placeholder="e.g. Premium Silk Saree"
+                                    style={{ color: '#111827', WebkitTextFillColor: '#111827' }}
                                 />
+
                             </div>
                             <div>
                                 <label className="block text-[13px] font-bold text-gray-700 mb-2 uppercase tracking-wide">Description</label>
